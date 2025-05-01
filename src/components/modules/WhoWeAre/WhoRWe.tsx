@@ -1,8 +1,7 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Check, ArrowRight } from "lucide-react";
+import { Check } from "lucide-react";
 import Title from '@/components/shared/Title';
 import NextButton from '@/components/shared/NextButton';
 
@@ -14,11 +13,11 @@ const WhoWeAreSection =()=> {
      
         <div className="relative overflow-hidden rounded-xl">
           <Image
-            src="/images/banner1.png" 
+            src="/images/image2.png" 
             alt="Event planner working"
             width={6000}
             height={6000}
-            className="object-cover w-full h-full rounded-xl"
+            className="object-cover h-[120%] rounded-xl"
           />
         </div>
 
@@ -69,10 +68,10 @@ const WhoWeAreSection =()=> {
        
             <Card className="p-0 overflow-hidden border-none shadow-lg">
               <Image
-                src="/images/banner1.png" 
+                src="/images/banner3.png" 
                 alt="Event professional"
-                width={300}
-                height={300}
+                width={3000}
+                height={3000}
                 className="object-cover w-full h-full"
               />
             </Card>

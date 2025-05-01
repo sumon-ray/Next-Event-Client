@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { Check, Divide } from "lucide-react"
-import img from '../../../../public/images/banner1.png'
+import img from '../../../../public/images/img5.jpg'
+import img2 from '../../../../public/images/img1.jpg'
 import Title from "@/components/shared/Title"
 export default function OurAdvantagesSection() {
   return (
@@ -11,11 +12,12 @@ export default function OurAdvantagesSection() {
       
           <div className="overflow-hidden rounded-3xl ">
             <Image
-              src={img}
+              src={img2}
               alt="Event planner with tablet"
-              width={600}
-              height={600}
-              className="object-cover h-[50dvh]     w-full rounded-3xl brightness-[0.7] contrast-[100%]
+              width={6000}
+              height={6000}
+              quality={100}
+              className="object-cover h-[65dvh]     w-full rounded-3xl brightness-[0.7] contrast-[100%]
               satuaration-[120%] "
             />
           </div>
@@ -95,8 +97,8 @@ From concept to execution, our team ensures every element is tailored to your ne
             <Image
               src={img}
               alt="Event professionals in venue"
-              width={600}
-              height={400}
+              width={6000}
+              height={4000}
               className="object-cover w-full rounded-3xl"
             />
           </div>

@@ -1,7 +1,7 @@
 
 import Image from "next/image"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import img from '../../../../public/images/banner1.png'
+import img from '../../../../public/images/img5.jpg'
 export default function OurFeaturesSection() {
   return (
     <section className="w-full bg-[#1E293B] py-16 md:py-24">
@@ -19,7 +19,7 @@ export default function OurFeaturesSection() {
                 Comprehensive Services From Concept To Execution.
               </h2>
 
-              <p className="font-medium  text-purple-200/80">
+              <p className="font-medium text-purple-200/80">
                 We transform your vision into reality with our full-service event management approach, handling every
                 detail from initial planning to flawless execution.
               </p>
@@ -83,8 +83,8 @@ export default function OurFeaturesSection() {
             <Image
               src={img}
               alt="Event planner overseeing venue setup"
-              width={600}
-              height={800}
+              width={6000}
+              height={8000}
               className="object-cover w-full h-full rounded-3xl"
             />
           </div>
