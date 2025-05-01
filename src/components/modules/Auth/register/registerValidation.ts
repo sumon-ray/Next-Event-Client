@@ -11,4 +11,8 @@ export const formSchema = z.object({
   profileImage: z.string().url("Must be a valid URL").optional(),
   address: z.string().optional(),
   bio: z.string().optional(),
+  file: z
+    .instanceof(File)
+    .refine((file) => file instanceof File, { message: "Invalid file" })
+    .optional(),
 });

@@ -29,7 +29,6 @@ const RegisterForm = () => {
       phoneNumber: "",
       gender: "",
       occupation: "",
-      profileImage: "",
       address: "",
       bio: "",
     },
@@ -40,17 +39,16 @@ const RegisterForm = () => {
   } = form;
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    // console.log(data);
-
     try {
       const res = await registerUser(data);
       if (res?.success) {
-        toast(res?.message);
+        toast.success("Registration successful");
       } else {
-        toast("User registration failed");
+        toast.error(res?.message || "Registration failed");
       }
     } catch (error) {
-      console.error(error);
+      toast.error(error?.message || "Server error");
+      console.error("Error:", error);
     }
   };
 
@@ -203,17 +201,21 @@ const RegisterForm = () => {
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
-              name="profileImage"
+              name="file"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Profile Image URL</FormLabel>
+                  <FormLabel>Profile Photo</FormLabel>
                   <FormControl>
                     <Input
-                      {...field}
-                      value={field.value || ""}
-                      placeholder="https://..."
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const selectedFile = e.target.files?.[0];
+                        field.onChange(selectedFile);
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
