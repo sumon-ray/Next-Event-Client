@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight } from "lucide-react";
 import Title from '@/components/shared/Title';
+import NextButton from '@/components/shared/NextButton';
 
 const WhoWeAreSection =()=> {
   return (
@@ -25,7 +26,7 @@ const WhoWeAreSection =()=> {
         <div className="space-y-8">
           <div className="space-y-4">
             <div className="inline-flex items-center px-3 py-1 text-sm font-medium text-[#1E3A8A]bg-purple-100 rounded-full">
-              <div className="mr-2 rounded-full px-3 py-1 bg-[#1E3A8A] text-white"> @  WHO WE ARE </div>
+              <div className=" rounded-full px-3 py-1 bg-[#1E3A8A] text-white"> @  WHO WE ARE </div>
           
             </div>
            <Title title='Precision Planning, Flawless Execution: Your Event, Our Commitment'></Title>
@@ -82,17 +83,17 @@ const WhoWeAreSection =()=> {
               <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center mr-3 mt-0.5">
                 <Check className="w-4 h-3 text-[#1E3A8A]" />
               </div>
-              <p className="text-gray-600">Tailored solutions for every event</p>
+              <p className="text-gray-600" >Tailored solutions for every event</p>
             </div>
             <div className="flex items-start">
               <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center mr-3 mt-0.5">
                 <Check className="w-4 h-3 text-[#1E3A8A]" />
               </div>
-              <p className="text-gray-600">Driven by creativity and excellence</p>
+              <p className="text-gray-600" >Driven by creativity and excellence</p>
             </div>
           </div>
 
-   
+   <NextButton name='Explore Our Events '></NextButton>
           
         </div>
       </div>

@@ -19,7 +19,7 @@ export default function OurFeaturesSection() {
                 Comprehensive Services From Concept To Execution.
               </h2>
 
-              <p className="text-purple-200/80">
+              <p className="font-medium  text-purple-200/80">
                 We transform your vision into reality with our full-service event management approach, handling every
                 detail from initial planning to flawless execution.
               </p>
@@ -39,9 +39,9 @@ export default function OurFeaturesSection() {
               
                 <Card className="border-none shadow-lg bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] ">
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-xl text-white drop-shadow-sm">End-To-End Planning</CardTitle>
+                    <CardTitle className="text-xl font-bold text-white drop-shadow-sm">End-To-End Planning</CardTitle>
                   </CardHeader>
-                  <CardContent className="text-purple-100  drop-shadow-sm">
+                  <CardContent className="text-purple-100 drop-shadow-sm">
                     <p>Comprehensive event planning from initial concept development to post-event evaluation.</p>
                   </CardContent>
                 </Card>
@@ -49,9 +49,9 @@ export default function OurFeaturesSection() {
             
                 <Card className="border-none shadow-lg bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] ">
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-xl text-white drop-shadow-sm">Customized Themes</CardTitle>
+                    <CardTitle className="text-xl font-bold text-white drop-shadow-sm">Customized Themes</CardTitle>
                   </CardHeader>
-                  <CardContent className="text-purple-100  drop-shadow-sm">
+                  <CardContent className="text-purple-100 drop-shadow-sm">
                     <p>Tailored event themes and designs that reflect your brand identity and event objectives.</p>
                   </CardContent>
                 </Card>
@@ -59,7 +59,7 @@ export default function OurFeaturesSection() {
        
                 <Card className="border-none shadow-lg bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] ">
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-xl text-white drop-shadow-sm">Vendor Coordination</CardTitle>
+                    <CardTitle className="text-xl font-bold text-white drop-shadow-sm">Vendor Coordination</CardTitle>
                   </CardHeader>
                   <CardContent className="text-purple-100 drop-shadow-sm">
                     <p>Expert management of all vendors and suppliers to ensure seamless collaboration.</p>
@@ -68,7 +68,7 @@ export default function OurFeaturesSection() {
 
                 <Card className="border-none shadow-lg bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] ">
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-xl text-white drop-shadow-sm">On-Site Management</CardTitle>
+                    <CardTitle className="text-xl font-bold text-white drop-shadow-sm">On-Site Management</CardTitle>
                   </CardHeader>
                   <CardContent className="text-purple-100 drop-shadow-sm">
                     <p>Professional on-site coordination to handle all aspects of event execution.</p>
