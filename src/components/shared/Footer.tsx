@@ -31,37 +31,40 @@ export default function Footer() {
   const [currentTime, setCurrentTime] = useState(new Date())
 //   const [activeTab, setActiveTab] = useState("upcoming")
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date())
-    }, 1000)
-    return () => clearInterval(timer)
-  }, [])
+useEffect(() => {
+  setCurrentTime(new Date()) // Set initial time on client
 
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle newsletter subscription
-    console.log("Subscribing email:", email)
-    setEmail("")
-    // Show success message or toast notification
-  }
+  const timer = setInterval(() => {
+    setCurrentTime(new Date())
+  }, 1000)
 
-  // Format time for countdown
-  const formatCountdownTime = () => {
-    const targetDate = new Date()
-    targetDate.setDate(targetDate.getDate() + 3) // Next big event in 3 days
-    targetDate.setHours(18, 0, 0, 0) // 6:00 PM
+  return () => clearInterval(timer)
+}, [])
 
-    const diff = targetDate.getTime() - currentTime.getTime()
-    if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 }
+if (!currentTime) return null // Or show a loading spinner
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24))
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+const handleSubscribe = (e: React.FormEvent) => {
+  e.preventDefault()
+  console.log("Subscribing email:", email)
+  setEmail("")
+}
 
-    return { days, hours, minutes, seconds }
-  }
+const formatCountdownTime = () => {
+  const targetDate = new Date()
+  targetDate.setDate(targetDate.getDate() + 3)
+  targetDate.setHours(18, 0, 0, 0)
+
+  const diff = targetDate.getTime() - currentTime.getTime()
+  if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 }
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+
+  return { days, hours, minutes, seconds }
+}
+
 
   const countdown = formatCountdownTime()
   // Event categories
@@ -122,9 +125,9 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className=" container mx-auto px-4 pt-14 pb-24 bt-4  ">
+      <div className=" container mx-auto flex flex-col  justify-center items-center px-4 pt-14 pb-2  bt-4  ">
         {/* Main footer content */}
-        <div className="grid grid-cols-1 md:pt-20 md:grid-cols-2 lg:grid-cols-12 gap-10">
+        <div className=" grid grid-cols-1 md:pt-20 md:grid-cols-2 lg:grid-cols-12 gap-10">
           {/* Column 1: About & Contact */}
           <div className="lg:col-span-4 space-y-6">
             <div className="flex items-center space-x-2">
@@ -162,11 +165,11 @@ export default function Footer() {
           </div>
 
           {/* Column 2: Quick Links */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-6 " >
             <h3 className="text-slate-300  text-xl font-semibold relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-blue-400">
               Quick Links
             </h3>
-            <ul className="space-y-3">
+            <ul className="space-y-3 flex-grow">
               {[
                 { name: "Home", href: "/" },
                 { name: "Browse Events", href: "/events" },
@@ -180,7 +183,7 @@ export default function Footer() {
                 <li key={index}>
                   <Link
                     href={link.href}
-                    className="text-slate-300 hover:text-blue-400 transition-colors duration-200 flex items-center group"
+                    className=" text-slate-300 hover:text-blue-400 transition-colors duration-200 flex items-center group"
                   >
                     <ChevronRight className="h-4 w-4 mr-2 text-blue-400 transform group-hover:translate-x-1 transition-transform duration-200" />
                     {link.name}
@@ -197,7 +200,7 @@ export default function Footer() {
             </h3>
             <div className="grid grid-cols-2 gap-3">
               {categories.map((category, index) => (
-                <p
+                <div
                 //   href={`/events/category/${category.name.toLowerCase()}`}
                   key={index}
                   className="bg-slate-200 hover:bg-slate-200 backdrop-blur-sm rounded-lg p-3 transition-all duration-200 group"
@@ -210,7 +213,7 @@ export default function Footer() {
                       {category.count}
                     </span>
                   </div>
-                </p>
+                </div>
               ))}
             </div>
 
@@ -293,7 +296,7 @@ export default function Footer() {
 
 
         {/* Bottom section with copyright and links */}
-        <div className="mt-16 pt-8 border-t border-slate-700 flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-16 pt-3 border-t border-slate-700 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-slate-400 mb-4 md:mb-0">
             &copy; {new Date().getFullYear()} nextEvent. All rights reserved.
           </p>

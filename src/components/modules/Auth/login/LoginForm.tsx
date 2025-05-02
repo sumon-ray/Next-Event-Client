@@ -70,12 +70,10 @@ const LoginForm = () => {
             </p>
           </div>
 
-          {/* Decorative circles */}
           <div className="absolute bottom-0 left-0 w-40 h-40 bg-blue-600 rounded-full opacity-70 transform translate-y-1/2 -translate-x-1/4"></div>
           <div className="absolute bottom-1/3 left-1/3 w-32 h-32 bg-blue-600 rounded-full opacity-70"></div>
         </div>
 
-        {/* Right side - Sign in form */}
         <div className="w-full md:w-1/2 bg-white p-10 relative">
           <div className="max-w-sm mx-auto pt-8">
             <h2 className="text-2xl font-bold text-gray-800 mb-1">Sign in</h2>
