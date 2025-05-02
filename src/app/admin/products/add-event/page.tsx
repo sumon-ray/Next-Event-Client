@@ -39,11 +39,11 @@ const AddEvent = () => {
 
   const onSubmit = (data: FormValues) => {
     const formData = new FormData();
-   // console.log(data)
+   // console.log("from data",data)
   
     Object.entries(data).forEach(([key, value]) => {
       if (key === "bannerImage" && value instanceof FileList && value.length > 0) {
-        formData.append("bannerImage", value[0]); // Append only first file
+        formData.append("bannerImage", value[0]); 
       } else if (typeof value === "boolean") {
         formData.append(key, value.toString());
       } else if (typeof value === "string") {
