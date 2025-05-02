@@ -163,6 +163,7 @@ export default function TransactionsTable({ filterStatus = "all" }: Transactions
               <SelectItem value="vendors">Vendors</SelectItem>
               <SelectItem value="tenants">Tenants</SelectItem>
               <SelectItem value="all">All</SelectItem>
+              {/*  */}
             </SelectContent>
           </Select>
         </div>
