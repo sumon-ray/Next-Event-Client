@@ -1,24 +1,37 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Pencil, Trash2 } from "lucide-react"
-import { Avatar } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useState } from "react";
+import { Pencil, Trash2 } from "lucide-react";
+import { Avatar } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface Transaction {
-  id: string
-  billNo: string
+  id: string;
+  billNo: string;
   customer: {
-    name: string
-    avatar: string
-  }
-  dueDate: string
-  status: "Paid" | "Due" | "Overdue"
-  memo: string
-  amount: string
+    name: string;
+    avatar: string;
+  };
+  dueDate: string;
+  status: "Paid" | "Due" | "Overdue";
+  memo: string;
+  amount: string;
 }
 
 const transactions: Transaction[] = [
@@ -106,50 +119,53 @@ const transactions: Transaction[] = [
     memo: "Eviction fees / consult",
     amount: "$1450.00",
   },
-]
+];
 
 interface TransactionsTableProps {
-  filterStatus?: "paid" | "unpaid" | "all"
+  filterStatus?: "paid" | "unpaid" | "all";
 }
 
-export default function TransactionsTable({ filterStatus = "all" }: TransactionsTableProps) {
-  const [selectedRows, setSelectedRows] = useState<string[]>([])
+export default function TransactionsTable({
+  filterStatus = "all",
+}: TransactionsTableProps) {
+  const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
   const filteredTransactions = transactions.filter((transaction) => {
-    if (filterStatus === "all") return true
-    if (filterStatus === "paid") return transaction.status === "Paid"
-    if (filterStatus === "unpaid") return transaction.status === "Due" || transaction.status === "Overdue"
-    return true
-  })
+    if (filterStatus === "all") return true;
+    if (filterStatus === "paid") return transaction.status === "Paid";
+    if (filterStatus === "unpaid")
+      return transaction.status === "Due" || transaction.status === "Overdue";
+    return true;
+  });
 
   const toggleSelectAll = () => {
     if (selectedRows.length === filteredTransactions.length) {
-      setSelectedRows([])
+      setSelectedRows([]);
     } else {
-      setSelectedRows(filteredTransactions.map((t) => t.id))
+      setSelectedRows(filteredTransactions.map((t) => t.id));
     }
-  }
+  };
 
   const toggleSelectRow = (id: string) => {
     if (selectedRows.includes(id)) {
-      setSelectedRows(selectedRows.filter((rowId) => rowId !== id))
+      setSelectedRows(selectedRows.filter((rowId) => rowId !== id));
     } else {
-      setSelectedRows([...selectedRows, id])
+      setSelectedRows([...selectedRows, id]);
     }
-  }
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Paid":
-        return "text-green-600"
+        return "text-green-600";
       case "Due":
-        return "text-amber-500"
+        return "text-amber-500";
       case "Overdue":
-        return "text-red-500"
+        return "text-red-500";
       default:
-        return "text-gray-600"
+        return "text-gray-600";
     }
-  }
+  };
 
   return (
     <div className="w-full overflow-auto">
@@ -215,7 +231,10 @@ export default function TransactionsTable({ filterStatus = "all" }: Transactions
           <TableRow>
             <TableHead className="w-[50px]">
               <Checkbox
-                checked={selectedRows.length === filteredTransactions.length && filteredTransactions.length > 0}
+                checked={
+                  selectedRows.length === filteredTransactions.length &&
+                  filteredTransactions.length > 0
+                }
                 onCheckedChange={toggleSelectAll}
               />
             </TableHead>
@@ -237,18 +256,25 @@ export default function TransactionsTable({ filterStatus = "all" }: Transactions
                   onCheckedChange={() => toggleSelectRow(transaction.id)}
                 />
               </TableCell>
-              <TableCell className="font-medium">{transaction.billNo}</TableCell>
+              <TableCell className="font-medium">
+                {transaction.billNo}
+              </TableCell>
               <TableCell>
                 <div className="flex items-center gap-2">
                   <Avatar className="h-8 w-8">
-                    <img src={transaction.customer.avatar || "/placeholder.svg"} alt={transaction.customer.name} />
+                    <img
+                      src={transaction.customer.avatar || "/placeholder.svg"}
+                      alt={transaction.customer.name}
+                    />
                   </Avatar>
                   <span>{transaction.customer.name}</span>
                 </div>
               </TableCell>
               <TableCell>{transaction.dueDate}</TableCell>
               <TableCell>
-                <span className={getStatusColor(transaction.status)}>{transaction.status}</span>
+                <span className={getStatusColor(transaction.status)}>
+                  {transaction.status}
+                </span>
               </TableCell>
               <TableCell>{transaction.memo}</TableCell>
               <TableCell className="text-right">{transaction.amount}</TableCell>
@@ -267,5 +293,5 @@ export default function TransactionsTable({ filterStatus = "all" }: Transactions
         </TableBody>
       </Table>
     </div>
-  )
+  );
 }
