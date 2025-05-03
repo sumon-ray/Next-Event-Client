@@ -2,7 +2,6 @@
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 
-import AppError from "../../../../Next-Event-Server-Side/src/app/errors/AppError";
 export const registerUser = async (userData: FieldValues) => {
   try {
     const formData = new FormData();
@@ -30,7 +29,6 @@ export const registerUser = async (userData: FieldValues) => {
     return userInfo;
   } catch (error) {
     console.error(error);
-    throw new AppError("Registration failed");
   }
 };
 
@@ -56,4 +54,25 @@ export const loginUser = async (userData: FieldValues) => {
 };
 
 
+
+export const ForgetPassword = async (userData: FieldValues) => {
+  try {
+ const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/forget-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.message || "Failed to send reset link");
+    }
+
+    return await res.json();
+  } catch (error) {
+    throw new Error(error.message || "Something went wrong");
+  }
+};
 
