@@ -3,15 +3,22 @@
 import { useState, useEffect } from "react"
 
 const CountdownTimer = () => {
-  const [currentTime, setCurrentTime] = useState(new Date())
+  const [currentTime, setCurrentTime] = useState<Date | null>(null)
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date())
     }, 1000)
 
+    setCurrentTime(new Date())
+
     return () => clearInterval(timer)
   }, [])
+
+  if (!currentTime) {
+    // Prevent hydration mismatch
+    return <div suppressHydrationWarning>Loading...</div>
+  }
 
   const formatCountdownTime = () => {
     const targetDate = new Date()
@@ -32,7 +39,7 @@ const CountdownTimer = () => {
   const countdown = formatCountdownTime()
 
   return (
-    <div className="grid grid-cols-4 gap-2 md:gap-4">
+    <div className="grid grid-cols-4 gap-2 md:gap-4" suppressHydrationWarning>
       <div className="bg-slate-700/50 backdrop-blur-sm rounded-lg p-2 md:p-4 text-center">
         <div className="text-2xl md:text-4xl font-bold text-white">{countdown.days}</div>
         <div className="text-xs md:text-sm text-slate-300">Days</div>

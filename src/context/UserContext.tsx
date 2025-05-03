@@ -1,6 +1,7 @@
 "use client";
 import { IUser } from "@/app/types";
-import { getCurrentUser } from "@/services/AuthService/getCurrentUser";
+import { jwtDecode } from "jwt-decode";
+// import { getCurrentUser } from "@/services/AuthService/getCurrentUser";
 import {
   createContext,
   Dispatch,
@@ -21,20 +22,28 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<IUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleUser = async () => {
-    const user = await getCurrentUser();
-
-    if (user) {
-      setUser(user as IUser);
-    } else {
-      setUser(null);
-    }
-    setIsLoading(false);
-  };
-
   useEffect(() => {
+    const handleUser = async () => {
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+        if (accessToken) {
+          const decodedData = jwtDecode<IUser>(accessToken);
+          setUser(decodedData);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Error decoding token:", error);
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+  
     handleUser();
   }, []);
+  
+  
   return (
     <UserContext.Provider value={{ user, setUser, isLoading, setIsLoading }}>
       {children}

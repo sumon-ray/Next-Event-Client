@@ -1,5 +1,6 @@
 "use client";
 
+import { IUser } from "@/app/types";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,8 +11,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useUser } from "@/context/UserContext";
 import { loginUser } from "@/services/AuthService";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { jwtDecode } from "jwt-decode";
 import { LoaderIcon, Lock, User } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -21,6 +24,7 @@ import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
 
 const LoginForm = () => {
+  const { setUser } = useUser();
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -35,14 +39,16 @@ const LoginForm = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const res = await loginUser(data);
-        // console.log(res.data.accessToken)
 
       if (res?.success) {
-        if (res.data?.accessToken) {
-          localStorage.setItem("accessToken", res.data.accessToken);
+        const token = res.data.accessToken;
+        if (token) {
+          localStorage.setItem("accessToken", token);
+          const decoded = jwtDecode<IUser>(token);
+          setUser(decoded);
         }
       }
-      
+
       if (res?.success) {
         toast.success(res?.message);
         if (redirect) {
@@ -59,15 +65,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div
-      // style={{
-      //     backgroundImage: "url('/banner1.png')",
-      //     backgroundSize: "cover",
-      //     backgroundPosition: "center",
-      //     position: "relative",
-      //   }}
-      className="min-h-screen  w-full bg-gradient-to-b from-blue-500 to-blue-800 flex items-center justify-center p-4"
-    >
+    <div className="min-h-screen  w-full bg-gradient-to-b from-blue-500 to-blue-800 flex items-center justify-center p-4">
       <div className="w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
         {/* Left side - Blue welcome section */}
         <div className="w-full md:w-1/2 bg-blue-500 p-10 text-white relative">

@@ -11,13 +11,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useUser } from "@/context/UserContext";
+import { logOut } from "@/services/AuthService/getCurrentUser";
 import { Loader2, LogOut, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
-import { logOut } from "@/services/AuthService/getCurrentUser";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -27,7 +27,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const { user, setUser, isLoading} = useUser();
+  const { user, setUser, isLoading } = useUser();
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const handleLogOut = () => {
@@ -52,18 +52,20 @@ export default function Navbar() {
           </div>
 
           {/* Navigation Links */}
-          <ul className="flex gap-4 flex-grow justify-center">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="text-gray-700 hover:text-black font-medium"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="hidden md:flex">
+            <ul className="flex gap-4 flex-grow justify-center ">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-gray-700 hover:text-black font-medium"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           {/* Right Side */}
           <nav className="flex gap-2 items-center ">
