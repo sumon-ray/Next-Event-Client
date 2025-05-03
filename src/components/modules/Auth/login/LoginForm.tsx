@@ -1,59 +1,73 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { loginUser } from "@/services/AuthService"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { LoaderIcon, User, Lock } from "lucide-react"
-import Link from "next/link"
-import { useRouter, useSearchParams } from "next/navigation"
-import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form"
-import { toast } from "sonner"
-import { loginSchema } from "./loginValidation"
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { loginUser } from "@/services/AuthService";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LoaderIcon, Lock, User } from "lucide-react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { loginSchema } from "./loginValidation";
 
 const LoginForm = () => {
-  // Add missing state variables
-  const [showPassword, setShowPassword] = useState(false)
-  const [rememberMe, setRememberMe] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const redirect = searchParams.get("redirectPath")
-  const form = useForm({ resolver: zodResolver(loginSchema) })
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirectPath");
+  const form = useForm({ resolver: zodResolver(loginSchema) });
   const {
     formState: { isSubmitting },
-  } = form
+  } = form;
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      const res = await loginUser(data)
-      //   console.log(res)
+      const res = await loginUser(data);
+        // console.log(res.data.accessToken)
+
       if (res?.success) {
-        toast.success(res?.message)
+        if (res.data?.accessToken) {
+          localStorage.setItem("accessToken", res.data.accessToken);
+        }
+      }
+      
+      if (res?.success) {
+        toast.success(res?.message);
         if (redirect) {
-          router.push(redirect)
+          router.push(redirect);
         } else {
-          router.push("/")
+          router.push("/");
         }
       } else {
-        toast.error(res?.message)
+        toast.error(res?.message);
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   return (
-    <div 
-    // style={{
-    //     backgroundImage: "url('/banner1.png')",
-    //     backgroundSize: "cover",
-    //     backgroundPosition: "center",
-    //     position: "relative",
-    //   }}
-    className="min-h-screen  w-full bg-gradient-to-b from-blue-500 to-blue-800 flex items-center justify-center p-4">
+    <div
+      // style={{
+      //     backgroundImage: "url('/banner1.png')",
+      //     backgroundSize: "cover",
+      //     backgroundPosition: "center",
+      //     position: "relative",
+      //   }}
+      className="min-h-screen  w-full bg-gradient-to-b from-blue-500 to-blue-800 flex items-center justify-center p-4"
+    >
       <div className="w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
         {/* Left side - Blue welcome section */}
         <div className="w-full md:w-1/2 bg-blue-500 p-10 text-white relative">
@@ -61,12 +75,14 @@ const LoginForm = () => {
             <h1 className="text-4xl font-bold mt-16 mb-2">WELCOME</h1>
             <h2 className="text-xl font-semibold mb-4">YOUR HEADLINE NAME</h2>
             <p className="text-sm opacity-90 mb-2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
             <p className="text-sm opacity-90">
-              Ut enim ad minim veniam, quis nostrud exercitation ut labore space magna aliquip ex ea commodo. Ut enim ad
-              minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              Ut enim ad minim veniam, quis nostrud exercitation ut labore space
+              magna aliquip ex ea commodo. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat.
             </p>
           </div>
 
@@ -77,10 +93,15 @@ const LoginForm = () => {
         <div className="w-full md:w-1/2 bg-white p-10 relative">
           <div className="max-w-sm mx-auto pt-8">
             <h2 className="text-2xl font-bold text-gray-800 mb-1">Sign in</h2>
-            <p className="text-sm text-gray-500 mb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+            <p className="text-sm text-gray-500 mb-6">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            </p>
 
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
                 {/* Email Field */}
                 <FormField
                   control={form.control}
@@ -93,7 +114,11 @@ const LoginForm = () => {
                           <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
                             <User className="h-5 w-5 text-gray-400" />
                           </div>
-                          <Input type="email" className="bg-gray-100 pl-10" {...field} />
+                          <Input
+                            type="email"
+                            className="bg-gray-100 pl-10"
+                            {...field}
+                          />
                         </div>
                       </FormControl>
                       <FormMessage />
@@ -154,7 +179,11 @@ const LoginForm = () => {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? <LoaderIcon className="h-5 w-5 animate-spin" /> : "Sign in"}
+                  {isSubmitting ? (
+                    <LoaderIcon className="h-5 w-5 animate-spin" />
+                  ) : (
+                    "Sign in"
+                  )}
                 </Button>
 
                 {/* Sign in with other */}
@@ -182,7 +211,7 @@ const LoginForm = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;

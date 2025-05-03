@@ -1,72 +1,75 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState, useEffect } from "react"
-import Link from "next/link"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
+  ArrowRight,
+  Award,
   Calendar,
-  MapPin,
-  Mail,
-  Phone,
-  Clock,
+  CalendarDays,
   ChevronRight,
+  Clock,
   Facebook,
-  Twitter,
   Instagram,
   Linkedin,
-  Youtube,
+  Mail,
+  MapPin,
+  Phone,
   Send,
-  ArrowRight,
-  Star,
-  Award,
   Sparkles,
+  Star,
   Ticket,
-  CalendarDays,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-
+  Twitter,
+  Youtube,
+} from "lucide-react";
+import dynamic from "next/dynamic";
+import Link from "next/link";
+import type React from "react";
+import {  useState } from "react";
+// import CountdownTimer from "../footer/CountdownTimer";
+const CountdownTimer = dynamic(() => import("../footer/CountdownTimer"), {
+  ssr: false,
+});
 export default function Footer() {
-  const [email, setEmail] = useState("")
-  const [currentTime, setCurrentTime] = useState(new Date())
-//   const [activeTab, setActiveTab] = useState("upcoming")
+  const [email, setEmail] = useState("");
+  // const [currentTime, setCurrentTime] = useState(new Date());
+  //   const [activeTab, setActiveTab] = useState("upcoming")
 
-useEffect(() => {
-  setCurrentTime(new Date()) // Set initial time on client
+  // useEffect(() => {
+  //   setCurrentTime(new Date()); // Set initial time on client
 
-  const timer = setInterval(() => {
-    setCurrentTime(new Date())
-  }, 1000)
+  //   const timer = setInterval(() => {
+  //     setCurrentTime(new Date());
+  //   }, 1000);
 
-  return () => clearInterval(timer)
-}, [])
+  //   return () => clearInterval(timer);
+  // }, []);
 
-if (!currentTime) return null // Or show a loading spinner
+  // if (!currentTime) return null; // Or show a loading spinner
 
-const handleSubscribe = (e: React.FormEvent) => {
-  e.preventDefault()
-  console.log("Subscribing email:", email)
-  setEmail("")
-}
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Subscribing email:", email);
+    setEmail("");
+  };
 
-const formatCountdownTime = () => {
-  const targetDate = new Date()
-  targetDate.setDate(targetDate.getDate() + 3)
-  targetDate.setHours(18, 0, 0, 0)
+  // const formatCountdownTime = () => {
+  //   const targetDate = new Date();
+  //   targetDate.setDate(targetDate.getDate() + 3);
+  //   targetDate.setHours(18, 0, 0, 0);
 
-  const diff = targetDate.getTime() - currentTime.getTime()
-  if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 }
+  //   const diff = targetDate.getTime() - currentTime.getTime();
+  //   if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24))
-  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
-  const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+  //   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  //   const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  //   const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  //   const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-  return { days, hours, minutes, seconds }
-}
+  //   return { days, hours, minutes, seconds };
+  // };
 
-
-  const countdown = formatCountdownTime()
+  // const countdown = formatCountdownTime();
   // Event categories
   const categories = [
     { name: "Conferences", count: 120 },
@@ -75,11 +78,10 @@ const formatCountdownTime = () => {
     { name: "Concerts", count: 93 },
     { name: "Exhibitions", count: 72 },
     { name: "Webinars", count: 108 },
-  ]
-  
+  ];
+
   return (
     <footer className="pt-2 md:pt-0 md:mt-24 bg-gradient-to-r from-[#1E3A8A] via-[#4c8aef] to-[#1E293B] relative  dark:text-white">
-
       {/* Next big event countdown */}
       <div className="relative z-10 mx-auto mt-10 px-4 max-w-6xl md:translate-y-24">
         <div className="font-bold tracking-wide text-transparent  drop-shadow-sm bg-gradient-to-l from-[#1E3A8A] via-[#3B82F6] to-[#1E293B]  rounded-xl border border-slate-700 shadow-xl p-6 md:p-8">
@@ -87,7 +89,8 @@ const formatCountdownTime = () => {
             <div className="mb-6 md:mb-0 md:mr-6">
               <h3 className="text-xl md:text-2xl font-bold text-white flex items-center">
                 <Sparkles className="h-5 w-5 mr-2 text-yellow-400" />
-                Next Bignext Even            </h3>
+                Next Bignext Even{" "}
+              </h3>
               <p className="text-blue-300 mt-2">Tech Innovation Summit 2023</p>
               <div className="flex items-center mt-1 text-sm text-slate-300">
                 <CalendarDays className="h-4 w-4 mr-1" />
@@ -103,24 +106,34 @@ const formatCountdownTime = () => {
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             </div>
-            <div className="grid grid-cols-4 gap-2 md:gap-4">
+            <CountdownTimer />
+
+            {/* <div className="grid grid-cols-4 gap-2 md:gap-4">
               <div className="bg-slate-700/50 backdrop-blur-sm rounded-lg p-2 md:p-4 text-center">
-                <div className="text-2xl md:text-4xl font-bold text-white">{countdown.days}</div>
+                <div className="text-2xl md:text-4xl font-bold text-white">
+                  {countdown.days}
+                </div>
                 <div className="text-xs md:text-sm text-slate-300">Days</div>
               </div>
               <div className="bg-slate-700/50 backdrop-blur-sm rounded-lg p-2 md:p-4 text-center">
-                <div className="text-2xl md:text-4xl font-bold text-white">{countdown.hours}</div>
+                <div className="text-2xl md:text-4xl font-bold text-white">
+                  {countdown.hours}
+                </div>
                 <div className="text-xs md:text-sm text-slate-300">Hours</div>
               </div>
               <div className="bg-slate-700/50 backdrop-blur-sm rounded-lg p-2 md:p-4 text-center">
-                <div className="text-2xl md:text-4xl font-bold text-white">{countdown.minutes}</div>
+                <div className="text-2xl md:text-4xl font-bold text-white">
+                  {countdown.minutes}
+                </div>
                 <div className="text-xs md:text-sm text-slate-300">Minutes</div>
               </div>
               <div className="bg-slate-700/50 backdrop-blur-sm rounded-lg p-2 md:p-4 text-center">
-                <div className="text-2xl md:text-4xl font-bold text-white">{countdown.seconds}</div>
+                <div className="text-2xl md:text-4xl font-bold text-white">
+                  {countdown.seconds}
+                </div>
                 <div className="text-xs md:text-sm text-slate-300">Seconds</div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -137,8 +150,9 @@ const formatCountdownTime = () => {
               <h2 className="text-2xl font-bold text-slate-300 ">nextEvent</h2>
             </div>
             <p className="text-slate-300 text-sm leading-relaxed">
-              Your premier platform for creating, discovering, and participating in events. From public gatherings to
-              exclusive private functions, we make event management seamless.
+              Your premier platform for creating, discovering, and participating
+              in events. From public gatherings to exclusive private functions,
+              we make event management seamless.
             </p>
             <div className="space-y-3">
               <div className="flex items-start space-x-3">
@@ -165,7 +179,7 @@ const formatCountdownTime = () => {
           </div>
 
           {/* Column 2: Quick Links */}
-          <div className="lg:col-span-2 space-y-6 " >
+          <div className="lg:col-span-2 space-y-6 ">
             <h3 className="text-slate-300  text-xl font-semibold relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-blue-400">
               Quick Links
             </h3>
@@ -201,7 +215,7 @@ const formatCountdownTime = () => {
             <div className="grid grid-cols-2 gap-3">
               {categories.map((category, index) => (
                 <div
-                //   href={`/events/category/${category.name.toLowerCase()}`}
+                  //   href={`/events/category/${category.name.toLowerCase()}`}
                   key={index}
                   className="bg-slate-200 hover:bg-slate-200 backdrop-blur-sm rounded-lg p-3 transition-all duration-200 group"
                 >
@@ -246,7 +260,8 @@ const formatCountdownTime = () => {
               Newsletter
             </h3>
             <p className="text-sm text-slate-300">
-              Subscribe to our newsletter to receive updates on new events, special offers, and exclusive content.
+              Subscribe to our newsletter to receive updates on new events,
+              special offers, and exclusive content.
             </p>
             <form onSubmit={handleSubscribe} className="mt-4 relative">
               <Input
@@ -268,7 +283,9 @@ const formatCountdownTime = () => {
             </form>
 
             <div className="pt-4">
-              <h4 className="text-base font-medium mb-3 text-slate-300 ">Follow Us</h4>
+              <h4 className="text-base font-medium mb-3 text-slate-300 ">
+                Follow Us
+              </h4>
               <div className="flex space-x-3">
                 {[
                   { icon: Facebook, href: "#", label: "Facebook" },
@@ -277,7 +294,7 @@ const formatCountdownTime = () => {
                   { icon: Linkedin, href: "#", label: "LinkedIn" },
                   { icon: Youtube, href: "#", label: "YouTube" },
                 ].map((social, index) => {
-                  const Icon = social.icon
+                  const Icon = social.icon;
                   return (
                     <Link
                       key={index}
@@ -287,13 +304,12 @@ const formatCountdownTime = () => {
                     >
                       <Icon className="h-4 w-4" />
                     </Link>
-                  )
+                  );
                 })}
               </div>
             </div>
           </div>
         </div>
-
 
         {/* Bottom section with copyright and links */}
         <div className="mt-16 pt-3 border-t border-slate-700 flex flex-col md:flex-row justify-between items-center">
@@ -301,21 +317,33 @@ const formatCountdownTime = () => {
             &copy; {new Date().getFullYear()} nextEvent. All rights reserved.
           </p>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-slate-400">
-            <Link href="/terms" className="hover:text-white transition-colors duration-200">
+            <Link
+              href="/terms"
+              className="hover:text-white transition-colors duration-200"
+            >
               Terms of Service
             </Link>
-            <Link href="/privacy" className="hover:text-white transition-colors duration-200">
+            <Link
+              href="/privacy"
+              className="hover:text-white transition-colors duration-200"
+            >
               Privacy Policy
             </Link>
-            <Link href="/cookies" className="hover:text-white transition-colors duration-200">
+            <Link
+              href="/cookies"
+              className="hover:text-white transition-colors duration-200"
+            >
               Cookie Policy
             </Link>
-            <Link href="/accessibility" className="hover:text-white transition-colors duration-200">
+            <Link
+              href="/accessibility"
+              className="hover:text-white transition-colors duration-200"
+            >
               Accessibility
             </Link>
           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }

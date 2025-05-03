@@ -1,9 +1,8 @@
 "use server";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
-import {jwtDecode} from "jwt-decode";
 
-import AppError from '../../../../Next-Event-Server-Side/src/app/errors/AppError';
+import AppError from "../../../../Next-Event-Server-Side/src/app/errors/AppError";
 export const registerUser = async (userData: FieldValues) => {
   try {
     const formData = new FormData();
@@ -12,7 +11,7 @@ export const registerUser = async (userData: FieldValues) => {
     if (file) {
       formData.append("file", file);
     } else {
-      console.warn("⚠️ No file selected to upload.");
+      console.log("⚠️ No file selected to upload.");
     }
 
     formData.append("data", JSON.stringify(restData));
@@ -36,7 +35,7 @@ export const registerUser = async (userData: FieldValues) => {
 };
 
 export const loginUser = async (userData: FieldValues) => {
-  console.log(loginUser);
+  // console.log(loginUser);
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
       method: "POST",
@@ -56,19 +55,5 @@ export const loginUser = async (userData: FieldValues) => {
   }
 };
 
-// get current user
-export const getCurrentUser = async () => {
-  const accessToken = (await cookies()).get("accessToken")?.value;
-  if (accessToken) {
-    const decodedData =jwtDecode(accessToken);
-    console.log(decodedData)
-    return decodedData;
-  } else {
-    return null;
-  }
-};
 
-// LogOut
-export const logOut = async () => {
-  (await cookies()).delete("accessToken");
-};
+

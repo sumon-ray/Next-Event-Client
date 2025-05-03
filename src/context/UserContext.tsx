@@ -1,6 +1,6 @@
 "use client";
-import { getCurrentUser } from "@/services/AuthService";
-import { IUser } from "@/types";
+import { IUser } from "@/app/types";
+import { getCurrentUser } from "@/services/AuthService/getCurrentUser";
 import {
   createContext,
   Dispatch,
@@ -17,10 +17,8 @@ interface IUserProviderValues {
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 const UserContext = createContext<IUserProviderValues | undefined>(undefined);
-
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<IUser | null>(null);
-  // console.log(user)
   const [isLoading, setIsLoading] = useState(true);
 
   const handleUser = async () => {
@@ -36,7 +34,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     handleUser();
-  }, [isLoading]);
+  }, []);
   return (
     <UserContext.Provider value={{ user, setUser, isLoading, setIsLoading }}>
       {children}
