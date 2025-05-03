@@ -1,6 +1,8 @@
 "use server";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
+import {jwtDecode} from "jwt-decode";
+
 import AppError from '../../../../Next-Event-Server-Side/src/app/errors/AppError';
 export const registerUser = async (userData: FieldValues) => {
   try {
@@ -54,15 +56,17 @@ export const loginUser = async (userData: FieldValues) => {
   }
 };
 
-// export const getCurrentUser = async () => {
-//   const accessToken = (await cookies()).get("accessToken")?.value;
-//   if (accessToken) {
-//     const decodedData =jwtDecode(accessToken);
-//     return decodedData;
-//   } else {
-//     return null;
-//   }
-// };
+// get current user
+export const getCurrentUser = async () => {
+  const accessToken = (await cookies()).get("accessToken")?.value;
+  if (accessToken) {
+    const decodedData =jwtDecode(accessToken);
+    console.log(decodedData)
+    return decodedData;
+  } else {
+    return null;
+  }
+};
 
 // LogOut
 export const logOut = async () => {
