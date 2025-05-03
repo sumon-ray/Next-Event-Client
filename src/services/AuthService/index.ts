@@ -3,7 +3,6 @@ import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 import {jwtDecode} from "jwt-decode";
 
-import AppError from '../../../../Next-Event-Server-Side/src/app/errors/AppError';
 export const registerUser = async (userData: FieldValues) => {
   try {
     const formData = new FormData();
@@ -31,12 +30,10 @@ export const registerUser = async (userData: FieldValues) => {
     return userInfo;
   } catch (error) {
     console.error(error);
-    throw new AppError("Registration failed");
   }
 };
 
 export const loginUser = async (userData: FieldValues) => {
-  console.log(loginUser);
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
       method: "POST",
@@ -45,6 +42,7 @@ export const loginUser = async (userData: FieldValues) => {
       },
       body: JSON.stringify(userData),
     });
+    console.log(res);
     const userInfo = await res.json();
     if (userInfo.success) {
       (await cookies()).set("accessToken", userInfo.data.accessToken);

@@ -27,7 +27,7 @@ export default function Navbar() {
   const { user, setIsLoading } = useUser();
 
   const handleLogOut = () => {
-    logOut();
+    LogOut();
     toast.success("Log out successfully");
     setIsLoading(true);
   };
