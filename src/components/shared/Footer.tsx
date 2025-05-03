@@ -25,27 +25,12 @@ import {
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import type React from "react";
-import {  useState } from "react";
-// import CountdownTimer from "../footer/CountdownTimer";
+import { useState } from "react";
 const CountdownTimer = dynamic(() => import("../footer/CountdownTimer"), {
   ssr: false,
 });
 export default function Footer() {
   const [email, setEmail] = useState("");
-  // const [currentTime, setCurrentTime] = useState(new Date());
-  //   const [activeTab, setActiveTab] = useState("upcoming")
-
-  // useEffect(() => {
-  //   setCurrentTime(new Date()); // Set initial time on client
-
-  //   const timer = setInterval(() => {
-  //     setCurrentTime(new Date());
-  //   }, 1000);
-
-  //   return () => clearInterval(timer);
-  // }, []);
-
-  // if (!currentTime) return null; // Or show a loading spinner
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,24 +38,6 @@ export default function Footer() {
     setEmail("");
   };
 
-  // const formatCountdownTime = () => {
-  //   const targetDate = new Date();
-  //   targetDate.setDate(targetDate.getDate() + 3);
-  //   targetDate.setHours(18, 0, 0, 0);
-
-  //   const diff = targetDate.getTime() - currentTime.getTime();
-  //   if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-
-  //   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  //   const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  //   const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  //   const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-  //   return { days, hours, minutes, seconds };
-  // };
-
-  // const countdown = formatCountdownTime();
-  // Event categories
   const categories = [
     { name: "Conferences", count: 120 },
     { name: "Workshops", count: 85 },
@@ -107,38 +74,11 @@ export default function Footer() {
               </Button>
             </div>
             <CountdownTimer />
-
-            {/* <div className="grid grid-cols-4 gap-2 md:gap-4">
-              <div className="bg-slate-700/50 backdrop-blur-sm rounded-lg p-2 md:p-4 text-center">
-                <div className="text-2xl md:text-4xl font-bold text-white">
-                  {countdown.days}
-                </div>
-                <div className="text-xs md:text-sm text-slate-300">Days</div>
-              </div>
-              <div className="bg-slate-700/50 backdrop-blur-sm rounded-lg p-2 md:p-4 text-center">
-                <div className="text-2xl md:text-4xl font-bold text-white">
-                  {countdown.hours}
-                </div>
-                <div className="text-xs md:text-sm text-slate-300">Hours</div>
-              </div>
-              <div className="bg-slate-700/50 backdrop-blur-sm rounded-lg p-2 md:p-4 text-center">
-                <div className="text-2xl md:text-4xl font-bold text-white">
-                  {countdown.minutes}
-                </div>
-                <div className="text-xs md:text-sm text-slate-300">Minutes</div>
-              </div>
-              <div className="bg-slate-700/50 backdrop-blur-sm rounded-lg p-2 md:p-4 text-center">
-                <div className="text-2xl md:text-4xl font-bold text-white">
-                  {countdown.seconds}
-                </div>
-                <div className="text-xs md:text-sm text-slate-300">Seconds</div>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>
 
-      <div className=" container mx-auto flex flex-col  justify-center items-center px-4 pt-14 pb-2  bt-4  ">
+      <div className=" container mx-auto items-center px-4 pt-14 pb-2  bt-4  ">
         {/* Main footer content */}
         <div className=" grid grid-cols-1 md:pt-20 md:grid-cols-2 lg:grid-cols-12 gap-10">
           {/* Column 1: About & Contact */}
@@ -215,7 +155,6 @@ export default function Footer() {
             <div className="grid grid-cols-2 gap-3">
               {categories.map((category, index) => (
                 <div
-                  //   href={`/events/category/${category.name.toLowerCase()}`}
                   key={index}
                   className="bg-slate-200 hover:bg-slate-200 backdrop-blur-sm rounded-lg p-3 transition-all duration-200 group"
                 >
