@@ -1,5 +1,11 @@
 "use client";
 
+import { useState } from "react";
+import { Menu, X, LogOut } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { toast } from "sonner";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -10,13 +16,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { logOut, useUser } from "@/context/UserContext";
-import { Loader2, LogOut, Menu, X } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { toast } from "sonner";
-import { Button } from "../ui/button";
+
+import { useUser } from "@/context/UserContext";;
+import img from "../../../public/favicon.png";
+import NextButton from "./NextButton";
+import "../../styles/styles.css";
+import { logOut } from "@/services/AuthService";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -26,9 +31,9 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const { user, setUser, isLoading } = useUser();
-  const [open, setOpen] = useState(false);
-  const router = useRouter();
+  const { user, setIsLoading } = useUser();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const handleLogOut = () => {
     logOut();
     setUser(null);
@@ -37,160 +42,91 @@ export default function Navbar() {
   };
 
   return (
-    <>
-      <header className="border-b container flex justify-between items-center mx-auto ">
-        <div className="container flex justify-between items-center mx-auto h-16 px-3">
-          {/* Brand */}
-          <div className="flex gap-2">
-            <button className="md:hidden" onClick={() => setOpen(true)}>
-              <Menu />
-            </button>
-            <h1 className="md:text-2xl font-black flex items-center">
-              nextEvent
-            </h1>
-          </div>
+    <header className="fixed top-0 left-0 z-50 w-full shadow-sm backdrop-blur-sm bg-black/20">
+      <div className="container flex items-center justify-between h-20 px-4 mx-auto md:px-8">
+       
+        <Link href="/" className="flex items-center">
+          <Image
+            src={img}
+            alt="Logo"
+            width={1000}
+            height={1000}
+            className="w-20 rounded-md"
+          />
+        </Link>
 
-          {/* Navigation Links */}
-          <div className="hidden md:flex">
-            <ul className="flex gap-4 flex-grow justify-center ">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-gray-700 hover:text-black font-medium"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Right Side */}
-          <nav className="flex gap-2 items-center ">
-            <div className="hidden md:flex">
-              {isLoading ? (
-                <Loader2 className="animate-spin" />
-              ) : user ? (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Avatar>
-                      <AvatarImage src={user?.profileImage} alt="Profile" />
-                    </Avatar>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="mx-auto">
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuGroup>
-                      <DropdownMenuItem>
-                        <span>Profile</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <span>Dashboard</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <span>My Shop</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuGroup>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={handleLogOut}>
-                      <LogOut className="mr-2" />
-                      <span>Log out</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
-                <Link href="/login">
-                  <Button variant="outline" className="rounded-full">
-                    Login
-                  </Button>
-                </Link>
-              )}
-            </div>
-          </nav>
-        </div>
-      </header>
-
-      {/* // mobile */}
-      <div
-        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-50 transform transition-transform duration-300 ${
-          open ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        <div className="flex items-center justify-between p-4 border-b">
-          <nav className="flex gap-2 items-center">
-            {user && (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Avatar>
-                    <AvatarImage src={user?.profileImage} alt="Profile" />
-                    <AvatarFallback>
-                      {user?.name?.[0]?.toUpperCase() || "U"}
-                    </AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="mx-auto">
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                      <span>Profile</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                  <DropdownMenuSeparator />
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
-          </nav>
-          <button onClick={() => setOpen(false)}>
-            <X />
-          </button>
-        </div>
-        <ul className="flex flex-col p-4 gap-3">
+     
+        <ul className="hidden gap-8 text-sm font-medium md:flex">
           {navLinks.map((link) => (
             <li key={link.href}>
-              <Link
-                href={link.href}
-                className="text-gray-700 hover:text-black"
-                onClick={() => setOpen(false)}
-              >
+              <Link href={link.href} className="navButton !bg-slate-50/10 ">
                 {link.label}
               </Link>
             </li>
           ))}
         </ul>
-        <div className="p-4 border-t">
+
+   
+        <nav className="flex items-center gap-2">
           {user ? (
-            <>
-              <Button
-                onClick={() => {
-                  handleLogOut();
-                  setOpen(false);
-                }}
-                variant="outline"
-                className="w-full"
-              >
-                <LogOut className="mr-2" size={16} />
-                Log out
-              </Button>
-            </>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar className="cursor-pointer">
+                  <AvatarImage src={user?.profileImage} alt="Profile" />
+                  <AvatarFallback>
+                    {user?.name?.[0]?.toUpperCase() || "U"}
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                  <DropdownMenuItem>My Shop</DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogOut}>
+                  <LogOut className="mr-2" />
+                  Log out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : (
-            <Link href="/login" onClick={() => setOpen(false)}>
-              <Button variant="outline" className="w-full">
-                Login
-              </Button>
+            <Link href="/login">
+              <NextButton name="Login" />
             </Link>
           )}
-        </div>
+
+      
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="inline-flex items-center justify-center p-2 ml-2 md:hidden"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </nav>
       </div>
 
-      {/* Backdrop */}
-      {open && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-30 z-40"
-          onClick={() => setOpen(false)}
-        />
+ 
+      {mobileMenuOpen && (
+        <div className="absolute w-full px-4 py-4 transition-all md:hidden bg-black/80 backdrop-blur-md">
+          <ul className="flex flex-col gap-4 text-center">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="block py-2 text-white transition rounded hover:bg-white/10"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
-    </>
+    </header>
   );
 }

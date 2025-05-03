@@ -1,5 +1,5 @@
 "use client";
-import { IUser } from "@/app/types";
+// import { IUser } from "@/app/types";
 import { jwtDecode } from "jwt-decode";
 import {
   createContext,
@@ -10,6 +10,13 @@ import {
   useState,
 } from "react";
 
+interface IUser {
+  id: string;
+  name: string;
+  email: string;
+  image: string;
+  profileImage:string
+}
 interface IUserProviderValues {
   user: IUser | null;
   isLoading: boolean;
