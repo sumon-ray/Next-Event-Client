@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { Check, Divide } from "lucide-react"
-import img from '../../../../public/images/img5.jpg'
-import img2 from '../../../../public/images/img1.jpg'
+import img from '../../../../public/images/img15.jpg'
+import img2 from '../../../../public/images/img14.jpg'
 import Title from "@/components/shared/Title"
 export default function OurAdvantagesSection() {
   return (

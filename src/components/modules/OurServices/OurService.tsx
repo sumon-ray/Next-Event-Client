@@ -1,7 +1,7 @@
 
 import Image from "next/image"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import img from '../../../../public/images/img5.jpg'
+import img from '../../../../public/images/img13.jpg'
 export default function OurFeaturesSection() {
   return (
     <section className="w-full bg-[#1E293B] py-16 md:py-24">
