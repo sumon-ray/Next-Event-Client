@@ -1,6 +1,6 @@
 "use client";
 import { getCurrentUser } from "@/services/AuthService";
-import { IUser } from "@/types";
+
 import {
   createContext,
   Dispatch,
@@ -10,6 +10,13 @@ import {
   useState,
 } from "react";
 
+interface IUser {
+  id: string;
+  name: string;
+  email: string;
+  image: string;
+  profileImage:string
+}
 interface IUserProviderValues {
   user: IUser | null;
   isLoading: boolean;

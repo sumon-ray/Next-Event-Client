@@ -31,7 +31,7 @@ export const registerUser = async (userData: FieldValues) => {
     return userInfo;
   } catch (error) {
     console.error(error);
-    throw new AppError("Registration failed");
+    throw new AppError(404,"Registration failed");
   }
 };
 

@@ -1,9 +1,12 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {  LogOut, } from "lucide-react";
+import { useState } from "react";
+import { Menu, X, LogOut } from "lucide-react";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import Image from "next/image";
+import { toast } from "sonner";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,8 +16,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useUser } from "@/context/UserContext";
-import { toast } from "sonner";
+
+import { useUser } from "@/context/UserContext";;
+import img from "../../../public/favicon.png";
+import NextButton from "./NextButton";
+import "../../styles/styles.css";
+import { logOut } from "@/services/AuthService";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -25,6 +32,7 @@ const navLinks = [
 
 export default function Navbar() {
   const { user, setIsLoading } = useUser();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogOut = () => {
     logOut();
@@ -33,69 +41,91 @@ export default function Navbar() {
   };
 
   return (
-    <header className="border-b w-full">
-      <div className="container flex justify-between items-center mx-auto h-16 px-3">
-        {/* Brand */}
-        <h1 className="md:text-2xl font-black flex items-center">nextEvent</h1>
+    <header className="fixed top-0 left-0 z-50 w-full shadow-sm backdrop-blur-sm bg-black/20">
+      <div className="container flex items-center justify-between h-20 px-4 mx-auto md:px-8">
+       
+        <Link href="/" className="flex items-center">
+          <Image
+            src={img}
+            alt="Logo"
+            width={1000}
+            height={1000}
+            className="w-20 rounded-md"
+          />
+        </Link>
 
-        {/* Navigation Links */}
-        <ul className="flex gap-4 flex-grow justify-center">
+     
+        <ul className="hidden gap-8 text-sm font-medium md:flex">
           {navLinks.map((link) => (
             <li key={link.href}>
-              <Link
-                href={link.href}
-                className="text-gray-700 hover:text-black font-medium"
-              >
+              <Link href={link.href} className="navButton !bg-slate-50/10 ">
                 {link.label}
               </Link>
             </li>
           ))}
         </ul>
 
-        {/* Right Side */}
-        <nav className="flex gap-2 items-center">
-      
-
+   
+        <nav className="flex items-center gap-2">
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Avatar>
+                <Avatar className="cursor-pointer">
                   <AvatarImage src={user?.profileImage} alt="Profile" />
                   <AvatarFallback>
                     {user?.name?.[0]?.toUpperCase() || "U"}
                   </AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="mx-auto">
+              <DropdownMenuContent align="end">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                  <DropdownMenuItem>
-                    <span>Profile</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <span>Dashboard</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <span>My Shop</span>
-                  </DropdownMenuItem>
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                  <DropdownMenuItem>My Shop</DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogOut}>
                   <LogOut className="mr-2" />
-                  <span>Log out</span>
+                  Log out
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
             <Link href="/login">
-              <Button variant="outline" className="rounded-full">
-                Login
-              </Button>
+              <NextButton name="Login" />
             </Link>
           )}
+
+      
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="inline-flex items-center justify-center p-2 ml-2 md:hidden"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </nav>
       </div>
+
+ 
+      {mobileMenuOpen && (
+        <div className="absolute w-full px-4 py-4 transition-all md:hidden bg-black/80 backdrop-blur-md">
+          <ul className="flex flex-col gap-4 text-center">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="block py-2 text-white transition rounded hover:bg-white/10"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </header>
   );
 }
