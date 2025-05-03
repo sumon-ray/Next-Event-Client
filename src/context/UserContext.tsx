@@ -1,7 +1,6 @@
 "use client";
 import { IUser } from "@/app/types";
 import { jwtDecode } from "jwt-decode";
-// import { getCurrentUser } from "@/services/AuthService/getCurrentUser";
 import {
   createContext,
   Dispatch,
@@ -39,11 +38,10 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
         setIsLoading(false);
       }
     };
-  
+
     handleUser();
   }, []);
-  
-  
+
   return (
     <UserContext.Provider value={{ user, setUser, isLoading, setIsLoading }}>
       {children}
@@ -58,6 +56,11 @@ export const useUser = () => {
     throw new Error("useUser must be used within the userProvider ");
   }
   return context;
+};
+
+// LogOut
+export const logOut = () => {
+  localStorage.removeItem("accessToken");
 };
 
 export default UserProvider;
