@@ -19,10 +19,10 @@ const Banner = () => {
     pagination
     spaceBetween={30}
     centeredSlides={true}
-    // autoplay={{
-    //   delay: 3500,
-    //   disableOnInteraction: true,
-    // }}
+    autoplay={{
+      delay: 3500,
+      disableOnInteraction: true,
+    }}
     scrollbar={{ draggable: true }}
 >
 <SwiperSlide>
@@ -72,9 +72,11 @@ const Banner = () => {
         </div>
         <div>
           <div className="flex items-center justify-center -space-x-2">
-            <img src="/images/client1.jpg" alt="Client" className="w-8 h-8 border-2 border-white rounded-full" />
-            <img src="/images/client2.jpg" alt="Client" className="w-8 h-8 border-2 border-white rounded-full" />
-            <img src="/images/client3.jpg" alt="Client" className="w-8 h-8 border-2 border-white rounded-full" />
+            <div className="flex items-center justify-center -space-x-2">
+            <img src="/images/terr1.jpg" alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
+            <img src="/images/terr2.webp" alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
+            <img src="/images/terr3.jpg" alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
+          </div>
           </div>
           <p className="mt-2 text-sm text-white/70">450+ Clients Trust</p>
         </div>
@@ -135,9 +137,11 @@ const Banner = () => {
         </div>
         <div>
           <div className="flex items-center justify-center -space-x-2">
-            <img src="/images/client1.jpg" alt="Client" className="w-8 h-8 border-2 border-white rounded-full" />
-            <img src="/images/client2.jpg" alt="Client" className="w-8 h-8 border-2 border-white rounded-full" />
-            <img src="/images/client3.jpg" alt="Client" className="w-8 h-8 border-2 border-white rounded-full" />
+            <div className="flex items-center justify-center -space-x-2">
+            <img src="/images/terr1.jpg" alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
+            <img src="/images/terr2.webp" alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
+            <img src="/images/terr3.jpg" alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
+          </div>
           </div>
           <p className="mt-2 text-sm text-white/70">450+ Clients Trust</p>
         </div>
@@ -198,9 +202,9 @@ const Banner = () => {
         </div>
         <div>
           <div className="flex items-center justify-center -space-x-2">
-            <img src="/images/client1.jpg" alt="Client" className="w-8 h-8 border-2 border-white rounded-full" />
-            <img src="/images/client2.jpg" alt="Client" className="w-8 h-8 border-2 border-white rounded-full" />
-            <img src="/images/client3.jpg" alt="Client" className="w-8 h-8 border-2 border-white rounded-full" />
+            <img src="/images/terr1.jpg" alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
+            <img src="/images/terr2.webp" alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
+            <img src="/images/terr3.jpg" alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
           </div>
           <p className="mt-2 text-sm text-white/70">450+ Clients Trust</p>
         </div>

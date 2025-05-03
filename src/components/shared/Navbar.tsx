@@ -58,7 +58,7 @@ export default function Navbar() {
         <ul className="hidden gap-8 text-sm font-medium md:flex">
           {navLinks.map((link) => (
             <li key={link.href}>
-              <Link href={link.href} className="navButton !bg-slate-50/10">
+              <Link href={link.href} className="navButton !bg-slate-50/10 ">
                 {link.label}
               </Link>
             </li>

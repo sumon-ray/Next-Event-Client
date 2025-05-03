@@ -128,7 +128,6 @@ export default function EventsPage() {
     <main>
     
 
-      {/* Banner Image */}
       <div className="relative w-full h-[50dvh]">
         <Image
           src={img}
@@ -136,9 +135,16 @@ export default function EventsPage() {
           fill
           className="object-cover"
         />
-        <div className="absolute inset-0 flex items-center justify-left bg-black/40">
-          <h1 className="container mx-auto text-4xl font-bold tracking-wider text-white md:text-6xl ">  Next-Level Events  <br /> 
-            Browse Top Experiences and <br />  Be Part of the Celebration</h1>
+        <div className="absolute inset-0 flex items-center justify-left bg-black/60">
+         
+           <div className="container px-4 py-12 mx-auto">
+           <h1 className="text-3xl font-extrabold leading-tight tracking-wide text-white md:text-5xl lg:text-6xl">
+      <span className="my-2 text-[#3B82F6]">Next-Level Events</span><br />
+      <span className="text-[#FACC15]">Browse Top Experiences</span><br />
+      <span className="text-[#FACC15]">Be Part of the Celebration</span><br />
+    
+    </h1>
+           </div>
         </div>
       </div>
 
