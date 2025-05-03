@@ -8,7 +8,7 @@ import Image from 'next/image';
 import img from '../../../../public/images/img3.jpg'
 const Banner = () => {
     return (
-        <div>
+        <div className='w-full'>
 <Swiper
     modules={[Navigation, Pagination, Scrollbar,Autoplay  ]}
     navigation
@@ -16,7 +16,7 @@ const Banner = () => {
     spaceBetween={30}
     centeredSlides={true}
     autoplay={{
-      delay: 3500,
+      delay: 5500,
       disableOnInteraction: false,
     }}
     scrollbar={{ draggable: true }}
