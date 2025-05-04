@@ -8,7 +8,7 @@ import NextButton from '@/components/shared/NextButton';
 const WhoWeAreSection =()=> {
   return (
    <div>
-    <section className="container px-4 py-16 mx-auto md:px-6 lg:py-24">
+    <section className="container px-4 py-16 mx-auto md:px-0 lg:py-24">
       <div className="grid items-center grid-cols-1 gap-8 lg:grid-cols-2">
      
         <div className="relative overflow-hidden rounded-xl">
