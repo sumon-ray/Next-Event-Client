@@ -5,7 +5,7 @@ import img from '../../../../public/images/img13.jpg'
 export default function OurFeaturesSection() {
   return (
     <section className="w-full bg-[#1E293B] py-16 md:py-24">
-      <div className="container px-4 mx-auto md:px-6">
+      <div className="container px-4 mx-auto md:px-0">
         <div className="grid items-center grid-cols-1 gap-8 lg:grid-cols-2">
      
           <div className="space-y-10">

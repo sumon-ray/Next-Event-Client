@@ -1,10 +1,8 @@
-import Image from "next/image";
-import img from '../assets/images/banner1.png'
+
 import Banner from "@/components/modules/Banner/Banner";
 import WhoWeAreSection from "@/components/modules/WhoWeAre/WhoRWe";
 import OurFeaturesSection from "@/components/modules/OurServices/OurService";
 import OurAdvantagesSection from "@/components/modules/OurAdvantage/OurAdvantage";
-import EventCategoriesAndFAQ from "@/components/modules/Categories/Categories";
 import EventCategories from "@/components/modules/Categories/Categories";
 import FAQ from "@/components/modules/FAQ/FAQ";
 
