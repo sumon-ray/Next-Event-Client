@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { Menu, X, LogOut } from "lucide-react";
-import Link from "next/link";
+import { LogOut, Menu, X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 import { toast } from "sonner";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -17,12 +17,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { useUser } from "@/context/UserContext";;
+import { logOut, useUser } from "@/context/UserContext";
 import img from "../../../public/favicon.png";
-import NextButton from "./NextButton";
 import "../../styles/styles.css";
-import { logOut } from "@/services/AuthService";
-
+import NextButton from "./NextButton";
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Events", href: "/events" },
@@ -31,7 +29,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const { user, setIsLoading } = useUser();
+  const { user,} = useUser();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogOut = () => {
@@ -44,7 +42,6 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 z-50 w-full shadow-sm backdrop-blur-sm bg-black/20">
       <div className="container flex items-center justify-between h-20 px-4 mx-auto md:px-8">
-       
         <Link href="/" className="flex items-center">
           <Image
             src={img}
@@ -55,7 +52,6 @@ export default function Navbar() {
           />
         </Link>
 
-     
         <ul className="hidden gap-8 text-sm font-medium md:flex">
           {navLinks.map((link) => (
             <li key={link.href}>
@@ -66,7 +62,6 @@ export default function Navbar() {
           ))}
         </ul>
 
-   
         <nav className="flex items-center gap-2">
           {user ? (
             <DropdownMenu>
@@ -99,17 +94,19 @@ export default function Navbar() {
             </Link>
           )}
 
-      
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="inline-flex items-center justify-center p-2 ml-2 md:hidden"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </nav>
       </div>
 
- 
       {mobileMenuOpen && (
         <div className="absolute w-full px-4 py-4 transition-all md:hidden bg-black/80 backdrop-blur-md">
           <ul className="flex flex-col gap-4 text-center">

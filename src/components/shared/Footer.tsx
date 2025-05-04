@@ -3,10 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-  ArrowRight,
+  // ArrowRight,
   Award,
   Calendar,
-  CalendarDays,
+  // CalendarDays,
   ChevronRight,
   Clock,
   Facebook,
@@ -16,19 +16,19 @@ import {
   MapPin,
   Phone,
   Send,
-  Sparkles,
+  // Sparkles,
   Star,
-  Ticket,
+  // Ticket,
   Twitter,
   Youtube,
 } from "lucide-react";
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 import Link from "next/link";
 import type React from "react";
 import { useState } from "react";
-const CountdownTimer = dynamic(() => import("../footer/CountdownTimer"), {
-  ssr: false,
-});
+// const CountdownTimer = dynamic(() => import("../footer/CountdownTimer"), {
+//   ssr: false,
+// });
 export default function Footer() {
   const [email, setEmail] = useState("");
 
@@ -50,13 +50,13 @@ export default function Footer() {
   return (
     <footer className="pt-2 md:pt-0 md:mt-24 bg-gradient-to-r from-[#1E3A8A] via-[#4c8aef] to-[#1E293B] relative  dark:text-white">
       {/* Next big event countdown */}
-      <div className="relative z-10 mx-auto mt-10 px-4 max-w-6xl md:translate-y-24">
+      {/* <div className="relative z-10 mx-auto mt-10 px-4 max-w-6xl md:translate-y-24">
         <div className="font-bold tracking-wide text-transparent  drop-shadow-sm bg-gradient-to-l from-[#1E3A8A] via-[#3B82F6] to-[#1E293B]  rounded-xl border border-slate-700 shadow-xl p-6 md:p-8">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="mb-6 md:mb-0 md:mr-6">
               <h3 className="text-xl md:text-2xl font-bold text-white flex items-center">
                 <Sparkles className="h-5 w-5 mr-2 text-yellow-400" />
-                Next Bignext Even{" "}
+                Next Bignext Even
               </h3>
               <p className="text-blue-300 mt-2">Tech Innovation Summit 2023</p>
               <div className="flex items-center mt-1 text-sm text-slate-300">
@@ -73,10 +73,10 @@ export default function Footer() {
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             </div>
-            <CountdownTimer />
-          </div>
+            {/* <CountdownTimer /> */}
+          {/* </div>
         </div>
-      </div>
+      </div>  */}
 
       <div className=" container mx-auto items-center px-4 pt-14 pb-2  bt-4  ">
         {/* Main footer content */}

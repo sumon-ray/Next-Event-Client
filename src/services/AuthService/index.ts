@@ -1,4 +1,5 @@
 "use server";
+import { ResetPasswordPayload } from "@/app/types";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 
@@ -53,17 +54,46 @@ export const loginUser = async (userData: FieldValues) => {
   }
 };
 
+// change password
+export const changePassword = async (formData: {
+  oldPassword: string;
+  newPassword;
+}, token: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/change-password`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${token}`,
+        },
+        body: JSON.stringify(formData),
+      }
+    );
 
+    const result = await res.json();
+    if (!res.ok) {
+      throw new Error(result.message);
+    }
+  } catch (error) {
+    console.error(error);
+    throw error
+  }
+};
 
 export const ForgetPassword = async (userData: FieldValues) => {
   try {
- const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/forget-password`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/forget-password`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      }
+    );
 
     if (!res.ok) {
       const errorData = await res.json();
@@ -76,3 +106,33 @@ export const ForgetPassword = async (userData: FieldValues) => {
   }
 };
 
+// reset password
+export const ResetPassword = async ({
+  userId,
+  token,
+  newPassword,
+}: ResetPasswordPayload) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify({
+          userId,
+          newPassword,
+        }),
+      }
+    );
+
+    const result = await res.json();
+    if (!res.ok) {
+      throw new Error(result.message);
+    }
+  } catch (error) {
+    throw new Error(error.message || "Something went wrong");
+  }
+};
