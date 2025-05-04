@@ -4,20 +4,19 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import {
-  // ArrowRight,
-  Award,
-  Calendar,
-  // CalendarDays,
-  ChevronRight,
-  Clock,
-  Facebook,
-  Instagram,    
-  Linkedin,
-  Mail,
+  // Calendar,
   MapPin,
+  Mail,
   Phone,
+  Clock,
+  ChevronRight,
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Youtube,
   Send,
-  // Sparkles,
+  // ArrowRight,
   Star,
   Award,
   Sparkles,
@@ -32,7 +31,9 @@ import Title from "./Title"
 import Image from "next/image"
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("")
+  const [currentTime, setCurrentTime] = useState(new Date())
+//   const [activeTab, setActiveTab] = useState("upcoming")
 
 useEffect(() => {
   setCurrentTime(new Date()) 
@@ -267,8 +268,7 @@ const formatCountdownTime = () => {
               Newsletter
             </h3>
             <p className="text-sm text-slate-300">
-              Subscribe to our newsletter to receive updates on new events,
-              special offers, and exclusive content.
+              Subscribe to our newsletter to receive updates on new events, special offers, and exclusive content.
             </p>
             <form onSubmit={handleSubscribe} className="relative mt-4">
               <Input
@@ -299,7 +299,7 @@ const formatCountdownTime = () => {
                   { icon: Linkedin, href: "#", label: "LinkedIn" },
                   { icon: Youtube, href: "#", label: "YouTube" },
                 ].map((social, index) => {
-                  const Icon = social.icon;
+                  const Icon = social.icon
                   return (
                     <Link
                       key={index}
@@ -310,7 +310,7 @@ const formatCountdownTime = () => {
                     >
                       <Icon className="w-4 h-4" />
                     </Link>
-                  );
+                  )
                 })}
               </div>
             </div>
@@ -339,5 +339,5 @@ const formatCountdownTime = () => {
         </div>
       </div>
     </footer>
-  );
+  )
 }
