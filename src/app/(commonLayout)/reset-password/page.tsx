@@ -4,12 +4,12 @@ import { resetPasswordSchema, ResetPasswordType } from "@/app/types";
 import { Button } from "@/components/ui/button";
 import { ResetPassword } from "@/services/AuthService";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeOff } from "lucide-react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { Eye, EyeOff } from "lucide-react";
-import Link from "next/link";
 
 export default function ResetPasswordPage() {
   const params = useSearchParams();

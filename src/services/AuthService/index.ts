@@ -55,10 +55,13 @@ export const loginUser = async (userData: FieldValues) => {
 };
 
 // change password
-export const changePassword = async (formData: {
-  oldPassword: string;
-  newPassword;
-}, token: string) => {
+export const changePassword = async (
+  formData: {
+    oldPassword: string;
+    newPassword;
+  },
+  token: string
+) => {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/change-password`,
@@ -78,7 +81,7 @@ export const changePassword = async (formData: {
     }
   } catch (error) {
     console.error(error);
-    throw error
+    throw error;
   }
 };
 
