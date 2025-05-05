@@ -2,8 +2,12 @@
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 import {jwtDecode} from "jwt-decode";
+import { toast } from "sonner";
 
-import AppError from '../../../../Next-Event-Server-Side/src/app/errors/AppError';
+
+
+
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL 
 export const registerUser = async (userData: FieldValues) => {
   try {
     const formData = new FormData();
@@ -18,7 +22,7 @@ export const registerUser = async (userData: FieldValues) => {
     formData.append("data", JSON.stringify(restData));
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/register`,
+      `${baseUrl}/user/register`,
       {
         method: "POST",
         body: formData,
@@ -31,14 +35,14 @@ export const registerUser = async (userData: FieldValues) => {
     return userInfo;
   } catch (error) {
     console.error(error);
-    throw new AppError(404,"Registration failed");
+    toast.error("Registration failed");
   }
 };
 
 export const loginUser = async (userData: FieldValues) => {
   console.log(loginUser);
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+    const res = await fetch(`${baseUrl}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,11 +56,12 @@ export const loginUser = async (userData: FieldValues) => {
 
     return userInfo;
   } catch (error) {
+    toast.error("Registration failed")
     console.error(error);
   }
 };
 
-// get current user
+
 export const getCurrentUser = async () => {
   const accessToken = (await cookies()).get("accessToken")?.value;
   if (accessToken) {
@@ -68,7 +73,7 @@ export const getCurrentUser = async () => {
   }
 };
 
-// LogOut
+
 export const logOut = async () => {
   (await cookies()).delete("accessToken");
 };

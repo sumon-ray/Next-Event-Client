@@ -59,17 +59,17 @@ const AddEvent = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-2">Add Event</h1>
-      <p className="text-gray-600 mb-6">Add your event for your customers</p>
+      <h1 className="mb-2 text-2xl font-bold">Add Event</h1>
+      <p className="mb-6 text-gray-600">Add your event for your customers</p>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-1 gap-6 lg:grid-cols-3"
       >
-        {/* Left column */}
-        <div className="lg:col-span-2 space-y-6">
-          <div className="rounded-lg border bg-white shadow-sm">
-            <div className="border-b px-6 py-4 font-semibold">Basic Info</div>
+       
+        <div className="space-y-6 lg:col-span-2">
+          <div className="bg-white border rounded-lg shadow-sm">
+            <div className="px-6 py-4 font-semibold border-b">Basic Info</div>
             <div className="p-6 space-y-4">
               <input
                 {...register("title", { required: true })}
@@ -95,8 +95,8 @@ const AddEvent = () => {
             </div>
           </div>
 
-          <div className="rounded-lg border bg-white shadow-sm">
-            <div className="border-b px-6 py-4 font-semibold">Price</div>
+          <div className="bg-white border rounded-lg shadow-sm">
+            <div className="px-6 py-4 font-semibold border-b">Price</div>
             <div className="p-6 space-y-4">
               <label className="inline-flex items-center gap-2">
                 <input type="checkbox" {...register("isPaid")} />
@@ -115,10 +115,10 @@ const AddEvent = () => {
           </div>
         </div>
 
-        {/* Right column */}
+      
         <div className="space-y-6">
-          <div className="rounded-lg border bg-white shadow-sm">
-            <div className="border-b px-6 py-4 font-semibold">Event Banner</div>
+          <div className="bg-white border rounded-lg shadow-sm">
+            <div className="px-6 py-4 font-semibold border-b">Event Banner</div>
             <div className="p-6">
               <input
                 type="file"
@@ -131,14 +131,14 @@ const AddEvent = () => {
                 <img
                   src={previewUrl}
                   alt="Preview"
-                  className="rounded-md border w-full object-cover max-h-40"
+                  className="object-cover w-full border rounded-md max-h-40"
                 />
               )}
             </div>
           </div>
 
-          <div className="rounded-lg border bg-white shadow-sm">
-            <div className="border-b px-6 py-4 font-semibold">Event Type</div>
+          <div className="bg-white border rounded-lg shadow-sm">
+            <div className="px-6 py-4 font-semibold border-b">Event Type</div>
             <div className="p-6">
               <select
                 {...register("type")}
@@ -153,7 +153,7 @@ const AddEvent = () => {
           <div className="p-6">
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 font-semibold"
+              className="w-full py-2 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700"
             >
               Submit
             </button>

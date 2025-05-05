@@ -10,8 +10,9 @@ import { LoaderIcon, User, Lock } from "lucide-react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form"
-import { toast } from "sonner"
+
 import { loginSchema } from "./loginValidation"
+import { toast } from "sonner"
 
 const LoginForm = () => {
   // Add missing state variables
@@ -53,14 +54,14 @@ const LoginForm = () => {
     //     backgroundPosition: "center",
     //     position: "relative",
     //   }}
-    className="min-h-screen  w-full bg-gradient-to-b from-blue-500 to-blue-800 flex items-center justify-center p-4">
-      <div className="w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+    className="flex items-center justify-center w-full min-h-screen p-4 bg-gradient-to-b from-blue-500 to-blue-800">
+      <div className="flex flex-col w-full max-w-4xl overflow-hidden bg-white shadow-2xl rounded-3xl md:flex-row">
         {/* Left side - Blue welcome section */}
-        <div className="w-full md:w-1/2 bg-blue-500 p-10 text-white relative">
+        <div className="relative w-full p-10 text-white bg-blue-500 md:w-1/2">
           <div className="relative z-10">
-            <h1 className="text-4xl font-bold mt-16 mb-2">WELCOME</h1>
-            <h2 className="text-xl font-semibold mb-4">YOUR HEADLINE NAME</h2>
-            <p className="text-sm opacity-90 mb-2">
+            <h1 className="mt-16 mb-2 text-4xl font-bold">WELCOME</h1>
+            <h2 className="mb-4 text-xl font-semibold">YOUR HEADLINE NAME</h2>
+            <p className="mb-2 text-sm opacity-90">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
               dolore magna aliqua.
             </p>
@@ -70,14 +71,14 @@ const LoginForm = () => {
             </p>
           </div>
 
-          <div className="absolute bottom-0 left-0 w-40 h-40 bg-blue-600 rounded-full opacity-70 transform translate-y-1/2 -translate-x-1/4"></div>
-          <div className="absolute bottom-1/3 left-1/3 w-32 h-32 bg-blue-600 rounded-full opacity-70"></div>
+          <div className="absolute bottom-0 left-0 w-40 h-40 transform translate-y-1/2 bg-blue-600 rounded-full opacity-70 -translate-x-1/4"></div>
+          <div className="absolute w-32 h-32 bg-blue-600 rounded-full bottom-1/3 left-1/3 opacity-70"></div>
         </div>
 
-        <div className="w-full md:w-1/2 bg-white p-10 relative">
-          <div className="max-w-sm mx-auto pt-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-1">Sign in</h2>
-            <p className="text-sm text-gray-500 mb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        <div className="relative w-full p-10 bg-white md:w-1/2">
+          <div className="max-w-sm pt-8 mx-auto">
+            <h2 className="mb-1 text-2xl font-bold text-gray-800">Sign in</h2>
+            <p className="mb-6 text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
 
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -90,10 +91,10 @@ const LoginForm = () => {
                       <FormLabel>Email</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                            <User className="h-5 w-5 text-gray-400" />
+                          <div className="absolute inset-y-0 flex items-center pointer-events-none left-3">
+                            <User className="w-5 h-5 text-gray-400" />
                           </div>
-                          <Input type="email" className="bg-gray-100 pl-10" {...field} />
+                          <Input type="email" className="pl-10 bg-gray-100" {...field} />
                         </div>
                       </FormControl>
                       <FormMessage />
@@ -110,17 +111,17 @@ const LoginForm = () => {
                       <FormLabel>Password</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                            <Lock className="h-5 w-5 text-gray-400" />
+                          <div className="absolute inset-y-0 flex items-center pointer-events-none left-3">
+                            <Lock className="w-5 h-5 text-gray-400" />
                           </div>
                           <Input
                             type={showPassword ? "text" : "password"}
-                            className="bg-gray-100 pl-10 pr-16"
+                            className="pl-10 pr-16 bg-gray-100"
                             {...field}
                           />
                           <button
                             type="button"
-                            className="absolute inset-y-0 right-3 flex items-center text-gray-700 font-semibold text-sm"
+                            className="absolute inset-y-0 flex items-center text-sm font-semibold text-gray-700 right-3"
                             onClick={() => setShowPassword(!showPassword)}
                           >
                             SHOW
@@ -133,13 +134,13 @@ const LoginForm = () => {
                 />
 
                 {/* Remember me and forgot password */}
-                <div className="flex justify-between items-center">
+                <div className="flex items-center justify-between">
                   <label className="flex items-center space-x-2 text-sm">
                     <input
                       type="checkbox"
                       checked={rememberMe}
                       onChange={() => setRememberMe(!rememberMe)}
-                      className="rounded border-gray-300"
+                      className="border-gray-300 rounded"
                     />
                     <span>Remember me</span>
                   </label>
@@ -150,26 +151,26 @@ const LoginForm = () => {
 
                 {/* Sign in button */}
                 <Button
-                  className="w-full bg-blue-800 hover:bg-blue-700 text-white py-6 h-12 rounded-md font-medium"
+                  className="w-full h-12 py-6 font-medium text-white bg-blue-800 rounded-md hover:bg-blue-700"
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? <LoaderIcon className="h-5 w-5 animate-spin" /> : "Sign in"}
+                  {isSubmitting ? <LoaderIcon className="w-5 h-5 animate-spin" /> : "Sign in"}
                 </Button>
 
                 {/* Sign in with other */}
                 <Button
                   type="button"
                   variant="outline"
-                  className="w-full border border-gray-300 text-gray-700 py-6 h-12 rounded-md font-medium"
+                  className="w-full h-12 py-6 font-medium text-gray-700 border border-gray-300 rounded-md"
                 >
                   Sign in with other
                 </Button>
 
                 {/* Sign up link */}
-                <p className="text-center mt-2 text-sm">
+                <p className="mt-2 text-sm text-center">
                   <span className="text-gray-600">Do not have an account?</span>{" "}
-                  <span className="text-blue-800 font-medium hover:underline">
+                  <span className="font-medium text-blue-800 hover:underline">
                     <Link href="/register">Sign Up</Link>
                   </span>
                 </p>
@@ -178,7 +179,7 @@ const LoginForm = () => {
           </div>
 
           {/* Decorative circle */}
-          <div className="absolute bottom-0 right-0 w-32 h-32 bg-blue-500 rounded-full opacity-70 transform translate-y-1/2 translate-x-1/4"></div>
+          <div className="absolute bottom-0 right-0 w-32 h-32 transform translate-y-1/2 bg-blue-500 rounded-full opacity-70 translate-x-1/4"></div>
         </div>
       </div>
     </div>

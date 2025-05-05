@@ -29,7 +29,7 @@ export default function RootLayout({
         className={`${inter.variable} antialiased`}
       >
         {children}
-        <Toaster richColors position="top-center"  />
+        <Toaster richColors position="top-right"  />
       </body>
     </html>
 </Provider>

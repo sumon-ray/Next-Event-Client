@@ -84,7 +84,7 @@ const formatCountdownTime = () => {
   ]
   
   return (
-    <footer className="pt-2 relative md:pt-0 md:mt-40 bg-[#1E293B]">
+    <footer className="pt-2 relative md:pt-0  bg-[#1E293B]">
 
 <motion.div
   initial={{ transform: "translateY(100px)", opacity: 0 }}
@@ -97,7 +97,7 @@ const formatCountdownTime = () => {
     ease: [0, 0.71, 0.2, 1.01],
   }}
 >
-<div className="md:absolute z-10 max-w-6xl px-4 mx-auto  -top-28 lg:left-[5%] lg:right-[5%]  ">
+<div className="md:absolute z-10 max-w-6xl px-4 mx-auto  -top-32 lg:left-[5%] lg:right-[5%]  ">
         <div className="p-6 tracking-wide bg-blue-300 shadow-xl drop-shadow-sm decoration-transparent rounded-xl md:p-8">
           <div className="flex flex-col text-[#1E293B] items-center justify-between md:flex-row">
             <div className="mb-6 md:mb-0 md:mr-6">
