@@ -60,6 +60,11 @@ export const AdminNavLinks: TAdminNavLinks = {
       icon: ShoppingCart,
     },
     {
+      title: "Invites Management",
+      url: "/admin/manage-invites",
+      icon: ShoppingCart,
+    },
+    {
       title: "user",
       url: "/admin/user",
       icon: User,

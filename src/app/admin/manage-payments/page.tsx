@@ -1,4 +1,4 @@
-import ManagePaymentsTable from '@/components/modules/managePayments/ManagePaymentsTable';
+import ManagePaymentsTable from '@/components/modules/Payment/ManagePaymentsTable';
 import { getAllPayment } from '@/services/PaymentService';
 import { Metadata } from 'next';
 import React from 'react';
