@@ -54,8 +54,8 @@ const data = {
       ],
     },
     {
-      title: "Order-payment",
-      url: "/admin/order-payment",
+      title: "Payments Management",
+      url: "/admin/manage-payments",
       icon: ShoppingCart,
     },
     {

@@ -10,6 +10,13 @@ import {
   useState,
 } from "react";
 
+// interface IUser {
+//   id: string;
+//   name: string;
+//   email: string;
+//   image: string;
+//   profileImage:string
+// }
 interface IUserProviderValues {
   user: TTokenUser | null;
   isLoading: boolean;
