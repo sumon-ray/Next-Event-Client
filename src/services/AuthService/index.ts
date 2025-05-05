@@ -2,8 +2,6 @@
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 import {jwtDecode} from "jwt-decode";
-
-import AppError from '../../../../Next-Event-Server-Side/src/app/errors/AppError';
 export const registerUser = async (userData: FieldValues) => {
   try {
     const formData = new FormData();

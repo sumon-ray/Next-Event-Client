@@ -1,5 +1,8 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
-import { Star, ChevronDown, MoreHorizontal, X, Filter } from "lucide-react";
+import { Star, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
@@ -86,40 +89,67 @@ function ProductRow({
 }
 
 const EventList = () => {
+  const [sortBy, setSortBy] = useState("");
+  const [collectionType, setCollectionType] = useState("");
+  const [priceRange, setPriceRange] = useState("");
+
   return (
     <div className="p-4 md:p-6 max-w-[1200px] mx-auto">
       <div className="flex flex-col space-y-4">
         <div className="flex justify-between items-center">
-          <h1 className="text-xl font-medium text-gray-700">Event List </h1>
+          <h1 className="text-xl font-medium text-gray-700">Event List</h1>
 
           <div className="flex items-center gap-3">
+            <Button variant="outline" size="sm" className="text-sm">
+              Delete
+            </Button>
+
             <div className="flex items-center border rounded-md px-3 py-1.5 gap-2 bg-white">
-              <button className="text-gray-500 text-sm flex items-center gap-1">
-                delete
-              </button>
-              <X className="h-4 w-4 text-gray-400" />
+              <label className="text-sm text-gray-700" htmlFor="sortBy">Sort by:</label>
+              <select
+                id="sortBy"
+                className="text-sm text-gray-700 bg-white outline-none"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+              >
+                <option value="">Select</option>
+                <option value="name">Name</option>
+                <option value="rating">Rating</option>
+              </select>
             </div>
 
             <div className="flex items-center border rounded-md px-3 py-1.5 gap-2 bg-white">
-              <span className="text-sm text-gray-700">Sort by:</span>
-              <ChevronDown className="h-4 w-4 text-gray-500" />
+              <label className="text-sm text-gray-700" htmlFor="collectionType">Collection:</label>
+              <select
+                id="collectionType"
+                className="text-sm text-gray-700 bg-white outline-none"
+                value={collectionType}
+                onChange={(e) => setCollectionType(e.target.value)}
+              >
+                <option value="">All</option>
+                <option value="Furniture">Furniture</option>
+                <option value="Plaques">Plaques</option>
+              </select>
             </div>
 
             <div className="flex items-center border rounded-md px-3 py-1.5 gap-2 bg-white">
-              <span className="text-sm text-gray-700">Collection Type</span>
-              <ChevronDown className="h-4 w-4 text-gray-500" />
-            </div>
-
-            <div className="flex items-center border rounded-md px-3 py-1.5 gap-2 bg-white">
-              <Filter className="h-4 w-4 text-gray-500" />
-              <span className="text-sm text-gray-700">Price Range</span>
-              <ChevronDown className="h-4 w-4 text-gray-500" />
+              <label className="text-sm text-gray-700" htmlFor="priceRange">Price:</label>
+              <select
+                id="priceRange"
+                className="text-sm text-gray-700 bg-white outline-none"
+                value={priceRange}
+                onChange={(e) => setPriceRange(e.target.value)}
+              >
+                <option value="">Any</option>
+                <option value="low">Low (0-100)</option>
+                <option value="medium">Medium (100-500)</option>
+                <option value="high">High (500+)</option>
+              </select>
             </div>
           </div>
         </div>
 
         <div className="bg-white rounded-lg border overflow-hidden">
-          {/* Header */}
           <div className="grid grid-cols-12 text-xs text-gray-500 py-2 px-4 border-b font-medium bg-gray-50">
             <div className="col-span-1">SELECT</div>
             <div className="col-span-5">PRODUCT DETAILS</div>
@@ -128,7 +158,6 @@ const EventList = () => {
             <div className="col-span-2">ACTIONS</div>
           </div>
 
-          {/* Product Rows */}
           {[
             {
               name: "Wood Chair Dark Brown",
@@ -175,8 +204,7 @@ const EventList = () => {
               key={idx}
               image="/placeholder.svg?height=60&width=60"
               name={product.name}
-              categories={product.categories}           
-            
+              categories={product.categories}
               rating={4.3}
               reviews={45}
             />
