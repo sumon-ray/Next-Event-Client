@@ -19,15 +19,15 @@ import {
   // ArrowRight,
   Star,
   Award,
-  Sparkles,
-  Ticket,
+  // Sparkles,
+  // Ticket,
   CalendarDays,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import logo from '../../../public/favicon.png'
 import { Input } from "@/components/ui/input"
 import NextButton from "./NextButton"
-import Title from "./Title"
+// import Title from "./Title"
 import Image from "next/image"
 
 export default function Footer() {
