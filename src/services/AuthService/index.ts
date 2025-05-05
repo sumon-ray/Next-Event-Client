@@ -26,10 +26,10 @@ export const registerUser = async (userData: FieldValues) => {
     );
 
     const userInfo = await res.json();
-
     return userInfo;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 

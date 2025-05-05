@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 
+import { IUser } from "@/app/types";
 import {
   Form,
   FormControl,
@@ -11,8 +12,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useUser } from "@/context/UserContext";
 import { registerUser } from "@/services/AuthService";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { jwtDecode } from "jwt-decode";
 import { LoaderIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -20,6 +23,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { formSchema } from "./registerValidation";
 const RegisterForm = () => {
+  const { setUser } = useUser();
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -46,17 +50,25 @@ const RegisterForm = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const res = await registerUser(data);
-      if (res?.success) {
-        toast.success("Registration successful");
-        router.push("/login");
+      // console.log("API Response:", res);
 
+      if (res?.success) {
+        const token = res.data.accessToken;
+        if (token) {
+          localStorage.setItem("accessToken", token);
+          const decoded = jwtDecode<IUser>(token);
+          setUser(decoded);
+        }
+
+        toast.success("Registration successful");
+        router.push("/");
         reset();
       } else {
         toast.error(res?.message || "Registration failed");
       }
     } catch (error) {
-      toast.error(error?.message || "Server error");
       console.error("Error:", error);
+      toast.error("Something went wrong!");
     }
   };
 
