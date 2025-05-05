@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 const buildQueryString = (query: Record<string, any>) => {
   const params = new URLSearchParams();
   Object.entries(query).forEach(([key, value]) => {
-    if (value !== undefined && value !== null) {
+    if (value !== undefined && value !== null && value !== 'all') {
       params.append(key, String(value));
     }
   });
@@ -14,7 +14,8 @@ const buildQueryString = (query: Record<string, any>) => {
 
 export const getAllPayment = async (query: Record<string, any> = {}) => {
   try {
-    const accessToken = (await cookies()).get("accessToken")!.value;
+    const cookieStore = await cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
 
     if (!accessToken) {
       throw new Error('Access token not found');
@@ -37,7 +38,6 @@ export const getAllPayment = async (query: Record<string, any> = {}) => {
     }
 
     const data = await res.json();
-    // console.log(data.data);
     return data;
   } catch (error) {
     console.error('getAllPayment error:', error);
