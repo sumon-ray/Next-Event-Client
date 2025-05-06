@@ -13,7 +13,7 @@ export interface IQuery{
   type?: string
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 export const getAllEvents = async ( queryObj : IQuery) => {
  
   try { 
