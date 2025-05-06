@@ -105,7 +105,7 @@ const LoginForm = () => {
         setLoginError(res?.message || "Invalid email or password");
         toast.error(res?.message || "Login failed");
       }
-    } catch (error) {
+    } catch (error:any) {
       console.error(error);
       setLoginError(error.message || "An unexpected error occurred");
       toast.error("Login failed. Please try again.");
@@ -119,17 +119,17 @@ const LoginForm = () => {
   };
 
   return (
-    <div className=" w-full max-h-full flex items-center justify-center p-4">
-      <div className="w-full max-w-7xl  border-0 overflow-hidden">
+    <div className="flex items-center justify-center w-full max-h-full p-4 ">
+      <div className="w-full overflow-hidden border-0 max-w-7xl">
         <div className="flex flex-col md:flex-row">
           {/* Left side - Welcome section */}
      
-          <div className="w-full md:w-1/2 hidden md:flex  p-8 md:p-12 text-white relative overflow-hidden">
+          <div className="relative hidden w-full p-8 overflow-hidden text-white md:w-1/2 md:flex md:p-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative z-10  h-full"
+              className="relative z-10 h-full"
             >
                         <Image 
             src="/images/login.jpg"
@@ -142,13 +142,13 @@ const LoginForm = () => {
             </motion.div>
 
             {/* Decorative elements */}
-            {/* <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-blue-500/30 rounded-full blur-xl"></div>
-            <div className="absolute top-1/4 -right-8 w-40 h-40 bg-indigo-500/20 rounded-full blur-xl"></div>
-            <div className="absolute bottom-1/3 left-1/4 w-32 h-32 bg-blue-400/20 rounded-full blur-lg"></div> */}
+            {/* <div className="absolute w-64 h-64 rounded-full -bottom-16 -left-16 bg-blue-500/30 blur-xl"></div>
+            <div className="absolute w-40 h-40 rounded-full top-1/4 -right-8 bg-indigo-500/20 blur-xl"></div>
+            <div className="absolute w-32 h-32 rounded-full bottom-1/3 left-1/4 bg-blue-400/20 blur-lg"></div> */}
           </div>
 
           {/* Right side - Login form */}
-          <div className="w-full md:w-1/2  md:p-12">
+          <div className="w-full md:w-1/2 md:p-12">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -156,7 +156,7 @@ const LoginForm = () => {
               className="max-w-md mx-auto"
             >
               <div className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                <h2 className="mb-2 text-2xl font-bold text-gray-900">
                   Sign in to your account
                 </h2>
                 <p className="text-gray-500">
@@ -165,23 +165,23 @@ const LoginForm = () => {
               </div>
 
               {/* Social login options */}
-              <div className="flex flex-col space-y-4 mb-6">
+              <div className="flex flex-col mb-6 space-y-4">
                 <div className="flex justify-center gap-3">
                   <Button
                     variant="outline"
                     size="icon"
-                    className="rounded-full w-10 h-10"
+                    className="w-10 h-10 rounded-full"
                     onClick={() => handleSocialLogin("Facebook")}
                   >
-                    <Facebook className="h-5 w-5 text-blue-600" />
+                    <Facebook className="w-5 h-5 text-blue-600" />
                   </Button>
                   <Button
                     variant="outline"
                     size="icon"
-                    className="rounded-full w-10 h-10"
+                    className="w-10 h-10 rounded-full"
                     onClick={() => handleSocialLogin("Google")}
                   >
-                    <svg className="h-5 w-5" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5" viewBox="0 0 24 24">
                       <path
                         fill="currentColor"
                         d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27c3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10c5.35 0 9.25-3.67 9.25-9.09c0-1.15-.15-1.81-.15-1.81Z"
@@ -191,10 +191,10 @@ const LoginForm = () => {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="rounded-full w-10 h-10"
+                    className="w-10 h-10 rounded-full"
                     onClick={() => handleSocialLogin("Github")}
                   >
-                    <Github className="h-5 w-5" />
+                    <Github className="w-5 h-5" />
                   </Button>
                 </div>
                 <div className="relative">
@@ -202,7 +202,7 @@ const LoginForm = () => {
                     <Separator />
                   </div>
                   <div className="relative flex justify-center">
-                    <span className="bg-white px-2 text-xs text-gray-500">
+                    <span className="px-2 text-xs text-gray-500 bg-white">
                       or continue with email
                     </span>
                   </div>
@@ -213,7 +213,7 @@ const LoginForm = () => {
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mb-6 p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-md"
+                  className="p-3 mb-6 text-sm text-red-600 border border-red-200 rounded-md bg-red-50"
                 >
                   {loginError}
                 </motion.div>
@@ -233,10 +233,10 @@ const LoginForm = () => {
                         <FormLabel>Email</FormLabel>
                         <FormControl>
                           <div className="relative">
-                            <AtSign className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                            <AtSign className="absolute w-4 h-4 text-gray-400 left-3 top-3" />
                             <Input
                               type="email"
-                              className="pl-10 h-12 bg-gray-50 border-gray-200 focus:bg-white"
+                              className="h-12 pl-10 border-gray-200 bg-gray-50 focus:bg-white"
                               placeholder="you@example.com"
                               {...field}
                             />
@@ -253,7 +253,7 @@ const LoginForm = () => {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <div className="flex justify-between items-center">
+                        <div className="flex items-center justify-between">
                           <FormLabel>Password</FormLabel>
                           <Link
                             href="/forgot-password"
@@ -264,10 +264,10 @@ const LoginForm = () => {
                         </div>
                         <FormControl>
                           <div className="relative">
-                            <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                            <Lock className="absolute w-4 h-4 text-gray-400 left-3 top-3" />
                             <Input
                               type={showPassword ? "text" : "password"}
-                              className="pl-10 pr-10 h-12 bg-gray-50 border-gray-200 focus:bg-white"
+                              className="h-12 pl-10 pr-10 border-gray-200 bg-gray-50 focus:bg-white"
                               placeholder="••••••••"
                               {...field}
                             />
@@ -276,12 +276,12 @@ const LoginForm = () => {
                               variant="ghost"
                               size="icon"
                               onClick={() => setShowPassword(!showPassword)}
-                              className="absolute right-2 top-2 h-8 w-8 text-gray-500"
+                              className="absolute w-8 h-8 text-gray-500 right-2 top-2"
                             >
                               {showPassword ? (
-                                <EyeOff className="h-4 w-4" />
+                                <EyeOff className="w-4 h-4" />
                               ) : (
-                                <Eye className="h-4 w-4" />
+                                <Eye className="w-4 h-4" />
                               )}
                             </Button>
                           </div>
@@ -314,7 +314,7 @@ const LoginForm = () => {
 
                   {/* Sign in button */}
                   <Button
-                    className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-medium"
+                    className="w-full h-12 font-medium text-white bg-blue-600 hover:bg-blue-700"
                     type="submit"
                     disabled={isSubmitting || isLoading}
                   >
@@ -324,7 +324,7 @@ const LoginForm = () => {
                         animate={{ opacity: 1 }}
                         className="flex items-center"
                       >
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                         Signing in...
                       </motion.div>
                     ) : (
@@ -333,7 +333,7 @@ const LoginForm = () => {
                         animate={{ opacity: 1 }}
                         className="flex items-center justify-center"
                       >
-                        <LogIn className="mr-2 h-4 w-4" />
+                        <LogIn className="w-4 h-4 mr-2" />
                         Sign in
                       </motion.div>
                     )}
@@ -347,7 +347,7 @@ const LoginForm = () => {
                   Don't have an account?{" "}
                   <Link
                     href="/register"
-                    className="text-blue-600 font-medium hover:underline"
+                    className="font-medium text-blue-600 hover:underline"
                   >
                     Create an account
                   </Link>

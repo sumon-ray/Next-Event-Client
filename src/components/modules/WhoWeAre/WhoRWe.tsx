@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Check } from "lucide-react";
 import Title from '@/components/shared/Title';
 import NextButton from '@/components/shared/NextButton';
+import Link from 'next/link';
 
 const WhoWeAreSection =()=> {
   return (
@@ -92,7 +93,9 @@ const WhoWeAreSection =()=> {
             </div>
           </div>
 
-   <NextButton name='Explore Our Events '></NextButton>
+<div className='mt-6'>
+<Link href='/events'>   <NextButton name='Explore Our Events '></NextButton></Link>
+</div>
           
         </div>
       </div>

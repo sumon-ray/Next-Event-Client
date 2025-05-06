@@ -10,133 +10,94 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Button } from "@/components/ui/button"
-import { Search } from "lucide-react"
-import { Event, EventCard, EventType } from "@/components/modules/Events/Card"
+import {  ClipboardList, Search } from "lucide-react"
+import { Event, EventCard } from "@/components/modules/Events/Card"
 import img from '../../../../public/images/img16.jpg'
 import Title from "@/components/shared/Title"
 import Link from "next/link"
 import NextButton from "@/components/shared/NextButton"
 import HeroSecton from "@/components/shared/HeroSecton"
-// Sample data for demonstration
-const dummyEvents: Event[] = [
-  {
-    id: "1",
-    slug: "tech-conference-2023",
-    title: "Tech Conference 2023",
-    description:
-      "Join us for the biggest tech conference of the year featuring industry leaders and innovative workshops.",
-    dateTime: new Date("2023-11-15T09:00:00"),
-    venue: "Tech Convention Center, New York",
-    bannerImage: "/placeholder.svg?height=200&width=400&text=Tech+Conference",
-   eventType: EventType.CONFERENCE,
-    isPaid: true,
-    fee: 299,
-    organizerId:'12',
-    type: "PUBLIC",
-  },
-  {
-    id: "2",
-    slug: "summer-music-festival",
-    title: "Summer Music Festival",
-    description: "A weekend of amazing music performances, food, and fun activities for the whole family.",
-    dateTime: new Date("2023-07-22T16:00:00"),
-    venue: "Central Park, New York",
-    bannerImage: "/placeholder.svg?height=200&width=400&text=Music+Festival",
-   eventType: EventType.CONCERT,
-    isPaid: true,
-    fee: 150,
-    organizerId:'12',
-    type: "PUBLIC",
-  },
-  {
-    id: "3",
-    slug: "startup-networking-event",
-    title: "Startup Networking Event",
-    description:
-      "Connect with fellow entrepreneurs, investors, and industry experts in this exclusive networking event.",
-    dateTime: new Date("2023-08-05T18:30:00"),
-    venue: "Innovation Hub, San Francisco",
-    bannerImage: "/placeholder.svg?height=200&width=400&text=Networking+Event",
-   eventType: EventType.NETWORKING,
-    isPaid: false,
-    organizerId:'12',
-    type: "PUBLIC",
-  },
-  {
-    id: "4",
-    slug: "digital-marketing-workshop",
-    title: "Digital Marketing Workshop",
-    description: "Learn the latest digital marketing strategies and tools to grow your business online.",
-    dateTime: new Date("2023-09-12T10:00:00"),
-    venue: "Business Center, Chicago",
-    bannerImage: "/placeholder.svg?height=200&width=400&text=Marketing+Workshop",
-   eventType: EventType.WORKSHOP,
-    isPaid: true,
-    fee: 75,
-    organizerId:'12',
-    type: "PRIVATE",
-  },
-  {
-    id: "5",
-    slug: "art-exhibition-modern",
-    title: "Modern Art Exhibition",
-    description: "Explore contemporary art pieces from emerging artists around the world.",
-    dateTime: new Date("2023-10-08T11:00:00"),
-    venue: "Metropolitan Gallery, Boston",
-    bannerImage: "/placeholder.svg?height=200&width=400&text=Art+Exhibition",
-   eventType: EventType.EXHIBITION,
-    isPaid: true,
-    fee: 25,
-    organizerId:'12',
-    type: "PRIVATE",
-  },
-  {
-    id: "6",
-    slug: "charity-gala-dinner",
-    title: "Annual Charity Gala Dinner",
-    description: "An elegant evening of dining and entertainment to raise funds for children's education.",
-    dateTime: new Date("2023-12-03T19:00:00"),
-    venue: "Grand Hotel, Miami",
-    bannerImage: "/placeholder.svg?height=200&width=400&text=Charity+Gala",
-   eventType: EventType.PARTY,
-    isPaid: true,
-    fee: 200,
-    organizerId:'12',
-    type: "PRIVATE",
-  },
-]
+import { getAllEvents } from "@/services/Events"
+import { toast } from "sonner"
+import Loader from "@/components/ui/Loader/Loader"
 
-export default function EventsPage() {
+
+
+
+
+export default   function EventsPage () {
   const [searchTerm, setSearchTerm] = useState("")
-  const [isFreeOnly, setIsFreeOnly] = useState(false)
+  const [isPaid, setisPaid] = useState<boolean>()
+  const [EventType, setEventType] = useState('')
   const [minFee, setMinFee] = useState(0)
-  const [maxFee, setMaxFee] = useState(300)
+  const [maxFee, setMaxFee] = useState(5000)
+const [events, setEvents] = useState<Event[]>([])
+const [filteredEvents, setFilteredEvents] = useState<Event[]>(events)
+const [loading, setLoading] = useState(true)
 
 
-  // Apply filters when any filter changes
+
+const handleApplyFilters=async()=>{
+  
+  setLoading(true)
+let queryObj:any ={}
+
+
+if(searchTerm){
+  queryObj.searchTerm=searchTerm
+}
+
+  queryObj.isPaid=!isPaid
+  queryObj.EventType=EventType
+
+if(minFee){
+  queryObj.minFee=minFee
+}
+if(maxFee){
+ queryObj.maxFee=maxFee 
+ 
+}
+
+
+ try {
+
+    const data = await getAllEvents(queryObj);
+    setEvents(data.data.data);
+    setFilteredEvents(data.data.data);
+    
+
+  } catch (err:any) {
+    toast.error(err?.message);
+  }finally{
+    setLoading(false)
+  }
+}
+
+
   useEffect(() => {
-    const filtered = dummyEvents.filter((event) => {
-      // Search term filter (title, description, venue)
-      const matchesSearch =
-        searchTerm === "" ||
-        event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        event.venue.toLowerCase().includes(searchTerm.toLowerCase())
+    const fetchEvents = async () => {
+      try {
 
-      // Paid filter
-      const matchesPaid = !isFreeOnly || event.isPaid
+        const data = await getAllEvents({});
+        setEvents(data.data.data); 
+        setFilteredEvents(data.data.data);
+        setLoading(false);
+     
+      } catch (err) {
+       console.log("🚀 ~ fetchEvents ~ err:", err)
+       
+      }
+       
+      finally{
+        setLoading(false)
+      }
+    };
+    fetchEvents();
 
-      // Fee range filter (only for paid events)
-      const matchesFee = !event.isPaid || (event.fee !== undefined && event.fee >= minFee && event.fee <= maxFee)
+ 
+  }, [])
 
-      return matchesSearch && matchesPaid && matchesFee
-    })
-
-    setFilteredEvents(filtered)
-  }, [searchTerm, isFreeOnly, minFee, maxFee])
-  // Filter states
-   const [filteredEvents, setFilteredEvents] = useState<Event[]>(dummyEvents)
+   
 
   return (
     <main className="">
@@ -161,17 +122,38 @@ export default function EventsPage() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-      <p className="text-xs text-gray-500 ">Search by title, description, or venue</p>
+      
     </div>
-
+    <div className="flex flex-col items-start gap-3 mb-4 transition rounded-lg bg-gray-50 ">
+      <Label htmlFor="isFree" className="flex items-center gap-2 text-lg text-gray-700">
+      🗓️   Show Events 
+        </Label>
+      <Select
+        value={ EventType }
+        onValueChange={(value) => setEventType(value)}
+      >
+        <SelectTrigger>
+          <SelectValue placeholder="Events" />
+        </SelectTrigger>
+        <SelectContent className="bg-gradient-to-r from-white to-blue-300 decoration-transparent ">
+          {["PRIVATE","PUBLIC"].map((price) => (
+            <SelectItem key={price} value={price.toString()}>
+             {price}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+        
+      </div>
    
     <div className="mb-4">
       <Label className="text-lg font-medium text-gray-700">💸 Pricing</Label>
+      
       <div className="flex items-center gap-3 p-3 mt-2 transition border border-gray-200 rounded-lg bg-gray-50 hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent ">
         <Checkbox
           id="isFree"
-          checked={isFreeOnly}
-          onCheckedChange={(checked) => setIsFreeOnly(!!checked)}
+          checked={isPaid}
+          onCheckedChange={(checked) => setisPaid(!!checked) }
         />
         <Label htmlFor="isFree" className="text-lg text-gray-700">
           Show only <span className="font-semibold text-green-600">Free</span> events
@@ -184,8 +166,8 @@ export default function EventsPage() {
       <Label className="block mt-2 text-lg font-medium text-gray-700">💰 Price Range</Label>
       <div className="space-y-3">
         <div className="flex justify-between mt-2 text-lg font-medium text-gray-600">
-          <span>Min: ৳{minFee}</span>
-          <span>Max: ৳{maxFee}</span>
+          <span>Min: ৳ {minFee}</span>
+          <span>Max: ৳ {maxFee}</span>
         </div>
         <div className="mb-6">
   <Label className="block mb-2 text-lg font-medium text-gray-700">Price Range</Label>
@@ -234,13 +216,22 @@ export default function EventsPage() {
     </div>
 
 
-    <div className="flex items-center justify-center mt-6"><NextButton
-      name=" ♻️ Reset Filters"
-      onClick={() => {
-        setSearchTerm("")
-        setIsFreeOnly(false)
-        setMinFee(0)
-        setMaxFee(300)
+    <div className="flex items-center justify-between mt-6 ">
+      <NextButton
+      name={loading ? "Loading..." : "Apply Filters"}
+      onClick={handleApplyFilters}
+      
+    >
+     
+    </NextButton>
+      <NextButton
+      name={loading ? "Loading..." : "♻️ Reset"}
+      onClick={async() => {
+        setLoading(true)
+       const data= await getAllEvents({});
+    setEvents(data.data.data);
+    setFilteredEvents(data.data.data)
+    setLoading(false)
       }}
       
     >
@@ -263,19 +254,22 @@ export default function EventsPage() {
               <Link href="/dashboard/events/create" ><NextButton name="Create Event" /></Link>
             </div>
 <div className="mt-16">
-  
-{filteredEvents.length > 0 ? (
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {filteredEvents.map((event,index) => (
-                  <EventCard key={index} event={event} />
-                ))}
-              </div>
-            ) : (
-              <div className="py-12 text-center rounded-lg bg-gray-50">
-                <h3 className="text-lg font-medium text-gray-900">No events found</h3>
-                <p className="mt-2 text-gray-500">Try adjusting your filters to find events.</p>
-              </div>
-            )}
+{loading ? (
+  <div className="flex items-center h-[60dvh] justify-center"><Loader></Loader></div>
+) : (
+  filteredEvents.length > 0 ? (
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {filteredEvents.map((event, index) => (
+        <EventCard key={index} event={event} />
+      ))}
+    </div>
+  ) : (
+    <div className="py-12 text-center rounded-lg bg-gray-50">
+      <h3 className="text-lg font-medium text-gray-900">No events found</h3>
+      <p className="mt-2 text-gray-500">Try adjusting your filters to find events.</p>
+    </div>
+  )
+)}
 </div>
           </div>
         </div>
