@@ -6,7 +6,17 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ReviewRowProps } from "@/app/types/reviewType";
 
-const ReviewRow = ({id, image, name, comment, rating, onDetailClick }: ReviewRowProps & { onDetailClick: (id: string) => void })=> {
+const ReviewRow = ({id,
+  image,
+  name,
+  comment,
+  rating,
+  onDetailClick,
+  onDelete,
+}: ReviewRowProps & {
+  onDetailClick: (id: string) => void;
+  onDelete: () => void;
+}) => {
   return (
     <div className="grid grid-cols-12 py-3 px-4 items-center border-b hover:bg-gray-50">
       <div className="col-span-1">
@@ -53,7 +63,7 @@ const ReviewRow = ({id, image, name, comment, rating, onDetailClick }: ReviewRow
           size="sm"
           variant="destructive"
           className="text-xs"
-          onClick={() => alert("Delete clicked")}
+          onClick={ onDelete}
         >
           Delete
         </Button>

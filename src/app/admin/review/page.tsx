@@ -1,18 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useEffect, useState } from "react";
-import { getAllReview, ReviewDetails } from "@/services/ReviewService";
+import { daleteReview, getAllReview, ReviewDetails } from "@/services/ReviewService";
 import ReviewRow from "@/components/modules/ReviewRow/ReviewRow";
 import { Review } from "@/app/types/reviewType";
 import ReviewDetailModal from "@/components/modules/ReviewRow/ReviewDetailModal";
+import { toast } from "sonner";
 
 const ReviewList = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [selectedRating, setSelectedRating] = useState("");
   const [searchUser, setSearchUser] = useState("");
   const [selectedReview, setSelectedReview] = useState<Review | null>(null);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
-  console.log("review......", reviews);
+  //console.log("review......", reviews);
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -48,6 +51,26 @@ const ReviewList = () => {
     }
   };
 
+  const handleSelect = (id: string) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((sid) => sid !== id) : [...prev, id]
+    );
+  };
+
+  const handleDelete = async (id: string) => {
+    if (selectedIds.length === 0) return;
+
+    const selectedReview = reviews.filter((u) => selectedIds.includes(u.id));
+    for (const user of selectedReview) {
+      try {
+        await daleteReview(user.id);
+        toast.success( "Review deleted");
+      } catch (error ) {
+        toast.error(`Failed to delete Review`);
+      }
+    }
+
+  }
   return (
     <div className="p-4 md:p-6 max-w-[1200px] mx-auto">
       <div className="flex flex-col space-y-4">
@@ -106,6 +129,9 @@ const ReviewList = () => {
                 rating={review.rating}
                 status={"Approved"}
                 onDetailClick={handleOpenDetail}
+                isSelected={selectedIds.includes(review.id)}
+                onSelect={handleSelect}
+                onDelete={() => handleDelete(review.id)} 
               />
             ))
           )}

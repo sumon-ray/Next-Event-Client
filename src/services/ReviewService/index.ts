@@ -10,7 +10,6 @@ export const createReview = async () => {
   return response.data;
 };
 
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getAllReview = async (filter?: { rating?: number; user?: string }) => {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;

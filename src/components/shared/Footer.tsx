@@ -1,10 +1,10 @@
 "use client"
-
+import { motion } from "motion/react"
 import type React from "react"
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import {
-  Calendar,
+  // Calendar,
   MapPin,
   Mail,
   Phone,
@@ -16,15 +16,19 @@ import {
   Linkedin,
   Youtube,
   Send,
-  ArrowRight,
+  // ArrowRight,
   Star,
   Award,
-  Sparkles,
-  Ticket,
+  // Sparkles,
+  // Ticket,
   CalendarDays,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import logo from '../../../public/favicon.png'
 import { Input } from "@/components/ui/input"
+import NextButton from "./NextButton"
+// import Title from "./Title"
+import Image from "next/image"
 
 export default function Footer() {
   const [email, setEmail] = useState("")
@@ -32,7 +36,7 @@ export default function Footer() {
 //   const [activeTab, setActiveTab] = useState("upcoming")
 
 useEffect(() => {
-  setCurrentTime(new Date()) // Set initial time on client
+  setCurrentTime(new Date()) 
 
   const timer = setInterval(() => {
     setCurrentTime(new Date())
@@ -41,7 +45,7 @@ useEffect(() => {
   return () => clearInterval(timer)
 }, [])
 
-if (!currentTime) return null // Or show a loading spinner
+if (!currentTime) return null 
 
 const handleSubscribe = (e: React.FormEvent) => {
   e.preventDefault()
@@ -67,7 +71,7 @@ const formatCountdownTime = () => {
 
 
   const countdown = formatCountdownTime()
-  // Event categories
+
   const categories = [
     { name: "Conferences", count: 120 },
     { name: "Workshops", count: 85 },
@@ -75,68 +79,86 @@ const formatCountdownTime = () => {
     { name: "Concerts", count: 93 },
     { name: "Exhibitions", count: 72 },
     { name: "Webinars", count: 108 },
+    { name: "Party", count: 128 },
+    { name: "Meeting", count: 28 },
   ]
   
   return (
-    <footer className="pt-2 md:pt-0 md:mt-24 bg-gradient-to-r from-[#1E3A8A] via-[#4c8aef] to-[#1E293B] relative  dark:text-white">
+    <footer className="pt-2 relative md:pt-0 md:mt-40 bg-[#1E293B]">
 
-      {/* Next big event countdown */}
-      <div className="relative z-10 mx-auto mt-10 px-4 max-w-6xl md:translate-y-24">
-        <div className="font-bold tracking-wide text-transparent  drop-shadow-sm bg-gradient-to-l from-[#1E3A8A] via-[#3B82F6] to-[#1E293B]  rounded-xl border border-slate-700 shadow-xl p-6 md:p-8">
-          <div className="flex flex-col md:flex-row items-center justify-between">
+<motion.div
+  initial={{ transform: "translateY(100px)", opacity: 0 }}
+  animate={{ transform: "translateY(0px)" , opacity: 1}}
+  viewport={{ once: true, amount: 0.2 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{
+    duration: 0.8,
+    delay:3,
+    ease: [0, 0.71, 0.2, 1.01],
+  }}
+>
+<div className="md:absolute z-10 max-w-6xl px-4 mx-auto  -top-28 lg:left-[5%] lg:right-[5%]  ">
+        <div className="p-6 tracking-wide bg-blue-300 shadow-xl drop-shadow-sm decoration-transparent rounded-xl md:p-8">
+          <div className="flex flex-col text-[#1E293B] items-center justify-between md:flex-row">
             <div className="mb-6 md:mb-0 md:mr-6">
-              <h3 className="text-xl md:text-2xl font-bold text-white flex items-center">
-                <Sparkles className="h-5 w-5 mr-2 text-yellow-400" />
-                Next Bignext Even            </h3>
-              <p className="text-blue-300 mt-2">Tech Innovation Summit 2023</p>
-              <div className="flex items-center mt-1 text-sm text-slate-300">
-                <CalendarDays className="h-4 w-4 mr-1" />
-                <span>December 15-16, 2023</span>
+              <h3 className="flex items-center text-2xl font-bold tracking-wide text-transparent  drop-shadow-sm bg-gradient-to-r from-[#1E3A8A] via-[#3B82F6] to-[#1E293B] bg-clip-text  md:text-3xl">
+               
+               Upcoming Big Next Event        </h3>
+              <p className="mt-4 text-lg">Tech Innovation Summit {new Date().getFullYear()}</p>
+              <div className="flex items-center my-2 text-sm ">
+                <CalendarDays className="w-4 h-4 mr-1" />
+                <span>December 15-16, {new Date().getFullYear()}</span>
               </div>
-              <div className="flex items-center mt-1 text-sm text-slate-300">
-                <MapPin className="h-4 w-4 mr-1" />
-                <span>New York Convention Center</span>
+              <div className="flex items-center my-2 text-sm ">
+                <MapPin className="w-4 h-4 mr-1" />
+                <span>Army Stadium, Banani, Dhaka</span>
               </div>
-              <Button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white flex items-center">
-                <Ticket className="h-4 w-4 mr-2" />
-                Get Tickets
-                <ArrowRight className="h-4 w-4 ml-2" />
-              </Button>
+             <div className="flex items-center justify-center mt-6 md:justify-start "> <NextButton name='Get Tickets'>
+               
+               </NextButton ></div>
             </div>
             <div className="grid grid-cols-4 gap-2 md:gap-4">
-              <div className="bg-slate-700/50 backdrop-blur-sm rounded-lg p-2 md:p-4 text-center">
-                <div className="text-2xl md:text-4xl font-bold text-white">{countdown.days}</div>
-                <div className="text-xs md:text-sm text-slate-300">Days</div>
+              <div className="flex flex-col items-center justify-center p-2 text-center rounded-lg bg-slate-700/50 backdrop-blur-sm md:p-6">
+                <div className="text-2xl font-bold md:text-4xl">{countdown.days}</div>
+                <div className="text-xs md:text-sm ">Days</div>
               </div>
-              <div className="bg-slate-700/50 backdrop-blur-sm rounded-lg p-2 md:p-4 text-center">
-                <div className="text-2xl md:text-4xl font-bold text-white">{countdown.hours}</div>
-                <div className="text-xs md:text-sm text-slate-300">Hours</div>
+              <div className="p-2 text-center rounded-lg bg-slate-700/50 backdrop-blur-sm md:p-6">
+                <div className="flex flex-col items-center justify-center text-2xl font-bold md:text-4xl">{countdown.hours}</div>
+                <div className="text-xs md:text-sm ">Hours</div>
               </div>
-              <div className="bg-slate-700/50 backdrop-blur-sm rounded-lg p-2 md:p-4 text-center">
-                <div className="text-2xl md:text-4xl font-bold text-white">{countdown.minutes}</div>
-                <div className="text-xs md:text-sm text-slate-300">Minutes</div>
+              <div className="p-2 text-center rounded-lg bg-slate-700/50 backdrop-blur-sm md:p-6">
+                <div className="flex flex-col items-center justify-center text-2xl font-bold md:text-4xl">{countdown.minutes}</div>
+                <div className="text-xs -pl-4 md:text-sm md:-pl-0">Mins</div>
               </div>
-              <div className="bg-slate-700/50 backdrop-blur-sm rounded-lg p-2 md:p-4 text-center">
-                <div className="text-2xl md:text-4xl font-bold text-white">{countdown.seconds}</div>
-                <div className="text-xs md:text-sm text-slate-300">Seconds</div>
+              <div className="p-2 text-center rounded-lg bg-slate-700/50 backdrop-blur-sm md:p-6">
+                <div className="flex flex-col items-center justify-center text-2xl font-bold md:text-4xl">{countdown.seconds}</div>
+                <div className="text-xs md:text-sm -pl-2 md:-pl-0">Secs</div>
               </div>
             </div>
           </div>
         </div>
       </div>
+</motion.div>
+      
 
-      <div className=" container mx-auto flex flex-col  justify-center items-center px-4 pt-14 pb-2  bt-4  ">
-        {/* Main footer content */}
-        <div className=" grid grid-cols-1 md:pt-20 md:grid-cols-2 lg:grid-cols-12 gap-10">
-          {/* Column 1: About & Contact */}
-          <div className="lg:col-span-4 space-y-6">
+      <div className="container flex flex-col items-center justify-center px-4 pt-6 pb-2 mx-auto md:pt-40 lg:pt-32 ">
+       
+        <div className="grid grid-cols-1 gap-10 md:pt-20 md:grid-cols-2 lg:grid-cols-12">
+          
+          <div className="space-y-6 lg:col-span-4">
             <div className="flex items-center space-x-2">
-              <div className="bg-blue-500 p-2 rounded-lg">
-                <Calendar className="h-6 w-6 text-white" />
-              </div>
-              <h2 className="text-2xl font-bold text-slate-300 ">nextEvent</h2>
+              <Image
+                src={logo}
+                alt="logo"
+                width={5000}
+                height={5000}
+                quality={100}
+                className="w-32 rounded-xl"
+              />
+             
+             
             </div>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="leading-relaxed md:w-3/4 text-slate-300">
               Your premier platform for creating, discovering, and participating in events. From public gatherings to
               exclusive private functions, we make event management seamless.
             </p>
@@ -144,32 +166,32 @@ const formatCountdownTime = () => {
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-blue-400 mt-0.5" />
                 <p className="text-sm text-slate-300">
-                  123 Event Plaza, Suite 400
+                 House-103, Road-17, Sector 4, 
                   <br />
-                  New York, NY 10001
+                  Uttara, Dhaka
                 </p>
               </div>
               <div className="flex items-center space-x-3">
-                <Phone className="h-5 w-5 text-blue-400" />
+                <Phone className="w-5 h-5 text-blue-400" />
                 <p className="text-sm text-slate-300">+1 (555) 123-4567</p>
               </div>
               <div className="flex items-center space-x-3">
-                <Mail className="h-5 w-5 text-blue-400" />
+                <Mail className="w-5 h-5 text-blue-400" />
                 <p className="text-sm text-slate-300">contact@eventhub.com</p>
               </div>
               <div className="flex items-center space-x-3">
-                <Clock className="h-5 w-5 text-blue-400" />
+                <Clock className="w-5 h-5 text-blue-400" />
                 <p className="text-sm text-slate-300">Mon-Fri: 9AM - 6PM</p>
               </div>
             </div>
           </div>
 
-          {/* Column 2: Quick Links */}
-          <div className="lg:col-span-2 space-y-6 " >
-            <h3 className="text-slate-300  text-xl font-semibold relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-blue-400">
+          
+          <div className="space-y-6 lg:col-span-2 " >
+            <h3 className="text-slate-300  text-2xl font-semibold relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-blue-400">
               Quick Links
             </h3>
-            <ul className="space-y-3 flex-grow">
+            <ul className="flex-grow space-y-3">
               {[
                 { name: "Home", href: "/" },
                 { name: "Browse Events", href: "/events" },
@@ -183,9 +205,9 @@ const formatCountdownTime = () => {
                 <li key={index}>
                   <Link
                     href={link.href}
-                    className=" text-slate-300 hover:text-blue-400 transition-colors duration-200 flex items-center group"
+                    className="flex items-center font-medium transition-colors duration-200 text-slate-300 hover:text-blue-400 group"
                   >
-                    <ChevronRight className="h-4 w-4 mr-2 text-blue-400 transform group-hover:translate-x-1 transition-transform duration-200" />
+                    <ChevronRight className="w-4 h-4 mr-2 text-blue-400 transition-transform duration-200 transform group-hover:translate-x-1" />
                     {link.name}
                   </Link>
                 </li>
@@ -193,23 +215,23 @@ const formatCountdownTime = () => {
             </ul>
           </div>
 
-          {/* Column 3: Event Categories (replacing Recent Events) */}
-          <div className="lg:col-span-3 space-y-6">
-            <h3 className="text-slate-300  text-xl font-semibold relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-blue-400">
+         
+          <div className="space-y-6 lg:col-span-3">
+            <h3 className="text-slate-300  text-2xl font-semibold relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-blue-400">
               Event Categories
             </h3>
             <div className="grid grid-cols-2 gap-3">
               {categories.map((category, index) => (
                 <div
-                //   href={`/events/category/${category.name.toLowerCase()}`}
+               
                   key={index}
-                  className="bg-slate-200 hover:bg-slate-200 backdrop-blur-sm rounded-lg p-3 transition-all duration-200 group"
+                  className="p-3 transition-all duration-200 rounded-lg bg-gradient-to-r from-white to-blue-300 decoration-transparent backdrop-blur-sm group"
                 >
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm font-medium group-hover:text-blue-600 transition-colors duration-200">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium transition-colors duration-200 group-hover:text-blue-600">
                       {category.name}
                     </span>
-                    <span className="bg-blue-500/20  text-xs px-2 py-1 rounded-full">
+                    <span className="px-2 py-1 text-xs rounded-full bg-blue-500/20">
                       {category.count}
                     </span>
                   </div>
@@ -217,22 +239,22 @@ const formatCountdownTime = () => {
               ))}
             </div>
 
-            {/* Awards section */}
+       
             <div className="mt-8">
-              <h3 className="text-xl text-slate-300  font-semibold flex items-center mb-4">
-                <Award className="h-5 w-5 mr-2 text-yellow-400 " />
+              <h3 className="flex items-center mb-4 text-2xl font-semibold text-slate-300">
+                <Award className="w-5 h-5 mr-2 text-yellow-400 " />
                 Our Awards
               </h3>
               <div className="flex gap-3">
-                <div className="bg-slate-200  backdrop-blur-sm rounded-lg p-3 flex items-center space-x-2">
-                  <div className="bg-yellow-500 p-1 rounded-full">
-                    <Star className="h-4 w-4 text-white" />
+                <div className="flex items-center p-3 space-x-2 rounded-lg bg-slate-200 backdrop-blur-sm">
+                  <div className="p-1 bg-yellow-500 rounded-full">
+                    <Star className="w-4 h-4 text-white" />
                   </div>
                   <span className="text-sm">Best Event Platform 2023</span>
                 </div>
-                <div className="bg-slate-200 backdrop-blur-sm rounded-lg p-3 flex items-center space-x-2">
-                  <div className="bg-blue-500 p-1 rounded-full">
-                    <Award className="h-4 w-4 text-white" />
+                <div className="flex items-center p-3 space-x-2 rounded-lg bg-slate-200 backdrop-blur-sm">
+                  <div className="p-1 bg-blue-500 rounded-full">
+                    <Award className="w-4 h-4 text-white" />
                   </div>
                   <span className="text-sm">Top Tech Startup 2022</span>
                 </div>
@@ -240,19 +262,19 @@ const formatCountdownTime = () => {
             </div>
           </div>
 
-          {/* Column 4: Newsletter */}
-          <div className="lg:col-span-3 space-y-6">
-            <h3 className="text-slate-300  text-xl font-semibold relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-blue-400">
+        
+          <div className="space-y-6 lg:col-span-3">
+            <h3 className="text-slate-300  text-2xl font-semibold relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-blue-400">
               Newsletter
             </h3>
             <p className="text-sm text-slate-300">
               Subscribe to our newsletter to receive updates on new events, special offers, and exclusive content.
             </p>
-            <form onSubmit={handleSubscribe} className="mt-4 relative">
+            <form onSubmit={handleSubscribe} className="relative mt-4">
               <Input
                 type="email"
                 placeholder="Your email address"
-                className="bg-slate-200 border-slate-700 text-white pr-12 focus:ring-blue-400 focus:border-blue-400"
+                className="pr-12 text-white bg-slate-200 border-slate-700 focus:ring-blue-400 focus:border-blue-400"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -260,16 +282,16 @@ const formatCountdownTime = () => {
               <Button
                 type="submit"
                 size="icon"
-                className="absolute right-1 top-1 bg-blue-500 hover:bg-blue-600 text-white rounded-md h-8 w-8"
+                className="absolute top-0 right-0 text-white bg-blue-500 rounded-md w-[35px] h-[35px] hover:bg-blue-600"
               >
-                <Send className="h-4 w-4" />
+                <Send className="w-5 h-5" />
                 <span className="sr-only">Subscribe</span>
               </Button>
             </form>
 
             <div className="pt-4">
-              <h4 className="text-base font-medium mb-3 text-slate-300 ">Follow Us</h4>
-              <div className="flex space-x-3">
+              <h4 className="mb-3 text-2xl font-semibold text-slate-300">Follow Us</h4>
+              <div className="flex flex-wrap justify-center gap-4 mt-6 md:justify-start lg:gap-3">
                 {[
                   { icon: Facebook, href: "#", label: "Facebook" },
                   { icon: Twitter, href: "#", label: "Twitter" },
@@ -282,10 +304,11 @@ const formatCountdownTime = () => {
                     <Link
                       key={index}
                       href={social.href}
-                      className="bg-slate-800 hover:bg-blue-500 text-white p-2 rounded-full transition-colors duration-200"
+                      className="p-4 text-white transition-colors duration-200 bg-[#1E3A8A]
+                      hover:bg-[#3B82F6] rounded-full"
                       aria-label={social.label}
                     >
-                      <Icon className="h-4 w-4" />
+                      <Icon className="w-4 h-4" />
                     </Link>
                   )
                 })}
@@ -294,23 +317,22 @@ const formatCountdownTime = () => {
           </div>
         </div>
 
-
-        {/* Bottom section with copyright and links */}
-        <div className="mt-16 pt-3 border-t border-slate-700 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-slate-400 mb-4 md:mb-0">
-            &copy; {new Date().getFullYear()} nextEvent. All rights reserved.
+     
+        <div className="flex flex-col items-center justify-between pt-3 mt-16 border-t border-slate-700 md:flex-row">
+          <p className="mb-4 text-sm text-slate-400 md:mb-0">
+            &copy; {new Date().getFullYear()} Next Event. All rights reserved.
           </p>
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-slate-400">
-            <Link href="/terms" className="hover:text-white transition-colors duration-200">
+          <div className="flex flex-wrap justify-center pl-4 text-sm gap-x-6 gap-y-2 text-slate-400">
+            <Link href="/terms" className="transition-colors duration-200 hover:text-white">
               Terms of Service
             </Link>
-            <Link href="/privacy" className="hover:text-white transition-colors duration-200">
+            <Link href="/privacy" className="transition-colors duration-200 hover:text-white">
               Privacy Policy
             </Link>
-            <Link href="/cookies" className="hover:text-white transition-colors duration-200">
+            <Link href="/cookies" className="transition-colors duration-200 hover:text-white">
               Cookie Policy
             </Link>
-            <Link href="/accessibility" className="hover:text-white transition-colors duration-200">
+            <Link href="/accessibility" className="transition-colors duration-200 hover:text-white">
               Accessibility
             </Link>
           </div>

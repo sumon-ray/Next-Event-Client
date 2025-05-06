@@ -1,6 +1,6 @@
 "use client";
-import { getCurrentUser } from "@/services/AuthService";
-import { IUser } from "@/types";
+// import { IUser } from "@/app/types";
+import { jwtDecode } from "jwt-decode";
 import {
   createContext,
   Dispatch,
@@ -10,6 +10,13 @@ import {
   useState,
 } from "react";
 
+interface IUser {
+  id: string;
+  name: string;
+  email: string;
+  image: string;
+  profileImage:string
+}
 interface IUserProviderValues {
   user: IUser | null;
   isLoading: boolean;
@@ -17,26 +24,31 @@ interface IUserProviderValues {
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 const UserContext = createContext<IUserProviderValues | undefined>(undefined);
-
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<IUser | null>(null);
-  // console.log(user)
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleUser = async () => {
-    const user = await getCurrentUser();
-
-    if (user) {
-      setUser(user as IUser);
-    } else {
-      setUser(null);
-    }
-    setIsLoading(false);
-  };
-
   useEffect(() => {
+    const handleUser = async () => {
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+        if (accessToken) {
+          const decodedData = jwtDecode<IUser>(accessToken);
+          setUser(decodedData);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Error decoding token:", error);
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     handleUser();
-  }, [isLoading]);
+  }, []);
+
   return (
     <UserContext.Provider value={{ user, setUser, isLoading, setIsLoading }}>
       {children}
@@ -51,6 +63,11 @@ export const useUser = () => {
     throw new Error("useUser must be used within the userProvider ");
   }
   return context;
+};
+
+// LogOut
+export const logOut = () => {
+  localStorage.removeItem("accessToken");
 };
 
 export default UserProvider;

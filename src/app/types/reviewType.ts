@@ -19,4 +19,6 @@ export interface ReviewRowProps {
   rating: number;
   status: "Approved" | "Pending"; 
   onDetailClick: (id: string) => void;
+  isSelected: boolean;
+  onSelect: (id: string) => void;
 }
