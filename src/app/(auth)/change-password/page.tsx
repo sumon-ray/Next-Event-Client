@@ -1,18 +1,31 @@
-"use client"
+"use client";
 
-import { getAccessToken } from "@/app/utils/auth"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { changePassword } from "@/services/AuthService"
-import Image from "next/image"
-import { useState, useEffect } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-import { motion, AnimatePresence } from "framer-motion"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Eye, EyeOff, Lock, CheckCircle, AlertCircle, ShieldCheck } from "lucide-react"
-import { toast } from "sonner"
+import { getAccessToken } from "@/app/utils/auth";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { changePassword } from "@/services/AuthService";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  AlertCircle,
+  CheckCircle,
+  Eye,
+  EyeOff,
+  Lock,
+  ShieldCheck,
+} from "lucide-react";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
 
 // Password validation schema
 const passwordSchema = z
@@ -29,17 +42,17 @@ const passwordSchema = z
   .refine((data) => data.newPassword === data.confirmPassword, {
     message: "Passwords do not match",
     path: ["confirmPassword"],
-  })
+  });
 
-type FormData = z.infer<typeof passwordSchema>
+type FormData = z.infer<typeof passwordSchema>;
 
 export default function ChangePasswordForm() {
-  const [showOldPassword, setShowOldPassword] = useState(false)
-  const [showNewPassword, setShowNewPassword] = useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-  const [passwordStrength, setPasswordStrength] = useState(0)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [success, setSuccess] = useState(false)
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const form = useForm<FormData>({
     resolver: zodResolver(passwordSchema),
@@ -48,78 +61,80 @@ export default function ChangePasswordForm() {
       newPassword: "",
       confirmPassword: "",
     },
-  })
+  });
 
-  const watchNewPassword = form.watch("newPassword")
+  const watchNewPassword = form.watch("newPassword");
 
   // Calculate password strength
   useEffect(() => {
     if (!watchNewPassword) {
-      setPasswordStrength(0)
-      return
+      setPasswordStrength(0);
+      return;
     }
 
-    let strength = 0
+    let strength = 0;
 
     // Length check
-    if (watchNewPassword.length >= 8) strength += 25
+    if (watchNewPassword.length >= 8) strength += 25;
 
     // Uppercase check
-    if (/[A-Z]/.test(watchNewPassword)) strength += 25
+    if (/[A-Z]/.test(watchNewPassword)) strength += 25;
 
     // Lowercase check
-    if (/[a-z]/.test(watchNewPassword)) strength += 25
+    if (/[a-z]/.test(watchNewPassword)) strength += 25;
 
     // Number check
-    if (/[0-9]/.test(watchNewPassword)) strength += 25
+    if (/[0-9]/.test(watchNewPassword)) strength += 25;
 
-    setPasswordStrength(strength)
-  }, [watchNewPassword])
+    setPasswordStrength(strength);
+  }, [watchNewPassword]);
 
   const getPasswordStrengthText = () => {
-    if (passwordStrength <= 25) return "Weak"
-    if (passwordStrength <= 50) return "Fair"
-    if (passwordStrength <= 75) return "Good"
-    return "Strong"
-  }
+    if (passwordStrength <= 25) return "Weak";
+    if (passwordStrength <= 50) return "Fair";
+    if (passwordStrength <= 75) return "Good";
+    return "Strong";
+  };
 
   const getPasswordStrengthColor = () => {
-    if (passwordStrength <= 25) return "bg-red-500"
-    if (passwordStrength <= 50) return "bg-orange-500"
-    if (passwordStrength <= 75) return "bg-yellow-500"
-    return "bg-green-500"
-  }
+    if (passwordStrength <= 25) return "bg-red-500";
+    if (passwordStrength <= 50) return "bg-orange-500";
+    if (passwordStrength <= 75) return "bg-yellow-500";
+    return "bg-green-500";
+  };
 
   const onSubmit = async (data: FormData) => {
     try {
-      setIsSubmitting(true)
-      const token = getAccessToken()
+      setIsSubmitting(true);
+      const token = getAccessToken();
 
       if (!token) {
-        toast.error("You are not authenticated. Please log in again.")
-        return
+        toast.error("You are not authenticated. Please log in again.");
+        return;
       }
 
       // Extract the data we need to send to the API
-      const { oldPassword, newPassword } = data
+      const { oldPassword, newPassword } = data;
 
-      await changePassword({ oldPassword, newPassword }, token)
+      await changePassword({ oldPassword, newPassword }, token);
 
       // Show success state
-      setSuccess(true)
-      toast.success("Password changed successfully!")
+      setSuccess(true);
+      toast.success("Password changed successfully!");
 
       // Reset form after a delay
       setTimeout(() => {
-        form.reset()
-        setSuccess(false)
-      }, 3000)
+        form.reset();
+        setSuccess(false);
+      }, 3000);
     } catch (err) {
-      toast.error(err.message || "Failed to change password. Please try again.")
+      toast.error(
+        err.message || "Failed to change password. Please try again."
+      );
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
@@ -138,11 +153,13 @@ export default function ChangePasswordForm() {
             </div>
           </div>
 
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-4">Secure Your Account</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-4">
+            Secure Your Account
+          </h2>
 
           <p className="text-gray-600 text-center mb-8">
-            Regularly updating your password helps protect your account and personal information from unauthorized
-            access.
+            Regularly updating your password helps protect your account and
+            personal information from unauthorized access.
           </p>
 
           <div className="bg-white rounded-xl shadow-lg p-6 space-y-4">
@@ -156,7 +173,9 @@ export default function ChangePasswordForm() {
                 <div className="h-5 w-5 flex-shrink-0 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 mr-2">
                   <span className="text-xs">1</span>
                 </div>
-                <span>Use a unique password for each of your important accounts</span>
+                <span>
+                  Use a unique password for each of your important accounts
+                </span>
               </li>
               <li className="flex items-start">
                 <div className="h-5 w-5 flex-shrink-0 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 mr-2">
@@ -200,19 +219,28 @@ export default function ChangePasswordForm() {
             >
               <div className="bg-white p-8 md:p-10 rounded-2xl shadow-xl">
                 <div className="mb-8">
-                  <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Change Password</h1>
-                  <p className="text-gray-500">Update your password to keep your account secure</p>
+                  <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                    Change Password
+                  </h1>
+                  <p className="text-gray-500">
+                    Update your password to keep your account secure
+                  </p>
                 </div>
 
                 <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-6"
+                  >
                     {/* Current Password */}
                     <FormField
                       control={form.control}
                       name="oldPassword"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-gray-700">Current Password</FormLabel>
+                          <FormLabel className="text-gray-700">
+                            Current Password
+                          </FormLabel>
                           <FormControl>
                             <div className="relative">
                               <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -226,10 +254,16 @@ export default function ChangePasswordForm() {
                                 type="button"
                                 variant="ghost"
                                 size="icon"
-                                onClick={() => setShowOldPassword(!showOldPassword)}
+                                onClick={() =>
+                                  setShowOldPassword(!showOldPassword)
+                                }
                                 className="absolute right-2 top-2 h-8 w-8 text-gray-500"
                               >
-                                {showOldPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                {showOldPassword ? (
+                                  <EyeOff className="h-4 w-4" />
+                                ) : (
+                                  <Eye className="h-4 w-4" />
+                                )}
                               </Button>
                             </div>
                           </FormControl>
@@ -244,7 +278,9 @@ export default function ChangePasswordForm() {
                       name="newPassword"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-gray-700">New Password</FormLabel>
+                          <FormLabel className="text-gray-700">
+                            New Password
+                          </FormLabel>
                           <FormControl>
                             <div className="relative">
                               <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -258,10 +294,16 @@ export default function ChangePasswordForm() {
                                 type="button"
                                 variant="ghost"
                                 size="icon"
-                                onClick={() => setShowNewPassword(!showNewPassword)}
+                                onClick={() =>
+                                  setShowNewPassword(!showNewPassword)
+                                }
                                 className="absolute right-2 top-2 h-8 w-8 text-gray-500"
                               >
-                                {showNewPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                {showNewPassword ? (
+                                  <EyeOff className="h-4 w-4" />
+                                ) : (
+                                  <Eye className="h-4 w-4" />
+                                )}
                               </Button>
                             </div>
                           </FormControl>
@@ -269,16 +311,18 @@ export default function ChangePasswordForm() {
                           {watchNewPassword && (
                             <div className="mt-2 space-y-1">
                               <div className="flex items-center justify-between text-xs">
-                                <span className="text-gray-500">Password strength:</span>
+                                <span className="text-gray-500">
+                                  Password strength:
+                                </span>
                                 <span
                                   className={`font-medium ${
                                     passwordStrength <= 25
                                       ? "text-red-500"
                                       : passwordStrength <= 50
-                                        ? "text-orange-500"
-                                        : passwordStrength <= 75
-                                          ? "text-yellow-600"
-                                          : "text-green-600"
+                                      ? "text-orange-500"
+                                      : passwordStrength <= 75
+                                      ? "text-yellow-600"
+                                      : "text-green-600"
                                   }`}
                                 >
                                   {getPasswordStrengthText()}
@@ -304,7 +348,9 @@ export default function ChangePasswordForm() {
                       name="confirmPassword"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-gray-700">Confirm New Password</FormLabel>
+                          <FormLabel className="text-gray-700">
+                            Confirm New Password
+                          </FormLabel>
                           <FormControl>
                             <div className="relative">
                               <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -318,10 +364,16 @@ export default function ChangePasswordForm() {
                                 type="button"
                                 variant="ghost"
                                 size="icon"
-                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                onClick={() =>
+                                  setShowConfirmPassword(!showConfirmPassword)
+                                }
                                 className="absolute right-2 top-2 h-8 w-8 text-gray-500"
                               >
-                                {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                {showConfirmPassword ? (
+                                  <EyeOff className="h-4 w-4" />
+                                ) : (
+                                  <Eye className="h-4 w-4" />
+                                )}
                               </Button>
                             </div>
                           </FormControl>
@@ -338,25 +390,41 @@ export default function ChangePasswordForm() {
                       </h4>
                       <ul className="space-y-1 text-xs text-blue-700">
                         <li
-                          className={`flex items-center ${/^.{8,}$/.test(watchNewPassword || "") ? "text-green-600" : ""}`}
+                          className={`flex items-center ${
+                            /^.{8,}$/.test(watchNewPassword || "")
+                              ? "text-green-600"
+                              : ""
+                          }`}
                         >
                           <div className="h-1 w-1 bg-current rounded-full mr-2"></div>
                           At least 8 characters
                         </li>
                         <li
-                          className={`flex items-center ${/[A-Z]/.test(watchNewPassword || "") ? "text-green-600" : ""}`}
+                          className={`flex items-center ${
+                            /[A-Z]/.test(watchNewPassword || "")
+                              ? "text-green-600"
+                              : ""
+                          }`}
                         >
                           <div className="h-1 w-1 bg-current rounded-full mr-2"></div>
                           At least one uppercase letter
                         </li>
                         <li
-                          className={`flex items-center ${/[a-z]/.test(watchNewPassword || "") ? "text-green-600" : ""}`}
+                          className={`flex items-center ${
+                            /[a-z]/.test(watchNewPassword || "")
+                              ? "text-green-600"
+                              : ""
+                          }`}
                         >
                           <div className="h-1 w-1 bg-current rounded-full mr-2"></div>
                           At least one lowercase letter
                         </li>
                         <li
-                          className={`flex items-center ${/[0-9]/.test(watchNewPassword || "") ? "text-green-600" : ""}`}
+                          className={`flex items-center ${
+                            /[0-9]/.test(watchNewPassword || "")
+                              ? "text-green-600"
+                              : ""
+                          }`}
                         >
                           <div className="h-1 w-1 bg-current rounded-full mr-2"></div>
                           At least one number
@@ -396,9 +464,12 @@ export default function ChangePasswordForm() {
                   <CheckCircle className="h-12 w-12 text-green-600" />
                 </div>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Password Updated!</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Password Updated!
+              </h2>
               <p className="text-gray-500 mb-8">
-                Your password has been changed successfully. Your account is now secure.
+                Your password has been changed successfully. Your account is now
+                secure.
               </p>
               <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
                 <motion.div
@@ -413,5 +484,5 @@ export default function ChangePasswordForm() {
         </AnimatePresence>
       </div>
     </div>
-  )
+  );
 }
