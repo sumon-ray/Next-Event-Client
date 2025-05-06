@@ -47,7 +47,7 @@ const RegisterForm = () => {
       } else {
         toast.error(res?.message || "Registration failed");
       }
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error?.message || "Server error");
       console.error("Error:", error);
     }

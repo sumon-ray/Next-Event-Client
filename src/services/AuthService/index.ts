@@ -26,6 +26,7 @@ export const registerUser = async (userData: FieldValues) => {
     );
 
     const userInfo = await res.json();
+    console.log(userInfo);
 
     return userInfo;
   } catch (error) {
