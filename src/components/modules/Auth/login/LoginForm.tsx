@@ -72,7 +72,6 @@ const LoginForm = () => {
     }
   }, [watchEmail, watchPassword, loginError]);
 
-  
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     setLoginError("");
@@ -119,7 +118,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className=" w-full max-h-full flex items-center justify-center p-4">
+    <div className=" w-full max-h-full flex items-center justify-center p-4 ">
       <div className="w-full max-w-7xl  border-0 overflow-hidden">
         <div className="flex flex-col md:flex-row">
           {/* Left side - Welcome section */}
