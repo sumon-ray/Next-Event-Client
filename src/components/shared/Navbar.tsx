@@ -64,30 +64,17 @@ export default function Navbar() {
 
         <nav className="flex items-center gap-2">
           {user ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Avatar className="cursor-pointer">
-                  <AvatarImage src={user?.profileImage} alt="Profile" />
-                  <AvatarFallback>
-                    {user?.name?.[0]?.toUpperCase() || "U"}
-                  </AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Dashboard</DropdownMenuItem>
-                  <DropdownMenuItem>My Shop</DropdownMenuItem>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleLogOut}>
-                  <LogOut className="mr-2" />
-                  Log out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Link href="/profile/personal-info">
+            <Avatar
+              // onClick={handleAvatarClick}
+              className="cursor-pointer hover:ring-2 hover:ring-white transition"
+            >
+              <AvatarImage src={user?.profileImage} alt="Profile" />
+              <AvatarFallback>
+                {user?.name?.[0]?.toUpperCase() || "U"}
+              </AvatarFallback>
+            </Avatar>
+            </Link>
           ) : (
             <Link href="/login">
               <NextButton name="Login" />
@@ -127,3 +114,4 @@ export default function Navbar() {
     </header>
   );
 }
+
