@@ -1,4 +1,4 @@
-export * from "./user"
+export * from "./TokenUser.type"
 export * from "./forgetPassword"
 export * from "./resetPassword"
 

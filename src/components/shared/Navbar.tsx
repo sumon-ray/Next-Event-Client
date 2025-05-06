@@ -1,23 +1,13 @@
 "use client";
 
-import { LogOut, Menu, X } from "lucide-react";
+import {Menu,  X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { toast } from "sonner";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
-import { logOut, useUser } from "@/context/UserContext";
+import { useUser } from "@/context/UserContext";
 import img from "../../../public/favicon.png";
 import "../../styles/styles.css";
 import NextButton from "./NextButton";
@@ -32,12 +22,6 @@ export default function Navbar() {
   const { user,} = useUser();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleLogOut = () => {
-    logOut();
-    setUser(null);
-    toast.success("Log out successfully");
-    router.push("/login");
-  };
 
   return (
     <header className="fixed top-0 left-0 z-50 w-full shadow-sm backdrop-blur-sm bg-black/20">

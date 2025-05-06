@@ -1,5 +1,6 @@
 "use server";
 import { ResetPasswordPayload } from "@/app/types";
+import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
@@ -55,6 +56,30 @@ export const loginUser = async (userData: FieldValues) => {
     console.error(error);
   }
 };
+
+
+export const getCurrentUser = async () => {
+  const token = (await cookies()).get("accessToken")?.value;
+  let decodedData = null;
+
+  if (token) {
+    decodedData = await jwtDecode(token);
+    return decodedData;
+  } else {
+    return null;
+  }
+};
+
+
+export const getToken = async () => {
+  return (await cookies()).get("accessToken")?.value;
+}
+
+
+export const logout = async () => {
+return (await cookies()).delete("accessToken");
+};
+
 
 // change password
 export const changePassword = async (

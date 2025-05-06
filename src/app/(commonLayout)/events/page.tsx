@@ -40,7 +40,7 @@ const [loading, setLoading] = useState(true)
 const handleApplyFilters=async()=>{
   
   setLoading(true)
-let queryObj:any ={}
+const queryObj:any ={}
 
 
 if(searchTerm){
