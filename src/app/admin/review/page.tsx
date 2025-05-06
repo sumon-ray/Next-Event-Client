@@ -14,12 +14,12 @@ interface ReviewRowProps {
 
 function ReviewRow({ avatar, name, comment, rating, status }: ReviewRowProps) {
   return (
-    <div className="grid grid-cols-12 py-3 px-4 items-center border-b hover:bg-gray-50">
+    <div className="grid items-center grid-cols-12 px-4 py-3 border-b hover:bg-gray-50">
       <div className="col-span-1">
         <Checkbox />
       </div>
-      <div className="col-span-5 flex gap-3 items-center">
-        <div className="w-12 h-12 relative">
+      <div className="flex items-center col-span-5 gap-3">
+        <div className="relative w-12 h-12">
           <Image
             src={avatar || "/placeholder.svg"}
             alt={name}
@@ -57,7 +57,7 @@ function ReviewRow({ avatar, name, comment, rating, status }: ReviewRowProps) {
           {status}
         </Badge>
       </div>
-      <div className="col-span-2 flex items-center justify-between">
+      <div className="flex items-center justify-between col-span-2">
         <Button
           variant="ghost"
           size="sm"
@@ -66,7 +66,7 @@ function ReviewRow({ avatar, name, comment, rating, status }: ReviewRowProps) {
           View
         </Button>
         <Button variant="ghost" size="sm" className="text-gray-500">
-          <MoreHorizontal className="h-4 w-4" />
+          <MoreHorizontal className="w-4 h-4" />
         </Button>
       </div>
     </div>
@@ -77,23 +77,23 @@ const ReviewList = () => {
   return (
     <div className="p-4 md:p-6 max-w-[1200px] mx-auto">
       <div className="flex flex-col space-y-4">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <h1 className="text-xl font-medium text-gray-700">Review List</h1>
 
           <div className="flex items-center gap-3">
             <div className="flex items-center border rounded-md px-3 py-1.5 gap-2 bg-red-600 text-white">
-              <button className="text-white  text-sm flex items-center gap-1">
+              <button className="flex items-center gap-1 text-sm text-white">
                 Delete
               </button>
-              <X className="h-4 w-4 text-white" />
+              <X className="w-4 h-4 text-white" />
             </div>                     
            
           </div>
         </div>
 
-        <div className="bg-white rounded-lg border overflow-hidden">
-          {/* Header */}
-          <div className="grid grid-cols-12 text-xs text-gray-500 py-2 px-4 border-b font-medium bg-gray-50">
+        <div className="overflow-hidden bg-white border rounded-lg">
+         
+          <div className="grid grid-cols-12 px-4 py-2 text-xs font-medium text-gray-500 border-b bg-gray-50">
             <div className="col-span-1">SELECT</div>
             <div className="col-span-5">REVIEW DETAILS</div>
             <div className="col-span-2">RATING</div>
@@ -101,7 +101,6 @@ const ReviewList = () => {
             <div className="col-span-2">ACTIONS</div>
           </div>
 
-          {/* Review Rows */}
           {[
             {
               name: "Sharmin S.",
