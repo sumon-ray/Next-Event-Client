@@ -3,6 +3,8 @@ import { ResetPasswordPayload } from "@/app/types";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
+
+import {jwtDecode} from "jwt-decode";
 export const registerUser = async (userData: FieldValues) => {
   try {
     const formData = new FormData();
