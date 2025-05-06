@@ -1,5 +1,8 @@
+export * from "./user"
+export * from "./forgetPassword"
+export * from "./resetPassword"
 
-export * from './user.type'
+
 export * from './reviewType'
 export * from './event.type'
 export * from './payment.type'

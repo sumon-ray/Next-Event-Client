@@ -1,6 +1,7 @@
 "use client";
-import { TTokenUser } from "@/app/types";
-import { getCurrentUser } from "@/services/AuthService";
+import { IUser } from "@/app/types";
+// import { IUser } from "@/app/types";
+import { jwtDecode } from "jwt-decode";
 import {
   createContext,
   Dispatch,
@@ -18,32 +19,37 @@ import {
 //   profileImage:string
 // }
 interface IUserProviderValues {
-  user: TTokenUser | null;
+  user: any | null;
   isLoading: boolean;
-  setUser: (user: TTokenUser | null) => void;
+  setUser: (user: any | null) => void;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 const UserContext = createContext<IUserProviderValues | undefined>(undefined);
-
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<TTokenUser | null>(null);
-  // console.log(user)
+  const [user, setUser] = useState<IUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleUser = async () => {
-    const user = await getCurrentUser();
-
-    if (user) {
-      setUser(user as TTokenUser);
-    } else {
-      setUser(null);
-    }
-    setIsLoading(false);
-  };
-
   useEffect(() => {
+    const handleUser = async () => {
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+        if (accessToken) {
+          const decodedData = jwtDecode<IUser>(accessToken);
+          setUser(decodedData);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Error decoding token:", error);
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     handleUser();
-  }, [isLoading]);
+  }, []);
+
   return (
     <UserContext.Provider value={{ user, setUser, isLoading, setIsLoading }}>
       {children}
@@ -58,6 +64,11 @@ export const useUser = () => {
     throw new Error("useUser must be used within the userProvider ");
   }
   return context;
+};
+
+// LogOut
+export const logOut = () => {
+  localStorage.removeItem("accessToken");
 };
 
 export default UserProvider;
