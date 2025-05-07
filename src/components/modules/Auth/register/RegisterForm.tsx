@@ -183,12 +183,19 @@ const RegisterForm = () => {
   const completion = calculateCompletion()
 
   return (
-    <div className="flex w-full min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 px-4 py-8">
-      <Card className="w-full max-w-6xl shadow-xl border-0 overflow-hidden">
-        <div className="flex flex-col md:flex-row">
+    <div className="flex w-full min-h-screen items-center justify-center  px-4 ">
+      <Card className="w-full max-w-6xl shadow-xl border-0 overflow-hidden ">
+        <div className="flex flex-col md:flex-row ">
           {/* Left Panel - Hidden on mobile */}
-          <div className="hidden md:block md:w-5/12 lg:w-1/2 relative bg-gradient-to-br from-blue-600 to-indigo-800 text-white">
+          <div    style={{
+    backgroundImage: "url('/images/meeting1.jpg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    height: "auto",
+  }}
+ className="hidden  md:block md:w-5/12 lg:w-1/2 relative bg-gradient-to-l  text-white">
             <div className="absolute inset-0 bg-black/20 backdrop-blur-sm z-10"></div>
+            
             <div className="absolute inset-0 z-20 flex flex-col justify-between p-10">
               <div>
                 <h2 className="text-3xl font-bold">Join our community</h2>
@@ -198,7 +205,7 @@ const RegisterForm = () => {
                 </p>
               </div>
 
-              <div className="space-y-6">
+              <div className="space-y-6 mb-24">
                 <div className="flex items-center space-x-3">
                   <div className="bg-white/20 p-2 rounded-full">
                     <Check className="h-5 w-5" />
@@ -240,7 +247,7 @@ const RegisterForm = () => {
           </div>
 
           {/* Right Panel */}
-          <div className="w-full md:w-7/12 lg:w-1/2 p-6 md:p-10">
+          <div className="w-full md:w-7/12 lg:w-1/2 p-6 md:p-10 lg:pt-4 px-8">
             <div className="mb-6">
               <div className="flex items-center justify-between">
                 <div>

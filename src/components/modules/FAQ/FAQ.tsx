@@ -31,7 +31,7 @@ const FAQ = () => {
         },
       ]
     return (
-        <div className="container px-4 py-16 mx-auto border-2 rounded-md md:px-6 md:mb-80">
+        <div className="container px-4 py-16 mx-auto border-2 rounded-md md:px-6">
         <div className="mb-12 text-center">
           <div className="inline-flex items-center px-3 py-2 mb-4 text-sm font-medium bg-[#1E3A8A] text-white rounded-full">
             <div className="w-1.5 h-1.5 rounded-full bg-purple-600 mr-2"></div>
