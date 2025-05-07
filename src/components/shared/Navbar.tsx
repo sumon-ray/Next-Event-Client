@@ -24,7 +24,7 @@ import NextButton from "./NextButton";
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Events", href: "/events" },
-  { label: "Blogs", href: "/blogs" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
