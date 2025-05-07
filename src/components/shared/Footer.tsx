@@ -44,23 +44,10 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="pt-2 relative md:pt-0  bg-[#1E293B]">
-      {/* <motion.div
-        initial={{ transform: "translateY(100px)", opacity: 0 }}
-        animate={{ transform: "translateY(0px)", opacity: 1 }}
-        viewport={{ once: true, amount: 0.2 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 0.8,
-          delay: 3,
-          ease: [0, 0.71, 0.2, 1.01],
-        }}
-      >
-        <PremiumEventCard />
-      </motion.div> */}
+    <footer className="  bg-[#1E293B]">
 
-      <div className="container flex flex-col items-center justify-center px-4 pt-6 pb-2 mx-auto md:pt-40 lg:pt-32 ">
-        <div className="grid grid-cols-1 gap-10 md:pt-20 md:grid-cols-2 lg:grid-cols-12">
+      <div className="container flex flex-col items-center justify-center px-4  pb-2 mx-auto pt-4 md:pt-14 md:mt-8  ">
+        <div className="grid grid-cols-1 gap-10  md:grid-cols-2 lg:grid-cols-12">
           <div className="space-y-6 lg:col-span-4">
             <div className="flex items-center space-x-2">
               <Image
