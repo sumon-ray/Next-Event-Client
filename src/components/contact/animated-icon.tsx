@@ -3,22 +3,17 @@
 import { motion } from "framer-motion"
 import type { ReactNode } from "react"
 
-interface SocialIconProps {
+interface AnimatedIconProps {
   icon: ReactNode
-  href: string
-  label: string
+  color: string
   delay?: number
 }
 
-export default function SocialIcon({ icon, href, label, delay = 0 }: SocialIconProps) {
+export default function AnimatedIcon({ icon, color, delay = 0 }: AnimatedIconProps) {
   return (
-    <motion.a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={label}
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
+    <motion.div
+      initial={{ scale: 0, rotate: -15 }}
+      animate={{ scale: 1, rotate: 0 }}
       transition={{
         type: "spring",
         stiffness: 260,
@@ -27,14 +22,19 @@ export default function SocialIcon({ icon, href, label, delay = 0 }: SocialIconP
       }}
       whileHover={{
         scale: 1.1,
-        boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.5)",
+        rotate: 5,
+        transition: { duration: 0.2 },
       }}
-      whileTap={{ scale: 0.95 }}
-      className="bg-white w-12 h-12 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-300"
+      className={`bg-${color}-100 w-12 h-12 rounded-full flex items-center justify-center shadow-md`}
     >
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3, delay: delay + 0.2 }}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3, delay: delay + 0.2 }}
+        className={`text-${color}-600`}
+      >
         {icon}
       </motion.div>
-    </motion.a>
+    </motion.div>
   )
 }

@@ -24,9 +24,8 @@ export default function TestimonialsSection() {
   return (
     <section
       ref={testimonialsRef}
-      className="py-24 bg-gradient-to-r from-blue-600 to-indigo-700 text-white relative overflow-hidden mb-40"
+      className="py-24 bg-gradient-to-r from-blue-600 to-indigo-700 text-white relative overflow-hidden mb-14"
     >
-      {/* Background decorative elements */}
       <div className="absolute inset-0 bg-[url('/placeholder.svg?height=100&width=100')] bg-repeat opacity-5 z-0"></div>
       <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/20 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl"></div>
       <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/20 rounded-full translate-y-1/2 -translate-x-1/3 blur-3xl"></div>
@@ -61,8 +60,7 @@ export default function TestimonialsSection() {
                   <div className="flex items-center mb-6">
                     <div className="w-14 h-14 rounded-full overflow-hidden mr-4 border-2 border-white/30">
                       <Image
-                   src="/images/testimonial/user2.jpg"
-
+                        src="/images/testimonial/user2.jpg"
                         alt="Robert Taylor"
                         width={100}
                         height={100}
@@ -99,8 +97,7 @@ export default function TestimonialsSection() {
                   <div className="flex items-center mb-6">
                     <div className="w-14 h-14 rounded-full overflow-hidden mr-4 border-2 border-white/30">
                       <Image
-                      src="/images/testimonial/user3.jpg"
-
+                        src="/images/testimonial/user3.jpg"
                         alt="Jennifer Kim"
                         width={100}
                         height={100}
@@ -135,8 +132,7 @@ export default function TestimonialsSection() {
                   <div className="flex items-center mb-6">
                     <div className="w-14 h-14 rounded-full overflow-hidden mr-4 border-2 border-white/30">
                       <Image
-                    src="/images/testimonial/user1.jpg"
-
+                        src="/images/testimonial/user1.jpg"
                         alt="Marcus Johnson"
                         width={100}
                         height={100}
@@ -174,8 +170,7 @@ export default function TestimonialsSection() {
                   <div className="flex items-center mb-6">
                     <div className="w-14 h-14 rounded-full overflow-hidden mr-4 border-2 border-white/30">
                       <Image
-                       src="/images/testimonial/user1.JPG"
-
+                        src="/images/testimonial/user1.JPG"
                         alt="Sophia Williams"
                         width={100}
                         height={100}

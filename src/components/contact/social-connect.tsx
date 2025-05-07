@@ -73,7 +73,7 @@ export default function SocialConnect() {
   ]
 
   return (
-    <section className="md:mb-28 relative py-24 bg-gradient-to-b from-slate-50 to-white">
+    <section className="relative py-24 bg-gradient-to-b from-slate-50 to-white">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

@@ -4,11 +4,11 @@ import { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { MessageCircle } from "lucide-react"
 
-import PremiumHero from "./components/premium-hero"
-import PremiumContactForm from "./components/premium-contact-form"
-import InteractiveMap from "./components/interactive-map"
-import SocialConnect from "./components/social-connect"
-import LiveChatWidget from "./components/live-chat-widget"
+import PremiumHero from "../../../components/contact/premium-hero"
+import PremiumContactForm from "../../../components/contact/premium-contact-form"
+import InteractiveMap from "../../../components/contact/interactive-map"
+import SocialConnect from "../../../components/contact/social-connect"
+import LiveChatWidget from "../../../components/contact/live-chat-widget"
 
 export default function ContactPage() {
   const [chatOpen, setChatOpen] = useState(false)

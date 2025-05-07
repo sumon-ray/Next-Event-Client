@@ -9,9 +9,8 @@ export default function InteractiveMap() {
   const [mapLoaded, setMapLoaded] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const [activeMarker, setActiveMarker] = useState<string | null>(null);
-  const mapRef = useRef<HTMLDivElement>(null);
+  // const mapRef = useRef<HTMLDivElement>(null);
 
-  // Locations for multiple office markers
   const locations = [
     {
       id: "hq",
@@ -20,7 +19,7 @@ export default function InteractiveMap() {
       phone: "+1 (555) 123-4567",
       email: "contact@company.com",
       position: { top: "40%", left: "35%" },
-      color: "#3b82f6" // blue
+      color: "#3b82f6" 
     },
     {
       id: "branch1",
@@ -29,7 +28,7 @@ export default function InteractiveMap() {
       phone: "+1 (555) 987-6543",
       email: "nyoffice@company.com",
       position: { top: "30%", left: "55%" },
-      color: "#10b981" // emerald
+      color: "#10b981" 
     },
     {
       id: "branch2",
@@ -38,7 +37,7 @@ export default function InteractiveMap() {
       phone: "+44 20 1234 5678",
       email: "london@company.com",
       position: { top: "25%", left: "75%" },
-      color: "#8b5cf6" // violet
+      color: "#8b5cf6" 
     }
   ];
 
