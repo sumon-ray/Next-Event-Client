@@ -4,6 +4,9 @@ import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
+
+
+
 export const registerUser = async (userData: FieldValues) => {
   try {
     const formData = new FormData();

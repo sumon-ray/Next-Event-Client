@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import NextButton from "@/components/shared/NextButton"
 import { motion } from "framer-motion"
-import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 export enum Category {
   CONFERENCE = "CONFERENCE",
@@ -40,7 +40,6 @@ export interface Event {
 
 export function EventCard({ event }: { event: Event }) {
 
- const router = useRouter()
   const startTime = new Date(event.startDate)
   const endTime = new Date(event.endDate)
 
@@ -163,7 +162,9 @@ export function EventCard({ event }: { event: Event }) {
     </CardContent>
 
     <CardFooter className="flex justify-center pt-3 pb-8">
-      <NextButton onClick={() => router.push(`/events/${event.id}`)} name="View Details" />
+      <Link href={`/events/${event.slug}`}>
+      <NextButton name="View Details" />
+      </Link>
     </CardFooter>
   </Card>
 </motion.div>

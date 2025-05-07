@@ -80,17 +80,6 @@ const LoginForm = () => {
       const res = await loginUser(data);
 
       if (res?.success) {
-        const token = res.data.accessToken;
-        if (token) {
-          if (data.rememberMe) {
-            localStorage.setItem("accessToken", token);
-          } else {
-            sessionStorage.setItem("accessToken", token);
-          }
-          const decoded = jwtDecode<IUser>(token);
-          setUser(decoded);
-        }
-
         toast.success(res?.message || "Login successful!");
 
         // Redirect after a short delay for better UX
