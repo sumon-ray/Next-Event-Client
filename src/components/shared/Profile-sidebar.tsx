@@ -1,6 +1,5 @@
-import { IoMdNotificationsOutline } from "react-icons/io";
 import { LuUser } from "react-icons/lu";
-import { MdOutlineSecurity } from "react-icons/md";
+import { MdOutlineSecurity, MdOutlineEventAvailable } from "react-icons/md";
 
 export const profileSettingItems = [
   {
@@ -9,9 +8,9 @@ export const profileSettingItems = [
     href: "/profile/personal-info",
   },
   {
-    title: "Notifications",
-    icon: <IoMdNotificationsOutline className="w-5 h-5" />,
-    href: "/profile/notifications",
+    title: "My Events",
+    icon: <MdOutlineEventAvailable className="w-5 h-5" />,
+    href: "/profile/my-events",
   },
   {
     title: "Privacy & Security",

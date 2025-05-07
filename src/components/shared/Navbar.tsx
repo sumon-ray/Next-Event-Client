@@ -2,10 +2,14 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUser } from "@/context/UserContext";
-import { Menu, X } from "lucide-react";
+import { Menu} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+import { useUser } from "@/context/UserContext";
 
 import img from "../../../public/favicon.png";
 import "../../styles/styles.css";
@@ -21,6 +25,7 @@ const navLinks = [
 export default function Navbar() {
   const { user } = useUser();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
 
   return (
     <header className="fixed top-0 left-0 z-50 w-full shadow-sm backdrop-blur-sm bg-black/20">
