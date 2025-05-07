@@ -1,13 +1,10 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useUser } from "@/context/UserContext";
 import { Menu} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { useUser } from "@/context/UserContext";
 

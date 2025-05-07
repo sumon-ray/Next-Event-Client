@@ -31,7 +31,7 @@ export const registerUser = async (userData: FieldValues) => {
 
     const userInfo = await res.json();
     return userInfo;
-  } catch (error:any) {
+  } catch (error) {
     console.error(error);
     throw error;
   }
@@ -54,7 +54,7 @@ export const loginUser = async (userData: FieldValues) => {
     }
 
     return userInfo;
-  } catch (error:any) {
+  } catch (error) {
     toast.error("Registration failed")
     console.error(error);
   }
@@ -79,7 +79,7 @@ export const getToken = async () => {
 }
 
 
-export const logout = async () => {
+export const logOut = async () => {
 return (await cookies()).delete("accessToken");
 };
 
@@ -109,12 +109,13 @@ export const changePassword = async (
     if (!res.ok) {
       throw new Error(result.message);
     }
-  } catch (error:any) {
+  } catch (error) {
     console.error(error);
     throw error;
   }
 };
 
+// forget password
 export const ForgetPassword = async (userData: FieldValues) => {
   try {
     const res = await fetch(
@@ -134,7 +135,7 @@ export const ForgetPassword = async (userData: FieldValues) => {
     }
 
     return await res.json();
-  } catch (error:any) {
+  } catch (error) {
     throw new Error(error.message || "Something went wrong");
   }
 };
