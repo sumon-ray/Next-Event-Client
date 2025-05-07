@@ -1,13 +1,17 @@
-import React from 'react';
+import EventDetails from "@/components/modules/Events/EventDetails";
+import { getSingleEvent } from "@/services/EventService";
 
-const EventDetailsPage = async ({params}: {params:Promise<{slug: string}>}) => {
-    console.log(await (params));
+const SingleEventPage = async ({ params }: { params: { slug: string } }) => {
+  const slug = params?.slug; 
+  const data = await getSingleEvent(slug);
+  const event = data?.data;
+  const organizer = event?.organizer;
 
-    return (
-        <div>
-            hi
-        </div>
-    );
+  return (
+    <div className="">
+      <EventDetails event={event} organizer={organizer} />
+    </div>
+  );
 };
 
-export default EventDetailsPage;
+export default SingleEventPage;

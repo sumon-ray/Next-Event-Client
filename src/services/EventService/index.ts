@@ -43,9 +43,9 @@ const query = new URLSearchParams(
    
   }
 };
-export const getSingleEvent = async (id: string) => {
+export const getSingleEvent = async (slug: string) => {
   try {
-    const response = await fetch(`${baseUrl}/events/${id}`, {
+    const response = await fetch(`${baseUrl}/events/slug/${slug}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
