@@ -24,7 +24,7 @@ export default function TestimonialsSection() {
   return (
     <section
       ref={testimonialsRef}
-      className="py-24 bg-gradient-to-r from-blue-600 to-indigo-700 text-white relative overflow-hidden"
+      className="py-24 bg-gradient-to-r from-blue-600 to-indigo-700 text-white relative overflow-hidden mb-40"
     >
       {/* Background decorative elements */}
       <div className="absolute inset-0 bg-[url('/placeholder.svg?height=100&width=100')] bg-repeat opacity-5 z-0"></div>

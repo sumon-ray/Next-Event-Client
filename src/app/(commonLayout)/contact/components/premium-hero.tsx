@@ -134,7 +134,6 @@ export default function PremiumHero() {
             </Button>
           </motion.div>
 
-          {/* Stats display */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

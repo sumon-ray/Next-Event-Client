@@ -16,14 +16,12 @@ import {
   Twitter,
   Youtube,
 } from "lucide-react";
-import { motion } from "motion/react";
 import Link from "next/link";
 import type React from "react";
 import { useState } from "react";
 import logo from "../../../public/favicon.png";
 // import Title from "./Title"
 import Image from "next/image";
-import PremiumEventCard from "./premium-event-card";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -47,7 +45,7 @@ export default function Footer() {
 
   return (
     <footer className="pt-2 relative md:pt-0  bg-[#1E293B]">
-      <motion.div
+      {/* <motion.div
         initial={{ transform: "translateY(100px)", opacity: 0 }}
         animate={{ transform: "translateY(0px)", opacity: 1 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -59,7 +57,7 @@ export default function Footer() {
         }}
       >
         <PremiumEventCard />
-      </motion.div>
+      </motion.div> */}
 
       <div className="container flex flex-col items-center justify-center px-4 pt-6 pb-2 mx-auto md:pt-40 lg:pt-32 ">
         <div className="grid grid-cols-1 gap-10 md:pt-20 md:grid-cols-2 lg:grid-cols-12">
