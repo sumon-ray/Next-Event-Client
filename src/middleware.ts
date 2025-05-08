@@ -48,7 +48,7 @@ export const config = {
     "/admin/:page*",
     "/user/:page*",
     "/profile/:page*",
-    "/payments/:page*",
+    // "/payments/:page*",
     "/create-event/:page*",
   ],
 };

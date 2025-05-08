@@ -1,9 +1,8 @@
 "use server";
-import { ResetPasswordPayload } from "@/app/types";
+import { IUser, ResetPasswordPayload } from "@/app/types";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
-import { toast } from "sonner";
 
 
 
@@ -55,10 +54,11 @@ export const loginUser = async (userData: FieldValues) => {
 
     return userInfo;
   } catch (error) {
-    toast.error("Registration failed")
+    // toast.error("Registration failed")
     console.error(error);
   }
 };
+
 
 
 export const getCurrentUser = async () => {
@@ -66,7 +66,7 @@ export const getCurrentUser = async () => {
   let decodedData = null;
 
   if (token) {
-    decodedData = await jwtDecode(token);
+    decodedData = await jwtDecode<IUser>(token);
     return decodedData;
   } else {
     return null;
@@ -78,10 +78,14 @@ export const getToken = async () => {
   return (await cookies()).get("accessToken")?.value;
 }
 
-
+// log out
 export const logOut = async () => {
-return (await cookies()).delete("accessToken");
+  await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
+    method: "POST",
+    credentials: "include",
+  });
 };
+
 
 
 // change password
