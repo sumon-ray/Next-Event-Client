@@ -37,7 +37,8 @@ const EventDetails = ({ event, organizer }: { event: any; organizer: any }) => {
       const user = await getCurrentUser()
       if (!user) {
         toast.warning("You must be logged in to register for this event.");
-      const redirectUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/login?redirectPath=${pathname}`;
+        const redirectUrl = `/login?redirectPath=${encodeURIComponent(pathname)}`;
+        router.push(redirectUrl);        
       router.push(redirectUrl);
       return;
       }

@@ -1,7 +1,7 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Menu} from "lucide-react";
+import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -12,6 +12,7 @@ import img from "../../../public/favicon.png";
 import "../../styles/styles.css";
 import MobileSidebar from "../sidebar/MobileSidebar";
 import NextButton from "./NextButton";
+
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Events", href: "/events" },
@@ -20,9 +21,8 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
 
   return (
     <header className="fixed top-0 left-0 z-50 w-full shadow-sm backdrop-blur-sm bg-black/20">
@@ -50,19 +50,21 @@ export default function Navbar() {
 
         {/* User Avatar & Menu Button */}
         <nav className="flex items-center gap-2">
-          {user ? (
-            <Link href="/profile/personal-info">
-              <Avatar className="cursor-pointer hover:ring-2 hover:ring-white transition">
-                <AvatarImage src={user?.profileImage} alt="Profile" />
-                <AvatarFallback>
-                  {user?.name?.[0]?.toUpperCase() || "U"}
-                </AvatarFallback>
-              </Avatar>
-            </Link>
-          ) : (
-            <Link href="/login">
-              <NextButton name="Login" />
-            </Link>
+          {!isLoading && (
+            user ? (
+              <Link href="/profile/personal-info">
+                <Avatar className="cursor-pointer hover:ring-2 hover:ring-white transition">
+                  <AvatarImage src={user?.profileImage} alt="Profile" />
+                  <AvatarFallback>
+                    {user?.name?.[0]?.toUpperCase() || "U"}
+                  </AvatarFallback>
+                </Avatar>
+              </Link>
+            ) : (
+              <Link href="/login">
+                <NextButton name="Login" />
+              </Link>
+            )
           )}
 
           {/* Mobile Menu Button */}
@@ -70,17 +72,12 @@ export default function Navbar() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="inline-flex items-center justify-center p-2 ml-2 md:hidden"
           >
-            {mobileMenuOpen ? (
-              <Menu className="w-6 h-6 text-white" />
-            ) : (
-              <Menu className="w-6 h-6 text-white" />
-            )}
+            <Menu className="w-6 h-6 text-white" />
           </button>
         </nav>
       </div>
 
       {/* Mobile Sidebar */}
-
       <MobileSidebar
         isOpen={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
