@@ -102,7 +102,7 @@ if(maxFee){
   return (
     <main className="">
     <HeroSecton img={img} title1="Next Level Events" title2="Browse Top Experiences" title3="Be Part of the Celebration" />
-    <div className="container flex flex-col items-start justify-center gap-6 px-4 py-16 mx-auto md:px-0 lg:flex-row ">
+    <div className="container flex min-h-[100vh] flex-col items-start justify-center gap-6 px-4 py-16 mx-auto md:px-0 lg:flex-row ">
     <div className="w-full space-y-6 lg:w-1/4">
   <div className="p-6 bg-white border border-gray-200 shadow-sm rounded-2xl">
     <h2 className="mb-4 text-3xl font-bold tracking-wide text-transparent  drop-shadow-sm bg-gradient-to-r from-[#1E3A8A] via-[#3B82F6] to-[#1E293B] bg-clip-text"> Filter Events</h2>

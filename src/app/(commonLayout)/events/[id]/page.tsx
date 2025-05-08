@@ -8,16 +8,6 @@ import HeroSecton from "@/components/shared/HeroSecton";
 import img from "../../../../../public/images/img7.jpg";
 import NextButton from "@/components/shared/NextButton";
 
-interface User {
-    name: string;
-    profileImage: string;
-    email: string;
-    occupation: string;
-    address: string;
-    bio: string;
-    phoneNumber: string;
-}
-
 const SingleEventPage = async ({ params }: { params: { id: string } }) => {
     const id = await params.id;
     const data = await getSingleEvent(id);

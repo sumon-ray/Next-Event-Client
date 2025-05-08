@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 export const getAllInvites = async () => {
     try {
       const cookieStore = await cookies();
@@ -33,4 +34,29 @@ export const getAllInvites = async () => {
       return null;
     }
   };
-  
+  import { toast } from "sonner";
+
+export const createInvites = async ( payload) => {
+ 
+    try {  
+      const response = await fetch(`${baseUrl}/user`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        body: JSON.stringify({
+            payload
+        })
+        },
+        credentials: "include",
+        
+      });
+      const data = await response.json();
+      
+      return data?.data;
+    
+    } catch (error) {
+   toast.error("Something went wrong from event getUsers")
+     
+     
+    }
+  };

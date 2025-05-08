@@ -14,12 +14,12 @@ export default function AdminLayout({
     <SidebarProvider >
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 px-4 ">
-            <SidebarTrigger className="-ml-1 " />
+        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear border-2 group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-20">
+          <div className="px-4 ">
+            <SidebarTrigger className="w-8 h-8" />
           </div>
         </header>       
-        <div className="p-4 pt-0 min-h-screen bg-gray-50">
+        <div className="min-h-screen p-0 m-0 ">
           
         {children} 
         </div>
