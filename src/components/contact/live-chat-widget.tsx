@@ -113,7 +113,7 @@ export default function LiveChatWidget({ onClose }: LiveChatWidgetProps) {
       className="bg-white rounded-2xl shadow-2xl w-80 sm:w-96 overflow-hidden"
     >
       {/* Chat header */}
-      <div className="bg-blue-600 text-white p-4 flex justify-between items-center">
+      <div className="bg-blue-600 py-4  text-white p-4 flex justify-between items-center">
         <div className="flex items-center">
           <div className="bg-white/20 w-10 h-10 rounded-full flex items-center justify-center mr-3">
             <User className="h-5 w-5" />

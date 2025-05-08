@@ -1,11 +1,16 @@
 import { LuUser } from "react-icons/lu";
-import { MdOutlineSecurity, MdOutlineEventAvailable } from "react-icons/md";
+import { MdOutlineSecurity, MdOutlineEventAvailable, MdPassword } from "react-icons/md";
 
 export const profileSettingItems = [
   {
     title: "Personal Information",
     icon: <LuUser className="w-5 h-5" />,
     href: "/profile/personal-info",
+  },
+  {
+    title: "Password",
+    icon: <MdPassword className="w-5 h-5" />,
+    href: "/profile/change-password",
   },
   {
     title: "My Events",

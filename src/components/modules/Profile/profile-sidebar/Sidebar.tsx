@@ -2,6 +2,7 @@ import { profileSettingItems } from "@/components/shared/Profile-sidebar";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { IoChevronForward, IoExitOutline } from "react-icons/io5";
+import { toast } from "sonner";
 import { logOut } from "../../../../services/AuthService/index";
 
 interface SidebarProps {
@@ -14,8 +15,15 @@ const Sidebar = ({ className = "" }: SidebarProps) => {
 
   const handleLogOut = async () => {
     await logOut();
-    router.push("/login");
+    toast.success("Log out successful");
+    localStorage.removeItem("accessToken");
+    try {
+      router.push("/");
+    } catch {
+      window.location.href = "/login";
+    }
   };
+
   return (
     <div
       className={`w-full md:w-80 bg-gray-50 border-r py-6 px-4 space-y-1 ${className}`}
