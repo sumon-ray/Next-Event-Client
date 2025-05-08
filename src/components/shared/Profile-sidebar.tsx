@@ -1,6 +1,7 @@
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { LuUser } from "react-icons/lu";
 import { MdOutlineSecurity } from "react-icons/md";
+import { MdOutlineReviews } from "react-icons/md";
 
 export const profileSettingItems = [
   {
@@ -14,8 +15,14 @@ export const profileSettingItems = [
     href: "/profile/notifications",
   },
   {
+    title: "review",
+    icon: <MdOutlineReviews className="w-5 h-5" />,
+    href: "/profile/review",
+  },
+  {
     title: "Privacy & Security",
     icon: <MdOutlineSecurity className="w-5 h-5" />,
     href: "/profile/privacy_and_security",
   },
+  
 ];

@@ -34,3 +34,16 @@ export const daleteUser = async (id:string) => {
   const response = await axios.delete(apiUrl);
   return response.data;
 };
+
+
+
+export const getUserAllReviews = async (userId: string) => {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  if (!baseUrl) {
+    throw new Error("NEXT_PUBLIC_API_URL is not defined in environment variables");
+  }
+
+  const apiUrl = `${baseUrl}/review/user/${userId}`;
+  const response = await axios.get(apiUrl);
+  return response.data;
+};

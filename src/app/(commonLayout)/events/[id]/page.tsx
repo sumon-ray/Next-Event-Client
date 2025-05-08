@@ -8,6 +8,7 @@ import HeroSecton from "@/components/shared/HeroSecton";
 import img from "../../../../../public/images/img7.jpg";
 import NextButton from "@/components/shared/NextButton";
 
+
 interface User {
     name: string;
     profileImage: string;
@@ -211,6 +212,9 @@ const SingleEventPage = async ({ params }: { params: { id: string } }) => {
                     </div>
                 </div>
             </div>
+       
+      
+
         </div>
     );
 };
