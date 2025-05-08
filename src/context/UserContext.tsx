@@ -1,6 +1,6 @@
 "use client";
+
 import { IUser } from "@/app/types";
-// import { IUser } from "@/app/types";
 import { jwtDecode } from "jwt-decode";
 import {
   createContext,
@@ -11,22 +11,18 @@ import {
   useState,
 } from "react";
 
-// interface IUser {
-//   id: string;
-//   name: string;
-//   email: string;
-//   image: string;
-//   profileImage:string
-// }
 interface IUserProviderValues {
-  user: any | null;
+  user: IUser | null;
   isLoading: boolean;
-  setUser: (user: any | null) => void;
+  setUser: (user: IUser | null) => void;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
+
 const UserContext = createContext<IUserProviderValues | undefined>(undefined);
+
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<IUser | null>(null);
+  // console.log(user)
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -57,18 +53,14 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-// custom hook
 export const useUser = () => {
   const context = useContext(UserContext);
-  if (context == undefined) {
-    throw new Error("useUser must be used within the userProvider ");
-  }
-  return context;
-};
 
-// LogOut
-export const logOut = () => {
-  localStorage.removeItem("accessToken");
+  if (context == undefined) {
+    throw new Error("useUser must be used within the UserProvider context");
+  }
+
+  return context;
 };
 
 export default UserProvider;
