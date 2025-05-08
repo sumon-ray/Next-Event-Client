@@ -1,17 +1,15 @@
 import Banner from "@/components/modules/Banner/Banner";
-import WhoWeAreSection from "@/components/modules/WhoWeAre/WhoRWe";
-import OurFeaturesSection from "@/components/modules/OurServices/OurService";
-import OurAdvantagesSection from "@/components/modules/OurAdvantage/OurAdvantage";
 import EventCategories from "@/components/modules/Categories/Categories";
-import FAQ from "@/components/modules/FAQ/FAQ";
 import AllEvents from "@/components/modules/Events/AllEvents";
-
-
+import FAQ from "@/components/modules/FAQ/FAQ";
+import OurAdvantagesSection from "@/components/modules/OurAdvantage/OurAdvantage";
+import OurFeaturesSection from "@/components/modules/OurServices/OurService";
+import WhoWeAreSection from "@/components/modules/WhoWeAre/WhoRWe";
+import PremiumEventCard from "@/components/shared/premium-event-card";
 
 export default function Home() {
   return (
     <div className="">
-
       <Banner></Banner>
       <WhoWeAreSection></WhoWeAreSection>
       <AllEvents></AllEvents>
@@ -19,6 +17,7 @@ export default function Home() {
       <OurFeaturesSection />
       <OurAdvantagesSection />
       <FAQ />
+      <PremiumEventCard />
     </div>
   );
 }

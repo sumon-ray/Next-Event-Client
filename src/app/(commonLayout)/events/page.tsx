@@ -17,7 +17,7 @@ import Title from "@/components/shared/Title"
 import Link from "next/link"
 import NextButton from "@/components/shared/NextButton"
 import HeroSecton from "@/components/shared/HeroSecton"
-import { getAllEvents } from "@/services/Events"
+import { getAllEvents } from "@/services/EventService"
 import { toast } from "sonner"
 import Loader from "@/components/ui/Loader/Loader"
 
@@ -40,7 +40,7 @@ const [loading, setLoading] = useState(true)
 const handleApplyFilters=async()=>{
   
   setLoading(true)
-let queryObj:any ={}
+const queryObj:any ={}
 
 
 if(searchTerm){
@@ -200,9 +200,9 @@ if(maxFee){
         <SelectTrigger>
           <SelectValue placeholder="Max" />
         </SelectTrigger>
-        <SelectContent className="bg-gradient-to-r from-white to-blue-300 decoration-transparent ">
+        <SelectContent >
           {[100, 500, 1000, 2000, 5000].map((price) => (
-            <SelectItem key={price} value={price.toString()}>
+            <SelectItem className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent" key={price} value={price.toString()}>
               ৳ {price}
             </SelectItem>
           ))}

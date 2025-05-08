@@ -1,5 +1,6 @@
 
 
+import { IEvent } from "@/app/types";
 import { cookies } from "next/headers";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -36,16 +37,14 @@ export const getAllInvites = async () => {
   };
   import { toast } from "sonner";
 
-export const createInvites = async ( payload) => {
+export const createInvites = async ( payload:IEvent) => {
  
     try {  
       const response = await fetch(`${baseUrl}/user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-        body: JSON.stringify({
-            payload
-        })
+          body: JSON.stringify(payload),
         },
         credentials: "include",
         
@@ -55,8 +54,7 @@ export const createInvites = async ( payload) => {
       return data?.data;
     
     } catch (error) {
-   toast.error("Something went wrong from event getUsers")
-     
+   toast.error("Something went wrong from event getUsers")   
      
     }
   };

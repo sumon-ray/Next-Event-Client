@@ -1,8 +1,12 @@
 "use server";
 import { ResetPasswordPayload } from "@/app/types";
+import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
+
+
+
 export const registerUser = async (userData: FieldValues) => {
   try {
     const formData = new FormData();
@@ -27,7 +31,7 @@ export const registerUser = async (userData: FieldValues) => {
 
     const userInfo = await res.json();
     return userInfo;
-  } catch (error:any) {
+  } catch (error) {
     console.error(error);
     throw error;
   }
@@ -50,11 +54,35 @@ export const loginUser = async (userData: FieldValues) => {
     }
 
     return userInfo;
-  } catch (error:any) {
+  } catch (error) {
     toast.error("Registration failed")
     console.error(error);
   }
 };
+
+
+export const getCurrentUser = async () => {
+  const token = (await cookies()).get("accessToken")?.value;
+  let decodedData = null;
+
+  if (token) {
+    decodedData = await jwtDecode(token);
+    return decodedData;
+  } else {
+    return null;
+  }
+};
+
+
+export const getToken = async () => {
+  return (await cookies()).get("accessToken")?.value;
+}
+
+
+export const logOut = async () => {
+return (await cookies()).delete("accessToken");
+};
+
 
 // change password
 export const changePassword = async (
@@ -81,12 +109,13 @@ export const changePassword = async (
     if (!res.ok) {
       throw new Error(result.message);
     }
-  } catch (error:any) {
+  } catch (error) {
     console.error(error);
     throw error;
   }
 };
 
+// forget password
 export const ForgetPassword = async (userData: FieldValues) => {
   try {
     const res = await fetch(
@@ -106,7 +135,7 @@ export const ForgetPassword = async (userData: FieldValues) => {
     }
 
     return await res.json();
-  } catch (error:any) {
+  } catch (error) {
     throw new Error(error.message || "Something went wrong");
   }
 };

@@ -2,7 +2,7 @@
 
 import type { IUser } from "@/app/types";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+// import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
@@ -29,13 +29,13 @@ import {
   Lock,
   LogIn,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
-import Image from "next/image";
 
 const LoginForm = () => {
   const { setUser } = useUser();
@@ -80,20 +80,8 @@ const LoginForm = () => {
       const res = await loginUser(data);
 
       if (res?.success) {
-        const token = res.data.accessToken;
-        if (token) {
-          if (data.rememberMe) {
-            localStorage.setItem("accessToken", token);
-          } else {
-            sessionStorage.setItem("accessToken", token);
-          }
-          const decoded = jwtDecode<IUser>(token);
-          setUser(decoded);
-        }
-
         toast.success(res?.message || "Login successful!");
 
-        // Redirect after a short delay for better UX
         setTimeout(() => {
           if (redirect) {
             router.push(redirect);
@@ -119,26 +107,25 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full max-h-full p-4 ">
-      <div className="w-full overflow-hidden border-0 max-w-7xl">
+    <div className=" w-full max-h-full flex items-center justify-center p-4 ">
+      <div className="w-full max-w-7xl  border-0 overflow-hidden">
         <div className="flex flex-col md:flex-row">
           {/* Left side - Welcome section */}
-     
-          <div className="relative hidden w-full p-8 overflow-hidden text-white md:w-1/2 md:flex md:p-12">
+
+          <div className="w-full md:w-1/2 hidden md:flex  p-8 md:p-12 text-white relative overflow-hidden">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               className="relative z-10 h-full"
             >
-                        <Image 
-            src="/images/login.jpg"
-            width={600}
-            height={600}
-            alt="Forget Password"
-            className="h-full"
-          />
-             
+              <Image
+                src="/images/login.jpg"
+                width={600}
+                height={600}
+                alt="Forget Password"
+                className="h-full"
+              />
             </motion.div>
 
             {/* Decorative elements */}
@@ -256,7 +243,7 @@ const LoginForm = () => {
                         <div className="flex items-center justify-between">
                           <FormLabel>Password</FormLabel>
                           <Link
-                            href="/forgot-password"
+                            href="/forget-password"
                             className="text-xs text-blue-600 hover:text-blue-800 hover:underline"
                           >
                             Forgot password?

@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { LuX } from "react-icons/lu";
+// import { LuX } from "react-icons/lu";
 import { IoChevronForward } from "react-icons/io5";
 import { usePathname } from "next/navigation";
 import Sidebar from "./profile-sidebar/Sidebar";
 import MobileSidebar from "./profile-sidebar/MobileSidebar";
 import { profileSettingItems } from "@/components/shared/Profile-sidebar";
+import { LuX } from "react-icons/lu";
 
 const ProfileMainLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();

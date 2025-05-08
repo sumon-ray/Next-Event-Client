@@ -1,110 +1,72 @@
-import Image from "next/image";
-import { ChevronDown, MoreHorizontal, X, Filter } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Badge } from "@/components/ui/badge";
-
-interface UserRowProps {
-  avatar: string;
-  name: string;
-  email: string;
-  role: string;
-  status: "Active" | "Inactive";
-}
-
-function UserRow({ avatar, name, email, role, status }: UserRowProps) {
-
- 
-
-  return (
-    <div className="grid items-center grid-cols-12 px-4 py-3 border-b hover:bg-gray-50">
-      <div className="col-span-1">
-        <Checkbox />
-      </div>
-      <div className="flex items-center col-span-5 gap-3">
-        <div className="relative w-12 h-12">
-          <Image
-            src={avatar || "/placeholder.svg"}
-            alt={name}
-            fill
-            className="object-cover rounded-full"
-          />
-        </div>
-        <div className="flex flex-col">
-          <span className="font-medium">{name}</span>
-          <span className="text-xs text-gray-500">{email}</span>
-        </div>
-      </div>
-      <div className="col-span-2">
-        <Badge variant="outline" className="text-xs capitalize bg-gray-50">
-          {role}
-        </Badge>
-      </div>
-      <div className="col-span-2">
-      <Badge
-  className={`text-xs capitalize transition-colors ${
-    status === "Active"
-      ? "bg-green-100 text-green-700 hover:bg-black hover:text-white"
-      : "bg-red-100 text-red-700 hover:bg-black hover:text-white"
-  }`}
->
-  {status}
-</Badge>
-      </div>
-      <div className="flex items-center justify-between col-span-2">
-        <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">
-          Edit
-        </Button>
-        <Button variant="ghost" size="sm" className="text-gray-500">
-          <MoreHorizontal className="w-4 h-4" />
-        </Button>
-      </div>
-    </div>
-  );
-}
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+// app/user/UserList.tsx
+"use client";
+import { useEffect, useState } from "react";
+import { X, } from "lucide-react";
+import { toast } from "sonner";
+import { daleteUser, getAllUser } from "@/services/UserService";
+import UserRow from "@/components/modules/UserRow/UserRow";
 
 const UserList = () => {
-  const userInfo=[
-    { name: "Sharmin S.", email: "sharmin@example.com", role: "admin", status: "Active" },
-    { name: "Riyad H.", email: "riyad@example.com", role: "moderator", status: "Inactive" },
-    { name: "Nishat K.", email: "nishat@example.com", role: "user", status: "Active" },
-    { name: "Tariq M.", email: "tariq@example.com", role: "user", status: "Inactive" },
-  ]
+  const [users, setUsers] = useState<any[]>([]);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const res = await getAllUser();
+        setUsers(res?.data || []);
+      } catch (error) {
+        console.error("Failed to load users", error);
+      }
+    };
+    fetchUsers();
+  }, []);
+
+  const handleSelect = (id: string) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((sid) => sid !== id) : [...prev, id]
+    );
+  };
+
+  const handleDelete = async () => {
+    if (selectedIds.length === 0) return;
+
+    const selectedUsers = users.filter((u) => selectedIds.includes(u.id));
+    for (const user of selectedUsers) {
+      try {
+        await daleteUser(user.id);
+        toast.success(`${user.name} deleted`);
+      } catch (error ) {
+        toast.error(`Failed to delete ${user.name}`);
+      }
+    }
+
+    setUsers((prev) => prev.filter((u) => !selectedIds.includes(u.id)));
+    setSelectedIds([]);
+  };
+
   return (
     <div className="p-4 md:p-0 max-w-[1200px] mx-auto">
       <div className="flex flex-col space-y-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-xl font-medium text-gray-700">User List</h1>
-
+          <h1 className="text-xl font-medium text-gray-700">All Users</h1>
           <div className="flex items-center gap-3">
-            <div className="flex items-center border rounded-md px-3 py-1.5 gap-2 bg-white">
-              <button className="flex items-center gap-1 text-sm text-gray-500">
+            <div
+              className="flex items-center border rounded-md px-3 py-1.5 gap-2 text-white bg-red-600 cursor-pointer"
+              onClick={handleDelete}
+            >
+              <button className="flex items-center gap-1 text-sm text-white">
                 Delete
               </button>
-              <X className="w-4 h-4 text-gray-400" />
-            </div>
-
-            <div className="flex items-center border rounded-md px-3 py-1.5 gap-2 bg-white">
-              <span className="text-sm text-gray-700">Sort by</span>
-              <ChevronDown className="w-4 h-4 text-gray-500" />
-            </div>
-
-            <div className="flex items-center border rounded-md px-3 py-1.5 gap-2 bg-white">
-              <span className="text-sm text-gray-700">Role</span>
-              <ChevronDown className="w-4 h-4 text-gray-500" />
-            </div>
-
-            <div className="flex items-center border rounded-md px-3 py-1.5 gap-2 bg-white">
-              <Filter className="w-4 h-4 text-gray-500" />
-              <span className="text-sm text-gray-700">Status</span>
-              <ChevronDown className="w-4 h-4 text-gray-500" />
+              <X className="w-4 h-4 text-white" />
             </div>
           </div>
         </div>
 
         <div className="overflow-hidden bg-white border rounded-lg">
-     
-          <div className="grid grid-cols-12 px-4 py-2 text-xs font-medium text-gray-500 border-b bg-gray-50">
+          <div className="grid grid-cols-12 px-4 py-3 text-xs font-medium text-white bg-blue-500 border-b hover:bg-blue-700">
             <div className="col-span-1">SELECT</div>
             <div className="col-span-5">USER DETAILS</div>
             <div className="col-span-2">ROLE</div>
@@ -112,20 +74,25 @@ const UserList = () => {
             <div className="col-span-2">ACTIONS</div>
           </div>
 
-          {userInfo.map((user, idx) => (
+          {users.map((user) => (
             <UserRow
-              key={idx}
-              avatar="/avatar.png"
+              key={user.id}
+              id={user.id}
+              avatar={user.profileImage}
               name={user.name}
               email={user.email}
-              role={user.role}
-              status={user.status as "Active" | "Inactive"}
+              role={user.role.toLowerCase()}
+              status={user.isDeleted ? "Inactive" : "Active"}
+              isSelected={selectedIds.includes(user.id)}
+              onSelect={handleSelect}
             />
           ))}
 
-          <div className="px-4 py-2 text-xs text-gray-500 border-t">
-            +3 more users...
-          </div>
+          {users.length === 0 && (
+            <div className="px-4 py-4 text-sm text-center text-gray-500">
+              No users found.
+            </div>
+          )}
         </div>
       </div>
     </div>

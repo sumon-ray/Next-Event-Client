@@ -1,7 +1,7 @@
 
 
 import Loader from "@/components/ui/Loader/Loader";
-import { getAllEvents } from "@/services/Events";
+import { getAllEvents } from "@/services/EventService";
 ;
 import { Event, EventCard } from "./Card";
 import Title from "@/components/shared/Title";

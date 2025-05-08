@@ -1,6 +1,6 @@
 
 export interface IEvent {
-    id: string;
+    id?: string;
     slug: string;
     title: string;
     description: string;
@@ -8,11 +8,8 @@ export interface IEvent {
     venue: string;
     bannerImage: string;
     type: 'PUBLIC' | 'PRIVATE';
-    isPaid: boolean;
     fee: string;
-    isDeleted: boolean;
     organizerId: string;
-    createdAt: string;
-    updatedAt: string;
+    isPaid: boolean;
   }
   
