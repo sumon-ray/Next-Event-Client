@@ -1,7 +1,10 @@
 
-
+'use server'
 import { cookies } from "next/headers";
 
+
+
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 export const getAllInvites = async () => {
     try {
       const cookieStore = await cookies();
@@ -33,4 +36,31 @@ export const getAllInvites = async () => {
       return null;
     }
   };
-  
+
+
+export const sendInvitation = async ( payload:{eventId:string,inviteReceiverId:string}) => {
+ 
+ 
+    try {  
+      const cookieStore = await cookies();
+      const accessToken = cookieStore.get("accessToken")?.value
+      const response = await fetch(`${baseUrl}/invites/sent-invite`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: accessToken || "",
+         
+        },
+        credentials: "include",
+        body: JSON.stringify(payload)
+      });
+      const data = await response.json();
+      console.log("🚀 ~ sendInvitation ~ data:", data)
+      
+      return data
+    
+    } catch (error) {
+   console.error("Something went wrong from event sendInvitaion ",error)   
+     
+    }
+  };
