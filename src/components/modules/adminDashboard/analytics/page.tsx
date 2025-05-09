@@ -7,14 +7,14 @@ import { CreditCardIcon, ShoppingBag, Ticket } from "lucide-react"
 
 export default function DashboardAnalysis() {
   return (
-    <div className="min-h-screen bg-slate-50 p-6">
-      <div className="mx-auto max-w-6xl space-y-6">
+    <div className="min-h-screen p-6 bg-slate-50">
+      <div className="max-w-6xl mx-auto space-y-6">
         {/* Transfer Cards */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
           <Card className="bg-white">
             <CardContent className="p-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-md bg-indigo-100 text-indigo-500">
-                <CreditCardIcon className="h-5 w-5" />
+              <div className="flex items-center justify-center w-10 h-10 text-indigo-500 bg-indigo-100 rounded-md">
+                <CreditCardIcon className="w-5 h-5" />
               </div>
               <div className="mt-3 text-sm text-gray-500">Transfer via Card Number</div>
               <div className="mt-1 text-2xl font-semibold">$1241</div>
@@ -22,7 +22,7 @@ export default function DashboardAnalysis() {
           </Card>
           <Card className="bg-white">
             <CardContent className="p-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-md bg-indigo-100 text-indigo-500">
+              <div className="flex items-center justify-center w-10 h-10 text-indigo-500 bg-indigo-100 rounded-md">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -33,7 +33,7 @@ export default function DashboardAnalysis() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="h-5 w-5"
+                  className="w-5 h-5"
                 >
                   <rect width="18" height="18" x="3" y="3" rx="2" />
                   <path d="M7 7h.01" />
@@ -48,7 +48,7 @@ export default function DashboardAnalysis() {
           </Card>
           <Card className="bg-white">
             <CardContent className="p-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-md bg-indigo-100 text-indigo-500">
+              <div className="flex items-center justify-center w-10 h-10 text-indigo-500 bg-indigo-100 rounded-md">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -59,7 +59,7 @@ export default function DashboardAnalysis() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="h-5 w-5"
+                  className="w-5 h-5"
                 >
                   <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
                   <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
@@ -92,8 +92,8 @@ export default function DashboardAnalysis() {
                   </TabsList>
                 </Tabs>
               </div>
-              <div className="mt-4 h-24">
-                <svg viewBox="0 0 300 100" className="h-full w-full">
+              <div className="h-24 mt-4">
+                <svg viewBox="0 0 300 100" className="w-full h-full">
                   <path
                     d="M0,50 C20,30 40,60 60,40 C80,20 100,50 120,70 C140,90 160,10 180,50 C200,90 220,30 240,50 C260,70 280,40 300,50"
                     fill="none"
@@ -103,10 +103,10 @@ export default function DashboardAnalysis() {
                   <circle cx="180" cy="50" r="4" fill="#4F46E5" />
                 </svg>
               </div>
-              <div className="mt-2 flex justify-between text-xs text-gray-500">
+              <div className="flex justify-between mt-2 text-xs text-gray-500">
                 <span>Jan</span>
                 <span>Feb</span>
-                <span className="text-indigo-500 font-medium">Mar</span>
+                <span className="font-medium text-indigo-500">Mar</span>
                 <span>Apr</span>
                 <span>May</span>
                 <span>Jun</span>
@@ -128,16 +128,16 @@ export default function DashboardAnalysis() {
                   <Button className="mt-4 bg-indigo-500 hover:bg-indigo-600">Learn More</Button>
                 </div>
                 <div className="mt-4">
-                  <div className="relative h-36 w-64 rounded-xl bg-indigo-400 p-4 text-white">
+                  <div className="relative w-64 p-4 text-white bg-indigo-400 h-36 rounded-xl">
                     <div className="absolute right-4 top-4">
                       <div className="flex gap-1">
-                        <div className="h-4 w-4 rounded-full bg-white opacity-70"></div>
-                        <div className="h-4 w-4 rounded-full bg-white"></div>
+                        <div className="w-4 h-4 bg-white rounded-full opacity-70"></div>
+                        <div className="w-4 h-4 bg-white rounded-full"></div>
                       </div>
                     </div>
                     <div className="mt-6 text-sm">Universal Card</div>
                     <div className="mt-4 text-lg tracking-wider">5214 4321 5678 4345</div>
-                    <div className="mt-4 flex justify-between text-xs">
+                    <div className="flex justify-between mt-4 text-xs">
                       <span>Nayara Ulla</span>
                       <span>12/24</span>
                     </div>
@@ -155,8 +155,8 @@ export default function DashboardAnalysis() {
                 <div className="mt-4 space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-md bg-indigo-100 text-indigo-500">
-                        <ShoppingBag className="h-5 w-5" />
+                      <div className="flex items-center justify-center w-10 h-10 text-indigo-500 bg-indigo-100 rounded-md">
+                        <ShoppingBag className="w-5 h-5" />
                       </div>
                       <div>
                         <div className="font-medium">Shopping</div>
@@ -167,8 +167,8 @@ export default function DashboardAnalysis() {
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-md bg-indigo-100 text-indigo-500">
-                        <Ticket className="h-5 w-5" />
+                      <div className="flex items-center justify-center w-10 h-10 text-indigo-500 bg-indigo-100 rounded-md">
+                        <Ticket className="w-5 h-5" />
                       </div>
                       <div>
                         <div className="font-medium">Movie</div>
@@ -215,18 +215,18 @@ export default function DashboardAnalysis() {
               </CardContent>
             </Card>
 
-            <Card className="bg-navy-900 text-white bg-blue-900">
+            <Card className="text-white bg-blue-900 bg-navy-900">
               <CardContent className="flex items-center justify-between p-6">
                 <div>
                   <div className="text-sm text-indigo-200">Plan for 2021</div>
                   <div className="mt-1 text-xl font-semibold">Completed</div>
                 </div>
-                <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-navy-800">
+                <div className="relative flex items-center justify-center w-20 h-20 rounded-full bg-navy-800">
                   <div className="text-lg font-bold">100%</div>
                   <div className="absolute inset-0">
                     <Progress
                       value={100}
-                      className="h-full w-full rounded-full bg-navy-800"
+                      className="w-full h-full rounded-full bg-navy-800"
                       
                     />
                   </div>

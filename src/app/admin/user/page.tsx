@@ -48,25 +48,30 @@ const UserList = () => {
   };
 
   return (
-    <div className="p-4 md:p-6 max-w-[1200px] mx-auto">
+    <div className="p-4 md:p-0 max-w-[1200px] mx-auto">
       <div className="flex flex-col space-y-4">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <h1 className="text-xl font-medium text-gray-700">All Users</h1>
           <div className="flex items-center gap-3">
             <div
               className="flex items-center border rounded-md px-3 py-1.5 gap-2 text-white bg-red-600 cursor-pointer"
               onClick={handleDelete}
             >
-              <button className="text-white text-sm flex items-center gap-1">
+              <button className="flex items-center gap-1 text-sm text-white">
                 Delete
               </button>
-              <X className="h-4 w-4 text-white" />
+              <X className="w-4 h-4 text-white" />
             </div>
           </div>
         </div>
 
+<<<<<<< HEAD
         <div className="bg-white rounded-lg border overflow-hidden">
           <div className="grid grid-cols-11 text-xs text-white py-3 px-4 border-b font-medium bg-blue-500 hover:bg-blue-700">
+=======
+        <div className="overflow-hidden bg-white border rounded-lg">
+          <div className="grid grid-cols-12 px-4 py-3 text-xs font-medium text-white bg-blue-500 border-b hover:bg-blue-700">
+>>>>>>> ea30611c212637903ff57034ded20bd7a2fb6600
             <div className="col-span-1">SELECT</div>
             <div className="col-span-4">USER DETAILS</div>
             <div className="col-span-2">ROLE</div>

@@ -1,5 +1,6 @@
+import DashboardAnalysis from '@/components/modules/adminDashboard/analytics/page'
 import React from 'react'
-import DashboardAnalysis from '../analytics/page'
+
 
 const Dashboard = () => {
   return (
