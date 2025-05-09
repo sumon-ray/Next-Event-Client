@@ -72,35 +72,40 @@ const LoginForm = () => {
     }
   }, [watchEmail, watchPassword, loginError]);
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    setIsLoading(true);
-    setLoginError("");
+ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  setIsLoading(true);
+  setLoginError("");
 
-    try {
-      const res = await loginUser(data);
+  try {
+    const res = await loginUser(data);
 
-      if (res?.success) {
-        toast.success(res?.message || "Login successful!");
+    if (res?.success) {
+      const token = res.data?.accessToken;
 
-        setTimeout(() => {
-          if (redirect) {
-            router.push(redirect);
-          } else {
-            router.push("/");
-          }
-        }, 500);
-      } else {
-        setLoginError(res?.message || "Invalid email or password");
-        toast.error(res?.message || "Login failed");
+      if (token) {
+        const decodedUser = jwtDecode<IUser>(token); // ✅ টোকেন থেকে ইউজার ইনফো বের করা
+        setUser(decodedUser); // ✅ Context-এ ইউজার সেট করা
+        localStorage.setItem("accessToken", token); // ✅ ক্লায়েন্টে টোকেন সংরক্ষণ (যদি দরকার হয়)
       }
-    } catch (error:any) {
-      console.error(error);
-      setLoginError(error.message || "An unexpected error occurred");
-      toast.error("Login failed. Please try again.");
-    } finally {
-      setIsLoading(false);
+
+      toast.success(res.message || "Login successful!");
+
+      setTimeout(() => {
+        router.push(redirect || "/");
+      }, 500);
+    } else {
+      setLoginError(res?.message || "Invalid email or password");
+      toast.error(res?.message || "Login failed");
     }
-  };
+  } catch (error: any) {
+    console.error(error);
+    setLoginError(error.message || "An unexpected error occurred");
+    toast.error("Login failed. Please try again.");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   const handleSocialLogin = (provider: string) => {
     toast.info(`${provider} login coming soon!`);

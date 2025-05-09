@@ -11,10 +11,10 @@ export interface IQuery{
   isFreeOnly?: boolean;
   minFee?: number;
   maxFee?: number;
-  eventStatus?: string
-  startDate?: string
-  endDate?: string
-  type?: string
+  eventStatus?: string;
+  startDate?: string;
+  endDate?: string;
+  type?: string;
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -40,9 +40,8 @@ const query = new URLSearchParams(
       cache: "no-cache",
     });
     const data = await response.json();
-    
+
     return data;
-  
   } catch (error) {
  
    

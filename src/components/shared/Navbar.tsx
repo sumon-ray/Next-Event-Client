@@ -10,7 +10,7 @@ import { useUser } from "@/context/UserContext";
 
 import img from "../../../public/favicon.png";
 import "../../styles/styles.css";
-import MobileSidebar from "../sidebar/MobileSidebar";
+import MobileSidebar from "../MobileSidebar/MobileSidebar";
 import NextButton from "./NextButton";
 const navLinks = [
   { label: "Home", href: "/" },
