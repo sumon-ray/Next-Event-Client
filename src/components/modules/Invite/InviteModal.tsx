@@ -12,26 +12,30 @@ import {
 
   import { Button } from "@/components/ui/button";
 import NextButton from "@/components/shared/NextButton";
+import InviteUserTable from "./InviteTable";
+import Title from "@/components/shared/Title";
   
-  export const InviteModal = () => {
+  export const InviteModal = ({id}:{id:string }) => {
     return (
-      <Dialog>
-        <DialogTrigger asChild>
+      <Dialog  >
+        <DialogTrigger  asChild>
           <NextButton name="Invite" />
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent className="w-full overflow-auto max-h-[60vh] max-w-4xl mx-auto bg-gradient-to-br from-[#E3F2FD] via-[#BBDEFB] to-[#29B6F6]">
+
           <DialogHeader>
-            <DialogTitle>Send Invitation</DialogTitle>
+          <Title title="Send Invitation " />
             <DialogDescription>
-              Enter user email or ID to send an invitation to this event.
+            
             </DialogDescription>
           </DialogHeader>
-          {/* Add your form or content here */}
-          <DialogFooter>
+          <InviteUserTable eventId={id}/>
+          <DialogFooter className="flex items-center justify-center mx-auto mt-6 mb-16" >
             <DialogClose asChild>
-              <Button variant="secondary">Cancel</Button>
+              
+              <NextButton name="Cancel" />
             </DialogClose>
-            <Button type="submit">Send Invite</Button>
+          
           </DialogFooter>
         </DialogContent>
       </Dialog>

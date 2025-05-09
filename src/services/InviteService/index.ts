@@ -1,7 +1,8 @@
 
-
-import { IEvent } from "@/app/types";
+'use server'
 import { cookies } from "next/headers";
+
+
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 export const getAllInvites = async () => {
@@ -35,26 +36,31 @@ export const getAllInvites = async () => {
       return null;
     }
   };
-  import { toast } from "sonner";
 
-export const createInvites = async ( payload:IEvent) => {
+
+export const sendInvitation = async ( payload:{eventId:string,inviteReceiverId:string}) => {
+ 
  
     try {  
-      const response = await fetch(`${baseUrl}/user`, {
+      const cookieStore = await cookies();
+      const accessToken = cookieStore.get("accessToken")?.value
+      const response = await fetch(`${baseUrl}/invites/sent-invite`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          body: JSON.stringify(payload),
+          Authorization: accessToken || "",
+         
         },
         credentials: "include",
-        
+        body: JSON.stringify(payload)
       });
       const data = await response.json();
+      console.log("🚀 ~ sendInvitation ~ data:", data)
       
-      return data?.data;
+      return data
     
     } catch (error) {
-   toast.error("Something went wrong from event getUsers")   
+   console.error("Something went wrong from event sendInvitaion ",error)   
      
     }
   };

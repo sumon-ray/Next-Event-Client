@@ -27,7 +27,7 @@ const UserList =async () => {
         <table className="min-w-[900px] w-full text-left text-base">
           <thead className="text-sm font-medium text-gray-500 uppercase border-b border-white">
             <tr>
-              <th className="px-4 py-3 w-[200px] pl-10 border-2 ">Title</th>
+              <th className="px-4 py-3 w-[200px] pl-10 ">Title</th>
           
               <th className="px-4 py-3 w-[200px] text-center border-2 ">Venue</th>
               <th className="px-4 py-3 w-[140px] border-2 ">Event Type</th>
@@ -38,8 +38,8 @@ const UserList =async () => {
 
           <tbody>
           {users.map((event:IEvent) => (
-  <tr key={event.id} className="border-white border-1">
-    <td className="flex items-center gap-3 px-4 py-4 border-2">
+  <tr key={event.id} className="border-white ">
+    <td className="flex items-center h-full gap-3 px-4 border-2 py-9">
       <div className="relative w-10 h-10">
         <Image
           src={event.bannerImage || "/placeholder.svg"}
@@ -51,9 +51,9 @@ const UserList =async () => {
       <span className="font-medium text-gray-800">{event.title}</span>
     </td>
    
-    <td className="px-4 py-4 truncate border-2">{event.venue}</td>
-    <td className="px-4 py-4 border-2">{event.type}</td>
-    <td className="px-4 py-4 border-2">{event.isPaid ? "Paid" : "Free"}</td>
+    <td className="h-full px-4 py-4 truncate border-2">{event.venue}</td>
+    <td className="h-full px-4 py-4 border-2">{event.type}</td>
+    <td className="h-full px-4 py-4 border-2">{event.isPaid ? "Paid" : "Free"}</td>
     <td className="flex items-center justify-center h-full gap-4 my-4">
      <InviteModal   id={event.id!}/>
      <UpdateModal  id={event.id!}/>
