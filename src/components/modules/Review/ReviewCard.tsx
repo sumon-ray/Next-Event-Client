@@ -1,14 +1,15 @@
 import Image from "next/image";
 import { Star, Pencil, Trash } from "lucide-react";
 
-export default function FeedbackCard() {
+export default function ReviewCard() {
   return (
-    <div className="max-w-md w-full mx-auto p-4 sm:p-6 bg-white rounded-lg shadow-md relative">
+    <div className="max-w-md w-full mx-auto p-4 sm:p-6  rounded-lg shadow-md relative">
       {/* Dotted background pattern */}
       <div className="absolute inset-0 bg-[url('/dots-pattern.png')] opacity-10 z-0 rounded-lg" />
 
       <div className="relative z-10">
         {/* Header */}
+
         <div className="text-center mb-4">
           <h1 className="text-2xl sm:text-3xl font-bold">
             <span className="text-gray-700">FEED</span>

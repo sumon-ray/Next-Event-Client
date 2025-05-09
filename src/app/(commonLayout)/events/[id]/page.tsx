@@ -3,10 +3,12 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import Image from "next/image";
 import { CalendarIcon, ClockIcon, MapPinIcon, TagIcon, UserIcon } from "lucide-react";
 import { Category, Event } from "@/components/modules/Events/Card";
-import { getSingleEvent } from "@/services/Events";
+
 import HeroSecton from "@/components/shared/HeroSecton";
 import img from "../../../../../public/images/img7.jpg";
 import NextButton from "@/components/shared/NextButton";
+import { getSingleEvent } from "@/services/EventService";
+
 
 
 interface User {
@@ -214,7 +216,7 @@ const SingleEventPage = async ({ params }: { params: { id: string } }) => {
             </div>
        
       
-
+                      
         </div>
     );
 };

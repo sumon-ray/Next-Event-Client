@@ -102,9 +102,9 @@ const ReviewList = () => {
         </div>
 
         <div className="bg-white rounded-lg border overflow-hidden">
-          <div className="grid grid-cols-12 text-xs text-white py-3 px-4 border-b font-medium bg-blue-500 hover:bg-blue-700">
+          <div className="grid grid-cols-11 text-xs text-white py-3 px-4 border-b font-medium bg-blue-500 hover:bg-blue-700">
             <div className="col-span-1">SELECT</div>
-            <div className="col-span-5">REVIEW DETAILS</div>
+            <div className="col-span-4">REVIEW DETAILS</div>
             <div className="col-span-2">RATING</div>
             <div className="col-span-2"> Details </div>
             <div className="col-span-2"> Delete</div>
@@ -123,7 +123,7 @@ const ReviewList = () => {
               <ReviewRow
                 key={review.id}
                 id={review.id}
-                image={review.reviewer?.profileImg}
+                // image={review.reviewer?.profileImg}
                 name={review.reviewer?.name}
                 comment={review.comment}
                 rating={review.rating}
@@ -131,8 +131,7 @@ const ReviewList = () => {
                 onDetailClick={handleOpenDetail}
                 isSelected={selectedIds.includes(review.id)}
                 onSelect={handleSelect}
-                onDelete={() => handleDelete(review.id)} 
-              />
+                onDelete={() => handleDelete(review.id)} image={""}              />
             ))
           )}
 

@@ -6,7 +6,6 @@ import { cookies } from 'next/headers';
 import axios from "axios";
 
 
-
 export const createReview = async (reviewData: any) => {
   try {
     const cookieStore = await cookies();
@@ -161,4 +160,10 @@ export const deleteReview = async (id: string) => {
     console.error("deleteReview error:", error?.response || error.message);
     throw new Error("Failed to delete review");
   }
+};
+
+export const getReviewsByEvent = async (id: string) => {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const response = await axios.get(`${baseUrl}/review/event/${id}`);
+  return response.data.data;
 };

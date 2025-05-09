@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
-"use client"
-
-import { useEffect, useState } from "react"
-import Image from "next/image"
-import { useForm } from "react-hook-form"
-import { FiUpload } from "react-icons/fi"
-import { IUser } from "@/app/types"
-=======
 "use client";
 
 import { useUser } from "@/context/UserContext";
@@ -16,7 +5,6 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FiUpload } from "react-icons/fi";
->>>>>>> 0e488ffd7e04337a505717bc4c187854759f9565
 
 type FormValues = {
   firstName: string;

@@ -66,9 +66,9 @@ const UserList = () => {
         </div>
 
         <div className="bg-white rounded-lg border overflow-hidden">
-          <div className="grid grid-cols-12 text-xs text-white py-3 px-4 border-b font-medium bg-blue-500 hover:bg-blue-700">
+          <div className="grid grid-cols-11 text-xs text-white py-3 px-4 border-b font-medium bg-blue-500 hover:bg-blue-700">
             <div className="col-span-1">SELECT</div>
-            <div className="col-span-5">USER DETAILS</div>
+            <div className="col-span-4">USER DETAILS</div>
             <div className="col-span-2">ROLE</div>
             <div className="col-span-2">STATUS</div>
             <div className="col-span-2">ACTIONS</div>
@@ -78,7 +78,7 @@ const UserList = () => {
             <UserRow
               key={user.id}
               id={user.id}
-              avatar={user.profileImage}
+              // avatar={user.profileImage}
               name={user.name}
               email={user.email}
               role={user.role.toLowerCase()}

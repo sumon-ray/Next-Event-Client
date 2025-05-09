@@ -1,10 +1,5 @@
 import { LuUser } from "react-icons/lu";
-<<<<<<< HEAD
-import { MdOutlineSecurity } from "react-icons/md";
-import { MdOutlineReviews } from "react-icons/md";
-=======
-import { MdOutlineSecurity, MdOutlineEventAvailable, MdPassword } from "react-icons/md";
->>>>>>> 0e488ffd7e04337a505717bc4c187854759f9565
+import { MdOutlineSecurity, MdOutlineEventAvailable, MdPassword, MdOutlineReviews } from "react-icons/md";
 
 export const profileSettingItems = [
   {
