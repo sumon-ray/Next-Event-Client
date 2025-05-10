@@ -1,36 +1,78 @@
-import axios from "axios";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use server";
+
+import { cookies } from "next/headers";
+
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const getAllUser = async () => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-  if (!baseUrl) {
-    throw new Error("NEXT_PUBLIC_API_URL is not defined in environment variables");
-  }
+  try {
+    if (!baseUrl) throw new Error("NEXT_PUBLIC_API_URL is not defined");
 
-  const apiUrl = `${baseUrl}/user`; 
-  const response = await axios.get(apiUrl, {
-    // withCredentials: true
-  });
-  return response.data;
+    const cookieStore = await cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
+
+    const res = await fetch(`${baseUrl}/user`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: accessToken || "",
+      },
+      credentials: "include",
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch users: ${res.statusText}`);
+    }
+
+    return await res.json();
+  } catch (error: any) {
+    console.error("getAllUser error:", error?.message);
+    throw new Error("Failed to fetch users");
+  }
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-// export const updateUser = async (id: string, data: any) => {
-//     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-//     if (!baseUrl) {
-//       throw new Error("NEXT_PUBLIC_API_URL is not defined in environment variables");
-//     }
-  
-//     const apiUrl = `${baseUrl}/user/${id}`;
-//     const response = await axios.patch(apiUrl, data); 
-//     return response.data;
-//   };
-  
-export const daleteUser = async (id:string) => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-  if (!baseUrl) {
-    throw new Error("NEXT_PUBLIC_API_URL is not defined in environment variables");
+export const deleteUser = async (id: string) => {
+  try {
+    if (!baseUrl) throw new Error("NEXT_PUBLIC_API_URL is not defined");
+
+    const cookieStore = await cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
+
+    const res = await fetch(`${baseUrl}/user/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: accessToken || "",
+      },
+      credentials: "include",
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to delete user: ${res.statusText}`);
+    }
+
+    return await res.json();
+  } catch (error: any) {
+    console.error("deleteUser error:", error?.message);
+    throw new Error("Failed to delete user");
   }
-  const apiUrl = `${baseUrl}/user/${id}`; 
-  const response = await axios.delete(apiUrl);
-  return response.data;
+};
+
+export const getUserAllReviews = async (userId: string) => {
+  try {
+    if (!baseUrl) throw new Error("NEXT_PUBLIC_API_URL is not defined");
+
+    const res = await fetch(`${baseUrl}/review/user/${userId}`, {
+      method: "GET",
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch user reviews: ${res.statusText}`);
+    }
+
+    return await res.json();
+  } catch (error: any) {
+    console.error("getUserAllReviews error:", error?.message);
+    throw new Error("Failed to fetch user reviews");
+  }
 };

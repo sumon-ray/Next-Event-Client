@@ -46,7 +46,6 @@ export default function ResetPasswordPage() {
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
       newPassword: "",
-      confirmPassword: "",
     },
   });
 
@@ -126,7 +125,7 @@ export default function ResetPasswordPage() {
         router.push("/login");
       }, 3000);
     } catch (error) {
-      toast.error(error.message || "Failed to reset password");
+      toast.error("Failed to reset password");
     }
   };
 

@@ -1,17 +1,13 @@
-// components/UserRow.tsx
 "use client";
 
-import Image from "next/image";
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { UserRowProps } from "@/app/types/userRowProps";
 
-
 const UserRow = ({
   id,
-  avatar,
   name,
   email,
   role,
@@ -20,19 +16,11 @@ const UserRow = ({
   onSelect,
 }: UserRowProps) => {
   return (
-    <div className="grid grid-cols-12 py-3 px-4 items-center border-b hover:bg-gray-50">
+    <div className="grid grid-cols-11 py-3 px-4 items-center border-b hover:bg-gray-50">
       <div className="col-span-1">
         <Checkbox checked={isSelected} onCheckedChange={() => onSelect(id)} />
       </div>
-      <div className="col-span-5 flex gap-3 items-center">
-        <div className="w-12 h-12 relative">
-          <Image
-            src={avatar || "/placeholder.svg"}
-            alt={name}
-            fill
-            className="object-cover rounded-full"
-          />
-        </div>
+      <div className="col-span-4">
         <div className="flex flex-col">
           <span className="font-medium">{name}</span>
           <span className="text-xs text-gray-500">{email}</span>

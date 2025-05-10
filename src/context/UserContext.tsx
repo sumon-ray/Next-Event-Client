@@ -16,40 +16,42 @@ interface IUserProviderValues {
   isLoading: boolean;
   setUser: (user: IUser | null) => void;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
-  refreshUser: () => Promise<void>;
+  updateProfile: (updatedUser: IUser) => void;
 }
 
 const UserContext = createContext<IUserProviderValues | undefined>(undefined);
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<IUser | null>(null);
-  // console.log(user)
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const handleUser = async () => {
-      try {
-        const accessToken = localStorage.getItem("accessToken");
-        if (accessToken) {
-          const decodedData = jwtDecode<IUser>(accessToken);
-          setUser(decodedData);
-        } else {
-          setUser(null);
-        }
-      } catch (error) {
-        console.error("Error decoding token:", error);
+    const storedUserProfile = localStorage.getItem("userProfile");
+    if (storedUserProfile) {
+      const userProfile = JSON.parse(storedUserProfile);
+      setUser(userProfile);
+    } else {
+      const accessToken = localStorage.getItem("accessToken");
+      if (accessToken) {
+        const decodedData = jwtDecode<IUser>(accessToken);
+        setUser(decodedData);
+      } else {
         setUser(null);
-      } finally {
-        setIsLoading(false);
       }
-    };
-
-    handleUser();
+    }
+    setIsLoading(false);
   }, []);
+
+  const updateProfile = (updatedUser: IUser) => {
+    if (updatedUser) {
+      setUser(updatedUser);
+      localStorage.setItem("userProfile", JSON.stringify(updatedUser));
+    }
+  };
 
   return (
     <UserContext.Provider
-      value={{ user, isLoading, setUser, setIsLoading }}
+      value={{ user, setUser, updateProfile, isLoading, setIsLoading }}
     >
       {children}
     </UserContext.Provider>
@@ -60,7 +62,7 @@ export const useUser = () => {
   const context = useContext(UserContext);
 
   if (context === undefined) {
-    throw new Error("useUser must be used within a UserProvider");
+    throw new Error("useUser must be used within the UserProvider context");
   }
 
   return context;

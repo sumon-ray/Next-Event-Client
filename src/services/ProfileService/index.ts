@@ -1,81 +1,83 @@
-// "use server";
+"use server";
 
 import { cookies } from "next/headers";
 
-// // Function to update the user profile
-// export const updateProfile = async (data: {
-//   name: string;
-//   email: string;
-//   profileImage: string;
-//   phoneNumber: string;
-//   address: string;
-//   occupation: string;
-// }) => {
-//   try {
-//     const accessToken = cookieStore.get("accessToken")?.value;
+type TUpdatedUserResponse = {
+  data: {
+    id: string;
+    name: string;
+    email: string;
+    phoneNumber?: string;
+    address?: string;
+    occupation?: string;
+    profileImage?: string;
+  };
+};
 
-//     if (!accessToken) {
-//       throw new Error("Access token not found");
-//     }
+export const updateProfile = async (
+  formData: FormData
+): Promise<TUpdatedUserResponse | null> => {
+  try {
+    const accessToken = (await cookies()).get("accessToken")?.value;
+    if (!accessToken) {
+      throw new Error("can not get accessToken");
+    }
 
-//     const url = `${process.env.NEXT_PUBLIC_API_URL}/profiles/${data.userId}`; // Assuming the endpoint expects the userId in the URL
+    const userId = formData.get("userId") as string;
+    if (!userId) throw new Error("can not get userId");
 
-//     const res = await fetch(url, {
-//       method: "PATCH",
-//       credentials: "include",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${accessToken}`,  // Properly prefix the token with "Bearer"
-//       },
-//       body: JSON.stringify(data),
-//     });
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/profiles/${userId}`;
 
-//     if (!res.ok) {
-//       throw new Error(`Failed to update profile: ${res.statusText}`);
-//     }
+    const res = await fetch(url, {
+      method: "PATCH",
+      credentials: "include",
+      headers: {
+        Authorization: accessToken,
+      },
+      body: formData,
+    });
 
-//     const responseData = await res.json();
-//     return responseData;
-//   } catch (error) {
-//     console.error("updateProfile error:", error);
-//     return null;
-//   }
-// };
+    if (!res.ok) {
+      throw new Error(`fail to update user data: ${res.statusText}`);
+    }
 
-
+    const responseData = await res.json();
+    return responseData;
+  } catch (error) {
+    console.error("updateProfile logs:", error);
+    return null;
+  }
+};
 
 // Function to get events created by the user
+export const getMyCreatedEvent = async () => {
+  try {
+    const cookieStore = await cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
 
-  export const getMyCreatedEvent = async () => {
-      try {
-        const cookieStore = await cookies();
-        const accessToken = cookieStore.get("accessToken")?.value;
-    
-        if (!accessToken) {
-          throw new Error('Access token not found');
-        }
-    
-        const url = `${process.env.NEXT_PUBLIC_API_URL}/event/my-event`;
-    
-        const res = await fetch(url, {
-          method: 'GET',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: accessToken,
-          },
-        });
-    
-        if (!res.ok) {
-          throw new Error(`Failed to fetch invites: ${res.statusText}`);
-        }
-    
-        const data = await res.json();
-        return data;
-      } catch (error) {
-        console.error('getAllInvites error:', error);
-        return null;
-      }
-    };
+    if (!accessToken) {
+      throw new Error("Access token not found");
+    }
 
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/event/my-event`;
 
+    const res = await fetch(url, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: accessToken,
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch invites: ${res.statusText}`);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("getAllInvites error:", error);
+    return null;
+  }
+};

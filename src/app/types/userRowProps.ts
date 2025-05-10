@@ -9,3 +9,7 @@ export interface UserRowProps {
     onSelect: (id: string) => void;
   }
   
+  export interface ReviewFilter {
+    rating?: number;
+    user?: string;
+  }
