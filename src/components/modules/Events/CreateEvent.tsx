@@ -30,8 +30,8 @@ interface FormValues {
   bannerImage?: FileList;
   eventStatus: "UPCOMING" | "ONGOING" | "ENDED";
   category: "CONFERENCE" | "WORKSHOP" | "SEMINAR" | "NETWORKING" | "PARTY" | "CONCERT" | "EXHIBITION" | "OTHER";
-  reservedSites: number;
-  availableSites: number;
+  reseveredSit: number;
+  availableSit: number;
 }
 ;
 
@@ -88,8 +88,8 @@ try{
     fee: data.fee ? Number(data.fee) : 0,
     eventStatus: data.eventStatus || "UPCOMING",
     category: data.category || "OTHER",
-    reseveredSit: Number(data.reservedSites),
-    availableSit: Number(data.availableSites)
+    reseveredSit: Number(data.reseveredSit),
+    availableSit: Number(data.availableSit)
 
   }
 
@@ -360,13 +360,13 @@ catch(err:any){
               <div className="p-6 space-y-4">
                 <Input
                   type="number"
-                  {...register("reservedSites", { required: "Reserved Sites is required" })}
+                  {...register("reseveredSit", { required: "Reserved Sites is required" })}
                   placeholder="Reserved Sites"
                   className="w-full focus:ring-2 ring-[#1E3A8A]"
                 />
                 <Input
                   type="number"
-                  {...register("availableSites", { required: "Available Sites is required" })}
+                  {...register("availableSit", { required: "Available Sites is required" })}
                   placeholder="Available Sites"
                   className="w-full focus:ring-2 ring-[#1E3A8A]"
                 />
@@ -378,7 +378,7 @@ catch(err:any){
         </div>
         <div className="flex items-center justify-center mb-16 ">
 
-          <NextButton name="Submit" disabled={loading} />
+          <NextButton name="Create Event" disabled={loading} />
         </div>
       </form>
     </div>
