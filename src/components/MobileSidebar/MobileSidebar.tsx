@@ -23,8 +23,8 @@ export default function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0  z-40 md:hidden">
-          {/* Backdrop */}
+        <div className="fixed inset-0 z-40 md:hidden">
+    
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -34,16 +34,15 @@ export default function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
             onClick={onClose}
           />
 
-          {/* Sidebar */}
+       
           <motion.div
             initial={{ x: "-100%" }}
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             className="relative z-50 bg-[#322f2f] w-72 text-white p-5 shadow-xl h-screen"
-          >
-            {/* Header */}
-            <div className="flex items-center justify-between mb-6 border-b pb-3">
+      >
+            <div className="flex items-center justify-between pb-3 mb-6 border-b">
               <Image src={img} alt="Logo" width={40} height={40} />
               <motion.button
                 onClick={onClose}
@@ -53,7 +52,7 @@ export default function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
               </motion.button>
             </div>
 
-            {/* Nav Links */}
+         
             <motion.ul
               initial="hidden"
               animate="visible"
@@ -77,7 +76,7 @@ export default function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
                   <Link
                     href={href}
                     onClick={onClose}
-                    className="flex items-center gap-3 px-2 py-2 rounded-md hover:bg-gray-100 text-white"
+                    className="flex items-center gap-3 px-2 py-2 text-white rounded-md hover:bg-gray-100"
                   >
                     <Icon className="w-5 h-5" />
                     <span>{label}</span>

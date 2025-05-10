@@ -34,7 +34,6 @@ export default function ForgotPasswordPage() {
   });
 
   const { isSubmitting } = form.formState;
-
   const onSubmit = async (data: ForgotPasswordType) => {
     try {
       await ForgetPassword(data);
@@ -42,7 +41,7 @@ export default function ForgotPasswordPage() {
       toast.success("Reset link sent successfully!");
       setStep("success");
     } catch (err) {
-      toast.error(err.message || "Failed to send reset link");
+      toast.error("Failed to send reset link");
     }
   };
 

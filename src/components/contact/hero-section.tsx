@@ -210,8 +210,8 @@ function AnimatedBackground() {
       color: string
 
       constructor() {
-        this.x = Math.random() * canvas.width
-        this.y = Math.random() * canvas.height
+        this.x = Math.random() * canvas!.width
+        this.y = Math.random() * canvas!.height
         this.size = Math.random() * 3 + 1
         this.speedX = Math.random() * 0.5 - 0.25
         this.speedY = Math.random() * 0.5 - 0.25
@@ -233,11 +233,11 @@ function AnimatedBackground() {
         this.y += this.speedY
 
         // Bounce off edges
-        if (this.x > canvas.width || this.x < 0) {
+        if (this.x > canvas!.width || this.x < 0) {
           this.speedX = -this.speedX
         }
 
-        if (this.y > canvas.height || this.y < 0) {
+        if (this.y > canvas!.height || this.y < 0) {
           this.speedY = -this.speedY
         }
       }
@@ -286,15 +286,15 @@ function AnimatedBackground() {
 
     // Animation loop
     function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      ctx!.clearRect(0, 0, canvas!.width, canvas!.height)
 
       // Create gradient background
-      const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height)
+      const gradient = ctx!.createLinearGradient(0, 0, 0, canvas!.height)
       gradient.addColorStop(0, "#1e3a8a") // dark blue
       gradient.addColorStop(1, "#312e81") // dark indigo
 
-      ctx.fillStyle = gradient
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      ctx!.fillStyle = gradient
+      ctx!.fillRect(0, 0, canvas!.width, canvas!.height)
 
       // Update and draw particles
       for (let i = 0; i < particlesArray.length; i++) {

@@ -83,9 +83,9 @@ const LoginForm = () => {
       const token = res.data?.accessToken;
 
       if (token) {
-        const decodedUser = jwtDecode<IUser>(token); // ✅ টোকেন থেকে ইউজার ইনফো বের করা
-        setUser(decodedUser); // ✅ Context-এ ইউজার সেট করা
-        localStorage.setItem("accessToken", token); // ✅ ক্লায়েন্টে টোকেন সংরক্ষণ (যদি দরকার হয়)
+        const decodedUser = jwtDecode<IUser>(token); 
+        setUser(decodedUser); 
+        localStorage.setItem("accessToken", token); 
       }
 
       toast.success(res.message || "Login successful!");
