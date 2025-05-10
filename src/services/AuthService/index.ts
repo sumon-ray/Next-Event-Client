@@ -3,6 +3,7 @@ import { IUser, ResetPasswordPayload } from "@/app/types";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
 
 // register user
 export const registerUser = async (userData: FieldValues) => {

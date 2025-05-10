@@ -119,7 +119,7 @@ export function EventCard({ event }: { event: Event }) {
 
     <CardContent className="flex-grow space-y-3 overflow-hidden">
       
-      <p className="text-sm text-gray-600 line-clamp-4">
+      <p className="text-sm text-gray-600 line-clamp-2">
         {event.description} ...
       </p>
 
