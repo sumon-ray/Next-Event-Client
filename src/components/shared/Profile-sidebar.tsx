@@ -1,5 +1,5 @@
 import { LuUser } from "react-icons/lu";
-import { MdOutlineSecurity, MdOutlineEventAvailable, MdPassword } from "react-icons/md";
+import { MdOutlineSecurity, MdOutlineEventAvailable, MdPassword, MdOutlineReviews } from "react-icons/md";
 
 export const profileSettingItems = [
   {
@@ -18,8 +18,14 @@ export const profileSettingItems = [
     href: "/profile/my-events",
   },
   {
+    title: "review",
+    icon: <MdOutlineReviews className="w-5 h-5" />,
+    href: "/profile/review",
+  },
+  {
     title: "Privacy & Security",
     icon: <MdOutlineSecurity className="w-5 h-5" />,
     href: "/profile/privacy_and_security",
   },
+  
 ];

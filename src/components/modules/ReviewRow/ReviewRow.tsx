@@ -1,13 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import { Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ReviewRowProps } from "@/app/types/reviewType";
 
-const ReviewRow = ({id,
-  image,
+const ReviewRow = ({
+  id,
   name,
   comment,
   rating,
@@ -23,14 +22,14 @@ const ReviewRow = ({id,
         <Checkbox />
       </div>
 
-      <div className="col-span-5 flex gap-3 items-center">
+      <div className="col-span-4 flex gap-3 items-center">
         <div className="w-12 h-12 relative">
-          <Image
-            src={image }
+          {/* <Image
+            src={image}
             alt={name}
             fill
             className="object-cover rounded-full"
-          />
+          /> */}
         </div>
         <div className="flex flex-col">
           <span className="font-medium">{name}</span>
@@ -38,7 +37,7 @@ const ReviewRow = ({id,
         </div>
       </div>
 
-      <div className="col-span-2">
+      <div className="col-span-3">
         <div className="flex items-center gap-1">
           {[1, 2, 3, 4, 5].map((star) => (
             <Star
@@ -54,22 +53,24 @@ const ReviewRow = ({id,
       </div>
 
       <div className="col-span-2">
-      <span className=" bg-blue-500 border-gray-400 p-1 px-2 rounded-lg font-normal text-sm hover:bg-blue-700 text-white" onClick={() => onDetailClick(id)}>Details</span>
-
+        <span
+          className="bg-blue-500 border-gray-400 p-1 px-2 rounded-lg font-normal text-sm hover:bg-blue-700 text-white cursor-pointer"
+          onClick={() => onDetailClick(id)}
+        >
+          Details
+        </span>
       </div>
 
-      <div className="col-span-2 ">
+      <div className="col-span-2">
         <Button
           size="sm"
           variant="destructive"
           className="text-xs"
-          onClick={ onDelete}
+          onClick={onDelete}
         >
           Delete
         </Button>
       </div>
-
-      
     </div>
   );
 };
