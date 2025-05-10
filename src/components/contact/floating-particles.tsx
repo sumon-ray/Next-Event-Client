@@ -32,8 +32,8 @@ export default function FloatingParticles() {
       color: string
 
       constructor() {
-        this.x = Math.random() * canvas.width
-        this.y = Math.random() * canvas.height
+        this.x = Math.random() * canvas!.width
+        this.y = Math.random() * canvas!.height
         this.size = Math.random() * 3 + 1 // Smaller particles
         this.speedX = Math.random() * 0.5 - 0.25 // Slower movement
         this.speedY = Math.random() * 0.5 - 0.25 // Slower movement
@@ -42,8 +42,8 @@ export default function FloatingParticles() {
 
       getRandomColor() {
         const colors = [
-          "rgba(59, 130, 246, 0.1)", // blue with lower opacity
-          "rgba(79, 70, 229, 0.1)", // indigo with lower opacity
+          "rgba(59, 130, 246, 0.1)", 
+          "rgba(79, 70, 229, 0.1)",
         ]
         return colors[Math.floor(Math.random() * colors.length)]
       }
@@ -53,11 +53,11 @@ export default function FloatingParticles() {
         this.y += this.speedY
 
         // Bounce off edges
-        if (this.x > canvas.width || this.x < 0) {
+        if (this.x > canvas!.width || this.x < 0) {
           this.speedX = -this.speedX
         }
 
-        if (this.y > canvas.height || this.y < 0) {
+        if (this.y > canvas!.height || this.y < 0) {
           this.speedY = -this.speedY
         }
       }
@@ -79,9 +79,8 @@ export default function FloatingParticles() {
       particlesArray.push(new Particle())
     }
 
-    // Use requestAnimationFrame with throttling
     let lastTime = 0
-    const fps = 30 // Limit to 30 FPS
+    const fps = 30 
     const interval = 1000 / fps
 
     const animate = (timestamp: number) => {
