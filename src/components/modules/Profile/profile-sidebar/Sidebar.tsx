@@ -19,6 +19,7 @@ const Sidebar = ({ className = "" }: SidebarProps) => {
     toast.success("Log out successful");
     setUser(null);
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("userProfile");
     try {
       router.push("/");
     } catch {
