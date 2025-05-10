@@ -3,6 +3,7 @@ import { IUser, ResetPasswordPayload } from "@/app/types";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
 
 
 
@@ -139,7 +140,7 @@ export const ForgetPassword = async (userData: FieldValues) => {
     }
 
     return await res.json();
-  } catch (error) {
+  } catch (error:any) {
     throw new Error(error.message || "Something went wrong");
   }
 };

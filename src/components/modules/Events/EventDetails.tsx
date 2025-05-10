@@ -65,7 +65,7 @@ const EventDetails = ({ event, organizer }: { event: any; organizer: any }) => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-[#E3F2FD] via-[#BBDEFB] to-[#29B6F6] md:pb-40">
+    <div className="bg-gradient-to-br from-[#E3F2FD] via-[#BBDEFB] to-[#29B6F6] md:pb-20">
       <HeroSecton
         img={img}
         title1="Next Level Events Await You"

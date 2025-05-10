@@ -6,6 +6,7 @@ const NextButton = ({ name, onClick, disabled }: { name: ReactNode, onClick?: ()
       onClick={onClick}
       className={`nextButton ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
       disabled={disabled}
+      type='submit'
     >
       <span>{name}</span>
     </button>
