@@ -6,7 +6,7 @@ type Role = "user" | "admin";
 const authRoutes = ["/login", "/register"];
 
 const roleBasedPrivateRoutes: Record<Role, RegExp[]> = {
-  admin: [/^\/admin\/.*/],
+  admin: [/^\/admin/, /^\/profile/],
   user: [/^\/user/, /^\/profile/],
 };
 

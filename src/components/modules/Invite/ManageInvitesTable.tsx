@@ -13,6 +13,7 @@ interface ManageInvitesTableProps {
 }
 
 const ManageInvitesTable = ({ invites }: ManageInvitesTableProps) => {
+  // console.log(invites);
   return (
     <div className="p-4 md:p-6 max-w-[1300px] mx-auto">
       <div className="bg-white rounded-lg border overflow-hidden">

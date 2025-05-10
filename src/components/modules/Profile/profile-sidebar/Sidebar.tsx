@@ -18,7 +18,7 @@ const Sidebar = ({ className = "" }: SidebarProps) => {
     toast.success("Log out successful");
     localStorage.removeItem("accessToken");
     try {
-      router.push("/");
+      router.push("/login");
     } catch {
       window.location.href = "/login";
     }

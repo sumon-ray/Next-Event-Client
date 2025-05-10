@@ -5,6 +5,8 @@ export interface IEvent {
     title: string;
     description: string;
     dateTime: string;
+    startDate: string;
+    endDate: string;
     venue: string;
     bannerImage: string;
     type: 'PUBLIC' | 'PRIVATE';
