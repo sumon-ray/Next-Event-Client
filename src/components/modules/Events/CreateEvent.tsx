@@ -18,7 +18,6 @@ import Image from "next/image";
 
 interface FormValues {
   title: string;
-  slug: string;
   description: string;
   startDate: Date;
   startTime: string;
@@ -36,7 +35,7 @@ interface FormValues {
 }
 ;
 
-const AddEvent = () => {
+const CreateEvent = () => {
   const {
     register,
     handleSubmit,
@@ -80,7 +79,6 @@ try{
   const payload = {
 
     title: data.title,
-    slug: data.slug,
     description: data.description,
     startDate: startDate.toISOString(),
     endDate: endDate.toISOString(),
@@ -101,20 +99,21 @@ try{
     formData.append("file", data.bannerImage[0]);
   }
   const uploadEvent = await createEvent(formData);
-  if(!uploadEvent.succcess){
-    toast.error(uploadEvent.message || 'Failed to upload event');  setLoading(false);
+  console.log(uploadEvent.data);
+  if(uploadEvent.success ){
+    toast.success(uploadEvent.message || 'Event uploaded successfully');  setLoading(false);
+        reset();
   }
   else{
     setLoading(false);
-    toast.success(uploadEvent.message || 'Event uploaded successfully');
-    reset();
+    toast.error(uploadEvent.message || 'Failed to upload event');
   }
   
 
 }
 catch(err:any){
   console.log("🚀 ~ onSubmit ~ err:", err)
-  reset();
+  // reset();
   toast.error(err.message || 'Failed to upload event');
   setLoading(false); 
 }
@@ -144,11 +143,6 @@ catch(err:any){
                   className="w-full focus:ring-2 ring-[#1E3A8A]"
                   {...register("title", { required: true })}
                   placeholder="Event Title"
-                />
-                <Input
-                  className="w-full focus:ring-2 ring-[#1E3A8A]"
-                  {...register("slug", { required: true })}
-                  placeholder="An Unique Event Title"
                 />
 
                 <Textarea
@@ -277,6 +271,8 @@ catch(err:any){
                 />
                 {previewUrl && (
                   <Image
+                  height={300}
+                  width={300}
                     src={previewUrl}
                     alt="Preview"
                     className="object-cover w-full mt-4 border rounded-md max-h-52"
@@ -389,4 +385,4 @@ catch(err:any){
   );
 };
 
-export default AddEvent;
+export default CreateEvent;

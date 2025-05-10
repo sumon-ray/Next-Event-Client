@@ -44,7 +44,7 @@ const MyEvents = ({ events }: { events: IEvent[] | any }) => {
       {/* Header */}
       <div className="flex flex-col items-start justify-between gap-4 mb-6 md:flex-row md:items-center">
         <Title title="My Events" />
-        <Link href="/events/create">
+           <Link href="/events/create-event" >
           <NextButton name="Create Event" />
         </Link>
       </div>

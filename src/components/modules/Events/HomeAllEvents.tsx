@@ -8,7 +8,7 @@ import Title from "@/components/shared/Title";
 import NextButton from "@/components/shared/NextButton";
 import Link from "next/link";
 
-const AllEvents = async() => {
+const HomeAllEvents = async() => {
 
   const upComing = await getAllEvents({eventStatus: "UPCOMING"}  );
   const onGoing = await getAllEvents({eventStatus: "ONGOING"}  );
@@ -79,4 +79,4 @@ const AllEvents = async() => {
     );
 };
 
-export default AllEvents;
+export default HomeAllEvents;
