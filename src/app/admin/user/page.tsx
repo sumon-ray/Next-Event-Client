@@ -65,13 +65,8 @@ const UserList = () => {
           </div>
         </div>
 
-<<<<<<< HEAD
-        <div className="bg-white rounded-lg border overflow-hidden">
-          <div className="grid grid-cols-11 text-xs text-white py-3 px-4 border-b font-medium bg-blue-500 hover:bg-blue-700">
-=======
         <div className="overflow-hidden bg-white border rounded-lg">
           <div className="grid grid-cols-12 px-4 py-3 text-xs font-medium text-white bg-blue-500 border-b hover:bg-blue-700">
->>>>>>> ea30611c212637903ff57034ded20bd7a2fb6600
             <div className="col-span-1">SELECT</div>
             <div className="col-span-4">USER DETAILS</div>
             <div className="col-span-2">ROLE</div>

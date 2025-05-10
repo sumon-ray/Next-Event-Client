@@ -10,7 +10,6 @@ import NextButton from "@/components/shared/NextButton";
 import { getSingleEvent } from "@/services/EventService";
 
 
-
 interface User {
     name: string;
     profileImage: string;
