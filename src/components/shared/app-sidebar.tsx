@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { ChevronDown, SquareTerminal, Bot, ShoppingCart, User, Star } from "lucide-react"
+import { ChevronDown, SquareTerminal, Bot, ShoppingCart, User, Star, Presentation, BookImage } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -34,7 +34,7 @@ export const NavItems: TNavItem[] = [
   {
     title: "Events Management",
     url: "/admin/products",
-    icon: <Bot className="w-5 h-5" />,
+    icon: <BookImage className="w-5 h-5" />,
     items: [
       { title: "Add Event", url: "/admin/products/add-event" },
       { title: "Event List", url: "/admin/products/event-list" },
@@ -48,7 +48,11 @@ export const NavItems: TNavItem[] = [
   {
     title: "Invites Management",
     url: "/admin/manage-invites",
-    icon: <ShoppingCart className="w-5 h-5" />,
+    icon: <Presentation className="w-5 h-5" />,
+    items: [
+      { title: "My All Invitaions", url: "/admin/manage-invites/all-invites" },
+      { title: "Sent Invitaions", url: "/admin/manage-invites/sent-invites" },
+    ],
   },
   {
     title: "User ",

@@ -14,7 +14,7 @@ export const getAllInvites = async () => {
         throw new Error('Access token not found');
       }
   
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/invites`;
+      const url = `${baseUrl}/invites`;
   
       const res = await fetch(url, {
         method: 'GET',
@@ -37,7 +37,68 @@ export const getAllInvites = async () => {
     }
   };
 
+export  const getSingleUserInvites = async () => {
+  try {
+    const cookieStore = await cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
 
+    if (!accessToken) {
+      throw new Error('Access token not found');
+    }
+
+    const url = `${baseUrl}/invites/my-all-received-invites`;
+
+    const res = await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken,
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch invites: ${res.statusText}`);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error('getAllInvites error:', error);
+    return null;
+  }
+}
+export  const getAllSentInvites = async () => {
+  try {
+    const cookieStore = await cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
+
+    if (!accessToken) {
+      throw new Error('Access token not found');
+    }
+
+    const url = `${baseUrl}/invites/my-all-sent-invites`;
+
+    const res = await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken,
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch invites: ${res.statusText}`);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error('getAllInvites error:', error);
+    return null;
+  }
+}
 export const sendInvitation = async ( payload:{eventId:string,inviteReceiverId:string}) => {
  
  
@@ -64,3 +125,4 @@ export const sendInvitation = async ( payload:{eventId:string,inviteReceiverId:s
      
     }
   };
+
