@@ -93,7 +93,7 @@ export const getEventsOfUser = async () => {
   try {
     const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value
-    const response = await fetch(`${baseUrl}/events/my-events`, {
+    const response = await fetch(`${baseUrl}/events/profile/my-events`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -103,6 +103,7 @@ export const getEventsOfUser = async () => {
        next: { tags: ["user-events"],revalidate: 5},
     });
     const data = await response.json();
+    // console.log(data);
 
     return data.data;
   } catch (error) {
@@ -177,3 +178,4 @@ console.log("🚀 ~ UpdateEvent ~ id:", id,payload)
   
  
 }
+

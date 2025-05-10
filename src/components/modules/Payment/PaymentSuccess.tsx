@@ -6,27 +6,26 @@ import Loader from "@/components/ui/Loader/Loader";
 import { paymentValidate } from "@/services/PaymentService";
 import Swal from "sweetalert2";
 
-const PaymentSuccessPage = () => {
+interface Props {
+  tranId: string;
+}
+
+const PaymentSuccess = ({ tranId }: Props) => {
   const [message, setMessage] = useState("Validating your payment...");
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const tran_id = searchParams.get("tran_id");
-
-    // Fallback: reload the page if tran_id is missing (after delay)
     setTimeout(() => {
-      if (!searchParams.get("tran_id")) {
+      if (!tranId) {
         window.location.reload();
       }
     }, 1000);
 
     const validatePayment = async () => {
-      if (!tran_id) {
+      if (!tranId) {
         setMessage("Transaction ID is missing.");
         setLoading(false);
-
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -37,16 +36,14 @@ const PaymentSuccessPage = () => {
         }).then(() => {
           router.push("/events");
         });
-
         return;
       }
 
       try {
-        const response = await paymentValidate(tran_id);
+        const response = await paymentValidate(tranId);
 
         if (response?.success) {
           setMessage("Payment validated successfully!");
-
           Swal.fire({
             icon: "success",
             title: "Payment Successful",
@@ -56,10 +53,8 @@ const PaymentSuccessPage = () => {
           }).then(() => {
             router.push("/events");
           });
-
         } else {
           setMessage("Payment validation failed. Please contact support.");
-
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -74,7 +69,6 @@ const PaymentSuccessPage = () => {
       } catch (error) {
         console.error("Validation error:", error);
         setMessage("An error occurred during payment validation.");
-
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -91,7 +85,7 @@ const PaymentSuccessPage = () => {
     };
 
     validatePayment();
-  }, [router]);
+  }, [tranId, router]);
 
   return (
     <div className="flex flex-col items-center justify-center h-[60dvh] text-center space-y-4">
@@ -101,4 +95,4 @@ const PaymentSuccessPage = () => {
   );
 };
 
-export default PaymentSuccessPage;
+export default PaymentSuccess;
