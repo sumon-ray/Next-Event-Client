@@ -1,18 +1,19 @@
 import ReviewForm from "../ReviewForm"
-import ReviewCard from "../ReviewCard"
+import ReviewCarosal from "./ReviewCarousal"
 
 const ReviewButton = () => {
   return (
-    <div className="flex justify-center items-center">
+    <div className="lg:flex gap-4 justify-center items-center">
     {/* <div className=" text-end m-6"><ReviewButton></ReviewButton></div>
                           */}
         <div>
-            <div>
-                <ReviewCard />
-            </div>
+            <div className="flex justify-center items-center">
+                 <ReviewCarosal />    </div>
         </div>
        
-        <button className="bg-blue-800 text-white p-2 rounded-lg"><ReviewForm></ReviewForm></button>
+       <div className="flex justify-center items-center">
+         <button className="bg-blue-800 text-white p-2 rounded-lg"><ReviewForm></ReviewForm></button>
+       </div>
     </div>
   )
 }

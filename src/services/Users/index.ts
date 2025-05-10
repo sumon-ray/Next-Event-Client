@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { toast } from "sonner";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;

@@ -18,9 +18,9 @@ export default function ReviewForm() {
   };
 
   const handleSubmit = async () => {
-    // Assuming you have userId and eventId in your state/context
-    const userId = "USER_ID"; // Replace with actual user ID from context/state
-    const eventId = "EVENT_ID"; // Replace with actual event ID
+  
+    const userId = "USER_ID"; 
+    const eventId = "EVENT_ID"; 
 
     const payload = {
       rating,
