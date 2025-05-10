@@ -1,4 +1,5 @@
 import { profileSettingItems } from "@/components/shared/Profile-sidebar";
+import { useUser } from "@/context/UserContext";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { IoChevronForward, IoExitOutline } from "react-icons/io5";
@@ -12,11 +13,13 @@ interface SidebarProps {
 const Sidebar = ({ className = "" }: SidebarProps) => {
   const pathname = usePathname();
   const router = useRouter();
-
+  const { setUser } = useUser();
   const handleLogOut = async () => {
     await logOut();
     toast.success("Log out successful");
+    setUser(null);
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("userProfile");
     try {
       router.push("/");
     } catch {

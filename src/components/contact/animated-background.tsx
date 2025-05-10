@@ -35,8 +35,8 @@ export default function AnimatedBackground() {
       growFactor: number;
 
       constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+        this.x = Math.random() * canvas!.width;
+        this.y = Math.random() * canvas!.height;
         this.baseSize = Math.random() * 4 + 1;
         this.size = this.baseSize;
         this.speedX = Math.random() * 0.3 - 0.15;
@@ -56,12 +56,11 @@ export default function AnimatedBackground() {
         this.y += this.speedY;
 
         // Boundary check
-        if (this.x > canvas.width) this.x = 0;
-        if (this.x < 0) this.x = canvas.width;
-        if (this.y > canvas.height) this.y = 0;
-        if (this.y < 0) this.y = canvas.height;
+        if (this.x > canvas!.width) this.x = 0;
+        if (this.x < 0) this.x = canvas!.width;
+        if (this.y > canvas!.height) this.y = 0;
+        if (this.y < 0) this.y = canvas!.height;
 
-        // React to mouse - particles grow when near mouse
         const dx = mouseX - this.x;
         const dy = mouseY - this.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
@@ -128,15 +127,15 @@ export default function AnimatedBackground() {
 
     // Animation loop with mouse interaction
     function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
 
       // Create dark gradient background
-      const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      const gradient = ctx!.createLinearGradient(0, 0, 0, canvas!.height);
       gradient.addColorStop(0, "#0f172a"); // Darker navy blue
       gradient.addColorStop(1, "#1e1b4b"); // Deep indigo
 
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx!.fillStyle = gradient;
+      ctx!.fillRect(0, 0, canvas!.width, canvas!.height);
 
       // Update and draw particles
       for (let i = 0; i < particlesArray.length; i++) {
