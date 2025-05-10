@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import {  ClipboardList, Search } from "lucide-react"
+import {  Search } from "lucide-react"
 import { Event, EventCard } from "@/components/modules/Events/Card"
 import img from '../../../../public/images/img16.jpg'
 import Title from "@/components/shared/Title"
@@ -251,7 +251,7 @@ if(maxFee){
   🎉 {filteredEvents.length} Events Found
 </p>
 
-              <Link href="/dashboard/events/create" ><NextButton name="Create Event" /></Link>
+              <Link href="/events/create-event" ><NextButton name="Create Event" /></Link>
             </div>
 <div className="mt-16">
 {loading ? (

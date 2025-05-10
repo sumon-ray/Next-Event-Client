@@ -18,7 +18,6 @@ import Image from "next/image";
 
 interface FormValues {
   title: string;
-  slug: string;
   description: string;
   startDate: Date;
   startTime: string;
@@ -31,12 +30,12 @@ interface FormValues {
   bannerImage?: FileList;
   eventStatus: "UPCOMING" | "ONGOING" | "ENDED";
   category: "CONFERENCE" | "WORKSHOP" | "SEMINAR" | "NETWORKING" | "PARTY" | "CONCERT" | "EXHIBITION" | "OTHER";
-  reservedSites: number;
-  availableSites: number;
+  reseveredSit: number;
+  availableSit: number;
 }
 ;
 
-const AddEvent = () => {
+const CreateEvent = () => {
   const {
     register,
     handleSubmit,
@@ -80,7 +79,6 @@ try{
   const payload = {
 
     title: data.title,
-    slug: data.slug,
     description: data.description,
     startDate: startDate.toISOString(),
     endDate: endDate.toISOString(),
@@ -90,8 +88,8 @@ try{
     fee: data.fee ? Number(data.fee) : 0,
     eventStatus: data.eventStatus || "UPCOMING",
     category: data.category || "OTHER",
-    reseveredSit: Number(data.reservedSites),
-    availableSit: Number(data.availableSites)
+    reseveredSit: Number(data.reseveredSit),
+    availableSit: Number(data.availableSit)
 
   }
 
@@ -101,20 +99,21 @@ try{
     formData.append("file", data.bannerImage[0]);
   }
   const uploadEvent = await createEvent(formData);
-  if(!uploadEvent.succcess){
-    toast.error(uploadEvent.message || 'Failed to upload event');  setLoading(false);
+  console.log(uploadEvent.data);
+  if(uploadEvent.success ){
+    toast.success(uploadEvent.message || 'Event uploaded successfully');  setLoading(false);
+        reset();
   }
   else{
     setLoading(false);
-    toast.success(uploadEvent.message || 'Event uploaded successfully');
-    reset();
+    toast.error(uploadEvent.message || 'Failed to upload event');
   }
   
 
 }
 catch(err:any){
   console.log("🚀 ~ onSubmit ~ err:", err)
-  reset();
+  // reset();
   toast.error(err.message || 'Failed to upload event');
   setLoading(false); 
 }
@@ -144,11 +143,6 @@ catch(err:any){
                   className="w-full focus:ring-2 ring-[#1E3A8A]"
                   {...register("title", { required: true })}
                   placeholder="Event Title"
-                />
-                <Input
-                  className="w-full focus:ring-2 ring-[#1E3A8A]"
-                  {...register("slug", { required: true })}
-                  placeholder="An Unique Event Title"
                 />
 
                 <Textarea
@@ -277,6 +271,8 @@ catch(err:any){
                 />
                 {previewUrl && (
                   <Image
+                  height={300}
+                  width={300}
                     src={previewUrl}
                     alt="Preview"
                     className="object-cover w-full mt-4 border rounded-md max-h-52"
@@ -364,13 +360,13 @@ catch(err:any){
               <div className="p-6 space-y-4">
                 <Input
                   type="number"
-                  {...register("reservedSites", { required: "Reserved Sites is required" })}
+                  {...register("reseveredSit", { required: "Reserved Sites is required" })}
                   placeholder="Reserved Sites"
                   className="w-full focus:ring-2 ring-[#1E3A8A]"
                 />
                 <Input
                   type="number"
-                  {...register("availableSites", { required: "Available Sites is required" })}
+                  {...register("availableSit", { required: "Available Sites is required" })}
                   placeholder="Available Sites"
                   className="w-full focus:ring-2 ring-[#1E3A8A]"
                 />
@@ -382,11 +378,11 @@ catch(err:any){
         </div>
         <div className="flex items-center justify-center mb-16 ">
 
-          <NextButton name="Submit" disabled={loading} />
+          <NextButton name="Create Event" disabled={loading} />
         </div>
       </form>
     </div>
   );
 };
 
-export default AddEvent;
+export default CreateEvent;
