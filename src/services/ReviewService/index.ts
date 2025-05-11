@@ -132,7 +132,7 @@ export const ReviewDetails = async (id: string) => {
     const response = await fetch(apiUrl);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch review details: ${response.statusText}`);
+      throw new Error(`Failed to fetch review details... ${response.statusText}`);
     }
 
     return await response.json();
@@ -165,12 +165,12 @@ export const deleteReview = async (id: string) => {
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to delete review: ${response.statusText}`);
+      throw new Error(`Failed to delete review... ${response.statusText}`);
     }
 
     return await response.json();
   } catch (error: any) {
-    console.error("deleteReview error:", error?.message);
+    console.error("deleteReview error...", error?.message);
     throw new Error("Failed to delete review");
   }
 };
@@ -185,13 +185,13 @@ export const getReviewsByEvent = async (id: string) => {
     const response = await fetch(apiUrl);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch reviews by event: ${response.statusText}`);
+      throw new Error(`Failed to fetch reviews by event... ${response.statusText}`);
     }
 
     const result = await response.json();
     return result.data;
   } catch (error: any) {
-    console.error("getReviewsByEvent error:", error?.message);
+    console.error("getReviewsByEvent error.....", error?.message);
     throw new Error("Failed to fetch reviews by event");
   }
 };
