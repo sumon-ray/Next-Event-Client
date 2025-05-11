@@ -175,23 +175,88 @@ export const deleteReview = async (id: string) => {
   }
 };
 
-export const getReviewsByEvent = async (id: string) => {
+
+export const myAllReviews = async (id: string) => {
   try {
-    if (!baseUrl) {
-      throw new Error("NEXT_PUBLIC_API_URL is not defined");
+    const cookieStore = await cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
+
+    if (!accessToken) {
+      throw new Error("Access token not found");
     }
 
-    const apiUrl = `${baseUrl}/review/event/${id}`;
-    const response = await fetch(apiUrl);
+    if (!baseUrl) {
+      throw new Error("NEXT_PUBLIC_API_URL is not found");
+    }
+    console.log("id.....",id)
+    const res = await fetch(`${baseUrl}/review/my-review/${id}`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken,
+      },
+    });
+    const response = await res.json();
+     if (!res.ok) {
+      throw new Error(response.message || "Failed to fetch reviews");
+    }
+    return response.data; 
+   } catch (error) {
+    console.error("myAllReviews error:", error);
+    throw error;
+  }
+};
 
+
+export const getReviewsByEvent = async (id: string) => {
+  console.log('getReviewsByEvent called with id:', id);
+
+  try {
+    
+    if (!id || typeof id !== 'string' || id.trim() === '') {
+      console.error('Invalid eventId:', id);
+      throw new Error('Invalid or missing event ID');
+    }
+  
+    if (!baseUrl) {
+      console.error('NEXT_PUBLIC_API_URL is not defined');
+      throw new Error('NEXT_PUBLIC_API_URL is not defined');
+    }
+
+    const apiUrl = `${baseUrl}/review/events/${encodeURIComponent(id)}`;
+    console.log('Fetching reviews from:', apiUrl);
+
+    const response = await fetch(apiUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-store',
+    });
+
+    console.log('Response status:', response.status);
     if (!response.ok) {
-      throw new Error(`Failed to fetch reviews by event... ${response.statusText}`);
+      const errorText = await response.text();
+      console.error('Fetch error:', response.status, errorText);
+      throw new Error(`Failed to fetch reviews: ${response.statusText}`);
     }
 
     const result = await response.json();
-    return result.data;
+    console.log('API response:', JSON.stringify(result, null, 2));
+
+    if (!result.success || !result.data) {
+    
+      return [];
+    }
+   
+    result.data.forEach((review, index) => {
+      console.log(`Review ${index} eventId:`, review.eventId || 'MISSING');
+    });
+
+    return result.data || [];
   } catch (error: any) {
-    console.error("getReviewsByEvent error.....", error?.message);
-    throw new Error("Failed to fetch reviews by event");
+    console.error('getReviewsByEvent error:', error.message);
+    return [];
   }
 };
