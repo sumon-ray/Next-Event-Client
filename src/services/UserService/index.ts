@@ -60,21 +60,4 @@ export const deleteUser = async (id: string) => {
   }
 };
 
-export const getUserAllReviews = async (userId: string) => {
-  try {
-    if (!baseUrl) throw new Error("NEXT_PUBLIC_API_URL is not defined");
 
-    const res = await fetch(`${baseUrl}/review/user/${userId}`, {
-      method: "GET",
-    });
-
-    if (!res.ok) {
-      throw new Error(`Failed to fetch user reviews: ${res.statusText}`);
-    }
-
-    return await res.json();
-  } catch (error: any) {
-    console.error("getUserAllReviews error:", error?.message);
-    throw new Error("Failed to fetch user reviews");
-  }
-};

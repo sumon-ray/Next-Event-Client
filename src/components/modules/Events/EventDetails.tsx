@@ -24,6 +24,7 @@ import { makePayment } from "@/services/PaymentService";
 import { toast } from "sonner";
 import { getCurrentUser } from "@/services/AuthService";
 import { usePathname, useRouter } from "next/navigation";
+import ReviewButton from "../Review/SpecificEventReview/ReviewButton";
 
 const EventDetails = ({ event, organizer }: { event: any; organizer: any }) => {
   const router = useRouter();
@@ -291,6 +292,10 @@ console.log(event)
           </div>
         </div>
       </div>
+
+
+
+      <ReviewButton eventId={event.id} /> 
     </div>
   );
 };
