@@ -10,9 +10,9 @@ import { toast } from "sonner";
 import { FormValues, profileValidationSchema } from "./profileValidation";
 
 const PersonalInfoComponent = () => {
-  const [loading, setLoading] = useState(true);
   const { user, setUser } = useUser();
-
+  const [loading, setLoading] = useState(true);
+   
   const {
     register,
     handleSubmit,
