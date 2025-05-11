@@ -49,6 +49,30 @@ export const updateProfile = async (
   }
 };
 
+// get profile Info
+export const getProfileInfo = async () => {
+  const accessToken = (await cookies()).get("accessToken")?.value;
+  if (!accessToken) {
+    throw new Error("can not get accessToken");
+  }
+  const uri = `${process.env.NEXT_PUBLIC_API_URL}/auth/profile`;
+
+  const res = await fetch(uri, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "Content-Type": "Application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if (!res.ok) {
+    throw new Error(`fail to update user data: ${res.statusText}`);
+  }
+
+  const profileData = await res.json();
+  console.log(profileData);
+  return profileData;
+};
 // Function to get events created by the user
 export const getMyCreatedEvent = async () => {
   try {

@@ -278,7 +278,7 @@ export default function ResetPasswordPage() {
                     />
 
                     <div className="pt-2">
-                      <h4 className="text-sm font-medium text-gray-700 mb-2">
+                      <h4 className="text-lg font-medium text-gray-700 mb-2">
                         Password Requirements:
                       </h4>
                       <ul className="space-y-2 text-sm">

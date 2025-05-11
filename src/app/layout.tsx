@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import { Toaster } from "@/components/ui/sonner";
 import Provider from "@/Provider/Provider";
 import { Inter } from "next/font/google";
 
@@ -27,7 +26,6 @@ export default function RootLayout({
       <html lang="en">
         <body className={`${inter.variable} antialiased`}>
           {children}
-          <Toaster richColors position="top-right"  />
         </body>
       </html>
     </Provider>

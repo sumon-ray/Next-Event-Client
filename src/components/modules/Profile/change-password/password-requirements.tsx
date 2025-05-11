@@ -72,7 +72,7 @@ export default function PasswordRequirements({ password }: PasswordRequirementsP
       className="overflow-hidden"
     >
       <div className="flex justify-between items-center mb-3">
-        <h4 className="text-sm font-medium text-blue-800 flex items-center">
+        <h4 className="text-lg font-medium text-blue-800 flex items-center">
           <AlertCircle className="h-4 w-4 mr-2 text-blue-600" />
           Password Requirements
         </h4>
