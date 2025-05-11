@@ -17,13 +17,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Title from "@/components/shared/Title";
-import { UpdateEventBySlug } from "@/services/EventService";
+import { UpdateEventById } from "@/services/EventService";
 import NextButton from "@/components/shared/NextButton";
 import { toast } from "sonner";
 import Image from "next/image";
+import { IEvent } from "@/app/types";
 
 interface FormValues {
   title?: string;
+  slug?: string;
   description?: string;
   startDate?: Date;
   startTime?: string;
@@ -48,13 +50,11 @@ interface FormValues {
   availableSit?: number;
 }
 
-const UpdateEvent = ({
-  eventData,
-  eventSlug,
-}: {
-  eventData: any;
-  eventSlug: string;
-}) => {
+const UpdateEvent = ({event}: {  event:  IEvent })  => {
+
+const eventData = event;
+
+ 
   const {
     register,
     handleSubmit,
@@ -63,26 +63,22 @@ const UpdateEvent = ({
     watch,
   } = useForm<FormValues>();
 
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(eventData.bannerImage);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  
+useEffect(() => {
+  setValue("startDate", new Date(eventData.startDate));
+  setValue("endDate", new Date(eventData.endDate));
 
-  useEffect(() => {
-    setValue("title", eventData.title);
-    setValue("description", eventData.description);
-    setValue("startDate", new Date(eventData.startDate));
-    setValue("endDate", new Date(eventData.endDate));
-    setValue("startTime", format(new Date(eventData.startDate), "HH:mm"));
-    setValue("endTime", format(new Date(eventData.endDate), "HH:mm"));
-    setValue("venue", eventData.venue);
-    setValue("type", eventData.type);
-    setValue("isPaid", eventData.isPaid);
-    setValue("fee", eventData.fee);
-    setValue("eventStatus", eventData.eventStatus);
-    setValue("category", eventData.category);
-    setValue("reseveredSit", eventData.reseveredSit);
-    setValue("availableSit", eventData.availableSit);
-  }, [eventData, setValue]);
+  const start = new Date(eventData.startDate);
+  const end = new Date(eventData.endDate);
+
+  setValue("startTime", `${start.getHours().toString().padStart(2, "0")}:
+  ${start.getMinutes().toString().padStart(2, "0")}`);
+  setValue("endTime", `${end.getHours().toString().padStart(2, "0")}:
+  ${end.getMinutes().toString().padStart(2, "0")}`);
+}, [eventData, setValue])
 
   const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -113,18 +109,19 @@ const UpdateEvent = ({
       );
 
       const payload = {
-        title: data.title,
-        description: data.description,
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString(),
-        venue: data.venue,
-        type: data.type,
-        isPaid: data.isPaid || false,
-        fee: data.fee ? Number(data.fee) : 0,
-        eventStatus: data.eventStatus || "UPCOMING",
-        category: data.category || "OTHER",
-        reseveredSit: Number(data.reseveredSit),
-        availableSit: Number(data.availableSit),
+        title: data.title || eventData.title,
+        description: data.description || eventData.description,
+        startDate: startDate.toISOString() || eventData.startDate,
+        endDate: endDate.toISOString() || eventData.endDate,
+        venue: data.venue || eventData.venue,
+        type: data.type || eventData.type,
+        isPaid: data.isPaid || eventData.isPaid,
+      
+        category: data.category || eventData.category,
+        fee: data.fee ? Number(data.fee) :Number(eventData.fee),
+        eventStatus: data.eventStatus || eventData.eventStatus,
+        reseveredSit: Number(data.reseveredSit) || eventData.reseveredSit,
+        availableSit: Number(data.availableSit) || eventData.availableSit,
       };
 
       const formData = new FormData();
@@ -133,7 +130,7 @@ const UpdateEvent = ({
         formData.append("file", data.bannerImage[0]);
       }
 
-      const updateEvent = await UpdateEventBySlug(eventSlug, formData);
+      const updateEvent = await UpdateEventById(eventData.id!, formData);
 
       if (updateEvent.success) {
         toast.success(updateEvent.message || "Event updated successfully");
@@ -152,91 +149,99 @@ const UpdateEvent = ({
   const endDate = watch("endDate");
 
   return (
-    <div className="p-4 sm:p-6 md:px-10">
-      <Title title="Update Event" />
-      <p className="mb-6 text-lg text-[#475569]">Update your event details</p>
-
+    <div className="">
+   
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-1 gap-6 mb-12 xl:grid-cols-3">
-          <div className="space-y-6 xl:col-span-2">
-            {/* Basic Info Section */}
-            <div className="bg-white border rounded-xl shadow-md">
+        <div className="grid grid-cols-1 gap-6 mb-12 ">
+          <div className="space-y-6 ">
+         
+            <div className="border shadow-md rounded-xl">
               <div className="px-6 py-4 text-2xl font-semibold border-b text-[#1E3A8A]">
                 Basic Info
               </div>
               <div className="p-6 space-y-5">
                 <Input
-                  {...register("title", { required: true })}
-                  placeholder="Event Title"
+                  {...register("title")}
+                  placeholder={eventData.title}
                 />
                 <Textarea
                   rows={6}
-                  {...register("description", { required: true })}
-                  placeholder="Description"
+                 
+                  {...register("description")}
+                  placeholder={eventData.description}
                 />
-                <div className="flex flex-col gap-4 lg:flex-row">
-                  <div className="flex flex-col gap-2 w-full">
+                <div className="flex flex-col gap-4 ">
+                  <div className="flex flex-col w-full gap-2">
+                   
                     <label className="text-md font-medium text-[#475569]">
-                      Start Date
+                      Start Date | Previous date :{startDate?.toLocaleString()}
                     </label>
                     <Calendar
                       mode="single"
                       selected={startDate}
                       onSelect={(date) => setValue("startDate", date as Date)}
-                      className="rounded-md border shadow-sm"
+                      className="border rounded-md shadow-sm"
+                      classNames={{
+                        day_selected: "bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]",
+                        day_today: "text-[#1E3A8A] font-bold",
+                      }}
                     />
                     <Input
                       type="time"
-                      {...register("startTime", { required: true })}
+                      {...register("startTime")}
                       placeholder="Start Time"
                     />
                   </div>
 
-                  <div className="flex flex-col gap-2 w-full">
+                  <div className="flex flex-col w-full gap-2">
                     <label className="text-md font-medium text-[#475569]">
-                      End Date
+                      End Date | Previous date {endDate?.toLocaleString()}
                     </label>
                     <Calendar
                       mode="single"
                       selected={endDate}
                       onSelect={(date) => setValue("endDate", date as Date)}
-                      className="rounded-md border shadow-sm"
+                      className="border rounded-md shadow-sm"
+                      classNames={{
+                        day_selected: "bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]",
+                        day_today: "text-[#1E3A8A] font-bold",
+                      }}
                     />
                     <Input
                       type="time"
-                      {...register("endTime", { required: true })}
+                      {...register("endTime")}
                       placeholder="End Time"
                     />
                   </div>
                 </div>
 
                 <Input
-                  {...register("venue", { required: true })}
-                  placeholder="Venue"
+                  {...register("venue")}
+                  placeholder={eventData.venue}
                 />
               </div>
             </div>
 
-            {/* Price Details Section */}
+          
             {eventData.isPaid && (
-              <div className="bg-white border rounded-xl shadow-md">
+              <div className="border shadow-md rounded-xl">
                 <div className="px-6 py-4 text-xl font-semibold border-b text-[#1E3A8A]">
                   Price Details
                 </div>
                 <div className="p-6 space-y-4">
                   <Input
-                    {...register("fee", { required: true })}
-                    placeholder="Fee"
+                    {...register("fee")}
+                    placeholder={eventData.fee?.toString()}
                   />
                 </div>
               </div>
             )}
           </div>
 
-          {/* Right Column - Banner, Status, Seats */}
+        
           <div className="space-y-6">
-            {/* Event Banner */}
-            <div className="bg-white border rounded-xl shadow-md">
+       
+            <div className="border shadow-md rounded-xl">
               <div className="px-6 py-4 text-xl font-semibold border-b text-[#1E3A8A]">
                 Event Banner
               </div>
@@ -247,21 +252,16 @@ const UpdateEvent = ({
                   {...register("bannerImage")}
                   onChange={onImageChange}
                 />
-                <Image
-                  height={300}
-                  width={300}
-                  src={
-                    previewUrl ||
-                    eventData.bannerImage
-                  }
-                  alt="Event Banner"
+               <Image src={
+                   previewUrl!
+                 } alt="" width={5000} height={5000}
                   className="object-cover w-full mt-4 border rounded-md max-h-52"
                 />
               </div>
             </div>
 
-            {/* Event Status */}
-            <div className="bg-white border rounded-xl shadow-md">
+          
+            <div className="border shadow-md rounded-xl">
               <div className="px-6 py-4 text-xl font-semibold border-b text-[#1E3A8A]">
                 Event Status
               </div>
@@ -282,21 +282,21 @@ const UpdateEvent = ({
               </div>
             </div>
 
-            {/* Seats Details */}
-            <div className="bg-white border rounded-xl shadow-md">
+           
+            <div className="border shadow-md rounded-xl">
               <div className="px-6 py-4 text-xl font-semibold border-b text-[#1E3A8A]">
                 Seats Details
               </div>
               <div className="p-6 space-y-5">
                 <Input
                   type="number"
-                  {...register("reseveredSit", { required: true })}
-                  placeholder="Reserved Seats"
+                  {...register("reseveredSit")}
+                  placeholder={eventData.reseveredSit?.toString()}
                 />
                 <Input
                   type="number"
-                  {...register("availableSit", { required: true })}
-                  placeholder="Available Seats"
+                  {...register("availableSit")}
+                  placeholder={eventData.availableSit?.toString()}
                 />
               </div>
             </div>

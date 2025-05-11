@@ -63,7 +63,7 @@ const EventDetails = ({ event, organizer }: { event: any; organizer: any }) => {
       setLoading(false);
     }
   };
-
+console.log(event)
   return (
     <div className="bg-gradient-to-br from-[#E3F2FD] via-[#BBDEFB] to-[#29B6F6] md:pb-20">
       <HeroSecton
@@ -78,8 +78,7 @@ const EventDetails = ({ event, organizer }: { event: any; organizer: any }) => {
           <div className="relative w-full overflow-hidden shadow-xl h-[50dvh] rounded-2xl">
             <Image
               src={
-                event.bannerImage ||
-                "https://res.cloudinary.com/dp8c6enec/image/upload/v1746463121/s1or7qauhmvo83ltfuwb.jpg"
+                event.bannerImage 
               }
               alt={event.title}
               fill

@@ -13,9 +13,11 @@ import { Button } from "@/components/ui/button";
 import NextButton from "@/components/shared/NextButton";
 import Title from "@/components/shared/Title";
 import UpdateEventForm from "./UpdateEvent";
+import { IEvent } from "@/app/types";
 
 
-export const UpdateModal = ({id}:{id:string}) => {
+export const UpdateModal= ({event}:{event:IEvent}) => {
+
 
   
   return (
@@ -30,7 +32,7 @@ export const UpdateModal = ({id}:{id:string}) => {
             Modify the event details below and save changes.
           </DialogDescription>
         </DialogHeader>
-      <UpdateEventForm id={id}/>
+      <UpdateEventForm   event={event}/>
      
       </DialogContent>
     </Dialog>
