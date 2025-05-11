@@ -183,8 +183,8 @@ const RegisterForm = () => {
   const completion = calculateCompletion()
 
   return (
-    <div className="flex w-full min-h-screen items-center justify-center  px-4 ">
-      <Card className="w-full max-w-6xl shadow-xl border-0 overflow-hidden ">
+    <div className="flex w-full bg-gradient-to-br from-[#E3F2FD] via-[#BBDEFB] to-[#E3F2FD] min-h-screen items-center justify-center  px-4 ">
+      <Card className="w-full max-w-6xl overflow-hidden border-0 shadow-xl ">
         <div className="flex flex-col md:flex-row ">
           {/* Left Panel - Hidden on mobile */}
           <div    style={{
@@ -193,34 +193,34 @@ const RegisterForm = () => {
     backgroundPosition: "center",
     height: "auto",
   }}
- className="hidden  md:block md:w-5/12 lg:w-1/2 relative bg-gradient-to-l  text-white">
-            <div className="absolute inset-0 bg-black/20 backdrop-blur-sm z-10"></div>
+ className="relative hidden text-white md:block md:w-5/12 lg:w-1/2 bg-gradient-to-l">
+            <div className="absolute inset-0 z-10 bg-black/20 backdrop-blur-sm"></div>
             
             <div className="absolute inset-0 z-20 flex flex-col justify-between p-10">
               <div>
-                <h2 className="text-3xl font-bold">Join our community</h2>
-                <p className="mt-4 text-white/80 max-w-md">
+                <h2 className="text-3xl font-bold md:text-5xl">Join our community</h2>
+                <p className="max-w-md mt-4 text-lg">
                   Create an account to access exclusive features, personalized recommendations, and connect with other
                   members.
                 </p>
               </div>
 
-              <div className="space-y-6 mb-24">
+              <div className="mb-24 space-y-6">
                 <div className="flex items-center space-x-3">
-                  <div className="bg-white/20 p-2 rounded-full">
-                    <Check className="h-5 w-5" />
+                  <div className="p-2 rounded-full bg-white/20">
+                    <Check className="w-5 h-5" />
                   </div>
                   <p>Access to premium content and resources</p>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="bg-white/20 p-2 rounded-full">
-                    <Check className="h-5 w-5" />
+                  <div className="p-2 rounded-full bg-white/20">
+                    <Check className="w-5 h-5" />
                   </div>
                   <p>Connect with like-minded professionals</p>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="bg-white/20 p-2 rounded-full">
-                    <Check className="h-5 w-5" />
+                  <div className="p-2 rounded-full bg-white/20">
+                    <Check className="w-5 h-5" />
                   </div>
                   <p>Personalized dashboard and notifications</p>
                 </div>
@@ -229,7 +229,7 @@ const RegisterForm = () => {
                   <p className="text-sm text-white/70">Already have an account?</p>
                   <Link
                     href="/login"
-                    className="inline-block mt-2 text-white font-medium border-b-2 border-white/50 hover:border-white transition-colors"
+                    className="inline-block mt-2 font-medium text-white transition-colors border-b-2 border-white/50 hover:border-white"
                   >
                     Sign in to your account
                   </Link>
@@ -241,25 +241,25 @@ const RegisterForm = () => {
               alt="Registration"
               width={720}
               height={1080}
-              className="object-cover h-full w-full mix-blend-overlay opacity-50"
+              className="object-cover w-full h-full opacity-50 mix-blend-overlay"
               priority
             />
           </div>
 
-          {/* Right Panel */}
-          <div className="w-full md:w-7/12 lg:w-1/2 p-6 md:p-10 lg:pt-4 px-8">
+        
+          <div className="w-full p-6 px-8 md:w-7/12 lg:w-1/2 md:p-10 lg:pt-4">
             <div className="mb-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900">Create Account</h1>
-                  <p className="text-sm text-gray-500 mt-1">Fill in your details to get started</p>
+                  <h1 className=" text-3xl font-bold tracking-wide text-transparent  drop-shadow-sm bg-gradient-to-r from-[#1E3A8A] via-[#3B82F6] to-[#1E293B] bg-clip-text">Create Account</h1>
+                  <p className="mt-1 text-sm text-gray-500">Fill in your details to get started</p>
                 </div>
                 <div className="hidden md:block">
                   <Badge
                     variant="outline"
                     className="bg-blue-50 text-blue-700 border-blue-200 flex items-center gap-1.5"
                   >
-                    <span className="h-2 w-2 rounded-full bg-blue-500"></span>
+                    <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
                     {completion}% Complete
                   </Badge>
                 </div>
@@ -270,10 +270,10 @@ const RegisterForm = () => {
               </div>
 
               {/* Mobile only - Sign in link */}
-              <div className="md:hidden text-center mb-6">
+              <div className="mb-6 text-center md:hidden">
                 <p className="text-sm text-gray-500">
                   Already have an account?{" "}
-                  <Link href="/login" className="text-blue-600 font-medium hover:underline">
+                  <Link href="/login" className="font-medium text-blue-600 hover:underline">
                     Sign in
                   </Link>
                 </p>
@@ -298,18 +298,18 @@ const RegisterForm = () => {
 
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-                  <TabsContent value="account" className="space-y-5 mt-0">
+                  <TabsContent value="account" className="mt-0 space-y-5">
                     {/* Social Login Options */}
-                    <div className="flex flex-col space-y-4 mb-6">
+                    <div className="flex flex-col mb-6 space-y-4">
                       <div className="flex justify-center gap-3">
-                        <Button variant="outline" size="icon" className="rounded-full w-10 h-10">
-                          <Facebook className="h-5 w-5 text-blue-600" />
+                        <Button variant="outline" size="icon" className="w-10 h-10 rounded-full">
+                          <Facebook className="w-5 h-5 text-blue-600" />
                         </Button>
-                        <Button variant="outline" size="icon" className="rounded-full w-10 h-10">
-                          <Github className="h-5 w-5" />
+                        <Button variant="outline" size="icon" className="w-10 h-10 rounded-full">
+                          <Github className="w-5 h-5" />
                         </Button>
-                        <Button variant="outline" size="icon" className="rounded-full w-10 h-10">
-                          <Twitter className="h-5 w-5 text-sky-500" />
+                        <Button variant="outline" size="icon" className="w-10 h-10 rounded-full">
+                          <Twitter className="w-5 h-5 text-sky-500" />
                         </Button>
                       </div>
                       <div className="relative">
@@ -317,7 +317,7 @@ const RegisterForm = () => {
                           <Separator />
                         </div>
                         <div className="relative flex justify-center">
-                          <span className="bg-white px-2 text-xs text-gray-500">or continue with email</span>
+                          <span className="px-2 text-xs text-gray-500 bg-white">or continue with email</span>
                         </div>
                       </div>
                     </div>
@@ -331,12 +331,12 @@ const RegisterForm = () => {
                           <FormLabel>Full Name</FormLabel>
                           <FormControl>
                             <div className="relative">
-                              <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                              <User className="absolute w-4 h-4 text-gray-400 left-3 top-3" />
                               <Input
                                 {...field}
                                 value={field.value || ""}
                                 placeholder="John Doe"
-                                className="pl-10 h-12"
+                                className="h-12 pl-10"
                               />
                             </div>
                           </FormControl>
@@ -354,13 +354,13 @@ const RegisterForm = () => {
                           <FormLabel>Email Address</FormLabel>
                           <FormControl>
                             <div className="relative">
-                              <AtSign className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                              <AtSign className="absolute w-4 h-4 text-gray-400 left-3 top-3" />
                               <Input
                                 {...field}
                                 type="email"
                                 value={field.value || ""}
                                 placeholder="you@example.com"
-                                className="pl-10 h-12"
+                                className="h-12 pl-10"
                               />
                             </div>
                           </FormControl>
@@ -378,22 +378,22 @@ const RegisterForm = () => {
                           <FormLabel>Password</FormLabel>
                           <FormControl>
                             <div className="relative">
-                              <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                              <Lock className="absolute w-4 h-4 text-gray-400 left-3 top-3" />
                               <Input
                                 {...field}
                                 type={showPassword ? "text" : "password"}
                                 value={field.value || ""}
                                 placeholder="••••••••"
-                                className="pl-10 pr-10 h-12"
+                                className="h-12 pl-10 pr-10"
                               />
                               <Button
                                 type="button"
                                 variant="ghost"
                                 size="icon"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-2 top-2 h-8 w-8 text-gray-500"
+                                className="absolute w-8 h-8 text-gray-500 right-2 top-2"
                               >
-                                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                               </Button>
                             </div>
                           </FormControl>
@@ -437,22 +437,22 @@ const RegisterForm = () => {
                           <FormLabel>Confirm Password</FormLabel>
                           <FormControl>
                             <div className="relative">
-                              <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                              <Lock className="absolute w-4 h-4 text-gray-400 left-3 top-3" />
                               <Input
                                 {...field}
                                 type={showConfirmPassword ? "text" : "password"}
                                 value={field.value || ""}
                                 placeholder="••••••••"
-                                className="pl-10 pr-10 h-12"
+                                className="h-12 pl-10 pr-10"
                               />
                               <Button
                                 type="button"
                                 variant="ghost"
                                 size="icon"
                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                className="absolute right-2 top-2 h-8 w-8 text-gray-500"
+                                className="absolute w-8 h-8 text-gray-500 right-2 top-2"
                               >
-                                {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                               </Button>
                             </div>
                           </FormControl>
@@ -464,7 +464,7 @@ const RegisterForm = () => {
                     <div className="pt-4">
                       <Button
                         type="button"
-                        className="w-full h-12 bg-blue-600 hover:bg-blue-700"
+                        className="w-full h-12 text-white nextButton "
                         onClick={() => handleTabChange("personal")}
                         disabled={
                           !form.formState.dirtyFields.name ||
@@ -478,8 +478,8 @@ const RegisterForm = () => {
                     </div>
                   </TabsContent>
 
-                  <TabsContent value="personal" className="space-y-5 mt-0">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <TabsContent value="personal" className="mt-0 space-y-5">
+                    <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                       {/* Phone Number */}
                       <FormField
                         control={form.control}
@@ -489,8 +489,8 @@ const RegisterForm = () => {
                             <FormLabel>Phone Number</FormLabel>
                             <FormControl>
                               <div className="relative">
-                                <Phone className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                                <Input {...field} type="tel" placeholder="01XXXXXXXXX" className="pl-10 h-12" />
+                                <Phone className="absolute w-4 h-4 text-gray-400 left-3 top-3" />
+                                <Input {...field} type="tel" placeholder="01XXXXXXXXX" className="h-12 pl-10" />
                               </div>
                             </FormControl>
                             <FormMessage />
@@ -523,7 +523,7 @@ const RegisterForm = () => {
                       />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                       {/* Occupation */}
                       <FormField
                         control={form.control}
@@ -533,8 +533,8 @@ const RegisterForm = () => {
                             <FormLabel>Occupation</FormLabel>
                             <FormControl>
                               <div className="relative">
-                                <Briefcase className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                                <Input {...field} placeholder="Developer, Student..." className="pl-10 h-12" />
+                                <Briefcase className="absolute w-4 h-4 text-gray-400 left-3 top-3" />
+                                <Input {...field} placeholder="Developer, Student..." className="h-12 pl-10" />
                               </div>
                             </FormControl>
                             <FormMessage />
@@ -551,8 +551,8 @@ const RegisterForm = () => {
                             <FormLabel>Address</FormLabel>
                             <FormControl>
                               <div className="relative">
-                                <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                                <Input {...field} placeholder="123 Main Street, Dhaka" className="pl-10 h-12" />
+                                <MapPin className="absolute w-4 h-4 text-gray-400 left-3 top-3" />
+                                <Input {...field} placeholder="123 Main Street, Dhaka" className="h-12 pl-10" />
                               </div>
                             </FormControl>
                             <FormMessage />
@@ -589,7 +589,7 @@ const RegisterForm = () => {
                           <FormLabel>Profile Picture</FormLabel>
                           <FormControl>
                             <div className="flex items-center space-x-5">
-                              <div className="border-2 border-dashed border-gray-200 rounded-lg p-4 text-center hover:bg-gray-50 transition cursor-pointer flex-1">
+                              <div className="flex-1 p-4 text-center transition border-2 border-gray-200 border-dashed rounded-lg cursor-pointer hover:bg-gray-50">
                                 <Input
                                   {...fieldProps}
                                   id="profile-image"
@@ -598,20 +598,20 @@ const RegisterForm = () => {
                                   className="hidden"
                                   onChange={(e) => handleFileChange(e, onChange)}
                                 />
-                                <label htmlFor="profile-image" className="cursor-pointer block">
+                                <label htmlFor="profile-image" className="block cursor-pointer">
                                   <div className="flex flex-col items-center justify-center py-3">
-                                    <Upload className="h-8 w-8 text-gray-400 mb-2" />
+                                    <Upload className="w-8 h-8 mb-2 text-gray-400" />
                                     <p className="text-sm text-gray-500">Click to upload or drag and drop</p>
-                                    <p className="text-xs text-gray-400 mt-1">SVG, PNG, JPG or GIF (max. 2MB)</p>
+                                    <p className="mt-1 text-xs text-gray-400">SVG, PNG, JPG or GIF (max. 2MB)</p>
                                   </div>
                                 </label>
                               </div>
 
                               {/* Preview */}
                               <div className="flex-shrink-0">
-                                <Avatar className="h-20 w-20 border-2 border-gray-200">
+                                <Avatar className="w-20 h-20 border-2 border-gray-200">
                                   <AvatarImage src={previewImage || ""} />
-                                  <AvatarFallback className="bg-blue-100 text-blue-800">
+                                  <AvatarFallback className="text-blue-800 bg-blue-100">
                                     {allFields.name ? allFields.name.substring(0, 2).toUpperCase() : "U"}
                                   </AvatarFallback>
                                 </Avatar>
@@ -627,19 +627,19 @@ const RegisterForm = () => {
                       <Button
                         type="button"
                         variant="outline"
-                        className="w-1/2 h-12"
+                        className="w-1/2 h-12 nextButton"
                         onClick={() => setActiveTab("account")}
                       >
                         Back
                       </Button>
                       <Button
                         type="submit"
-                        className="w-1/2 h-12 bg-blue-600 hover:bg-blue-700"
+                        className="w-1/2 h-12 nextButton"
                         disabled={!isValid || isSubmitting}
                       >
                         {isSubmitting ? (
                           <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                             Creating Account...
                           </>
                         ) : (
@@ -652,7 +652,7 @@ const RegisterForm = () => {
               </Form>
             </Tabs>
 
-            <div className="mt-8 text-center text-xs text-gray-500">
+            <div className="mt-8 text-xs text-center text-gray-500">
               By registering, you agree to our{" "}
               <Link href="/terms" className="text-blue-600 hover:underline">
                 Terms of Service

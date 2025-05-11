@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-export const getAllUser = async () => {
+export const getAllUsers = async () => {
   try {
     if (!baseUrl) throw new Error("NEXT_PUBLIC_API_URL is not defined");
 
@@ -24,8 +24,10 @@ export const getAllUser = async () => {
     if (!res.ok) {
       throw new Error(`Failed to fetch users: ${res.statusText}`);
     }
+  
+const data= await res.json()
 
-    return await res.json();
+    return data;
   } catch (error: any) {
     console.error("getAllUser error:", error?.message);
     throw new Error("Failed to fetch users");

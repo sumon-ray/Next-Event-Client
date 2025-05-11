@@ -37,7 +37,7 @@ export const getAllInvites = async () => {
     }
   };
 
-export  const getSingleUserInvites = async () => {
+export  const getAllMyReceivedInvites = async () => {
   try {
     const cookieStore = await cookies();
     const accessToken = cookieStore.get("accessToken")?.value;
@@ -56,7 +56,7 @@ export  const getSingleUserInvites = async () => {
         Authorization: accessToken,
       },
     });
-
+   
     if (!res.ok) {
       throw new Error(`Failed to fetch invites: ${res.statusText}`);
     }
@@ -68,10 +68,11 @@ export  const getSingleUserInvites = async () => {
     return null;
   }
 }
-export  const getAllSentInvites = async () => {
+export  const getMyAllSentInvites = async () => {
   try {
     const cookieStore = await cookies();
     const accessToken = cookieStore.get("accessToken")?.value;
+    console.log("🚀 ~ getMyAllSentInvites ~ accessToken:", accessToken)
 
     if (!accessToken) {
       throw new Error('Access token not found');
@@ -88,11 +89,12 @@ export  const getAllSentInvites = async () => {
       },
     });
 
-    if (!res.ok) {
-      throw new Error(`Failed to fetch invites: ${res.statusText}`);
-    }
+ 
 
     const data = await res.json();
+  
+    
+
     return data;
   } catch (error) {
     console.error('getAllInvites error:', error);
@@ -105,21 +107,52 @@ export const sendInvitation = async ( payload:{eventId:string,inviteReceiverId:s
     try {  
       const cookieStore = await cookies();
       const accessToken = cookieStore.get("accessToken")?.value
+      if (!accessToken) {
+      throw new Error('Access token not found');
+    }
       const response = await fetch(`${baseUrl}/invites/sent-invite`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: accessToken || "",
+          Authorization: accessToken,
          
         },
         credentials: "include",
         body: JSON.stringify(payload)
       });
       const data = await response.json();
-      console.log("🚀 ~ sendInvitation ~ data:", data)
       
       return data
     
+    } catch (error) {
+   console.error("Something went wrong from event sendInvitaion ",error)   
+     
+    }
+  };
+
+export const deleteInvite = async ( id:string) => {
+ 
+ 
+    try {  
+      const cookieStore = await cookies();
+      const accessToken = cookieStore.get("accessToken")?.value
+      if (!accessToken) {
+      throw new Error('Access token not found');
+    }
+      const response = await fetch(`${baseUrl}/invites/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: accessToken,
+         
+        },
+        credentials: "include",
+      
+      });
+      const data = await response.json();
+    
+     
+      return data
     } catch (error) {
    console.error("Something went wrong from event sendInvitaion ",error)   
      

@@ -24,7 +24,8 @@ import Title from "@/components/shared/Title";
         <DialogContent className="w-full overflow-auto max-h-[60vh] max-w-4xl mx-auto bg-gradient-to-br from-[#E3F2FD] via-[#BBDEFB] to-[#29B6F6]">
 
           <DialogHeader>
-          <Title title="Send Invitation " />
+            <DialogTitle>  <Title title="Send Invitation " /></DialogTitle>
+            
             <DialogDescription>
             
             </DialogDescription>

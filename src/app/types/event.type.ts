@@ -1,17 +1,28 @@
 
 export interface IEvent {
     id?: string;
-    slug: string;
+    slug?: string;
     title: string;
     description: string;
-    dateTime: string;
     startDate: string;
     endDate: string;
     venue: string;
     bannerImage: string;
     type: 'PUBLIC' | 'PRIVATE';
-    fee: string;
+    fee?: number;
     organizerId: string;
-    isPaid: boolean;
+    isPaid?: boolean;
+     eventStatus?: "UPCOMING" | "ONGOING" | "ENDED";
+  category?:
+    | "CONFERENCE"
+    | "WORKSHOP"
+    | "SEMINAR"
+    | "NETWORKING"
+    | "PARTY"
+    | "CONCERT"
+    | "EXHIBITION"
+    | "OTHER";
+  reseveredSit?: number;
+  availableSit?: number;
   }
   

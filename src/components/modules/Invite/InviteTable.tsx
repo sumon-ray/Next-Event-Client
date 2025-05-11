@@ -1,11 +1,11 @@
 'use client'
 import { useEffect, useState } from "react";
-import { getAllUsers } from "@/services/Users";
 import { toast } from "sonner";
 import NextButton from "@/components/shared/NextButton";
 import Image from "next/image";
 import { useUser } from "@/context/UserContext";
 import { sendInvitation } from "@/services/InviteService";
+import { getAllUsers } from "@/services/UserService";
 
 interface IUser {
   id: string;
@@ -32,8 +32,12 @@ const InviteUserTable = ({ eventId }: InviteUserTableProps) => {
     const fetchUsers = async () => {
       try {
         const Users = await getAllUsers();
-        console.log("🚀 ~ fetchUsers ~ Users:", Users)
-        setUsers(Users || []);
+    
+        if (!Users.success) {
+          toast.error(Users.message || "Failed to fetch users");
+          return;
+        }
+        setUsers(Users.data );
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -57,7 +61,7 @@ const InviteUserTable = ({ eventId }: InviteUserTableProps) => {
       };
       const res = await sendInvitation(payload);
       console.log("🚀 ~ handleInvite ~ res:", res)
-
+     
 
       if (!res.success) {
         toast.error(res.message || "Failed to send invite");
@@ -84,7 +88,11 @@ const InviteUserTable = ({ eventId }: InviteUserTableProps) => {
         <tbody>
           {users.map((user: IUser) => (
             <tr key={user.id} className="border-white border-1">
-              <td className="flex items-center gap-4 px-4 border-2 py-9"><Image src={user.profileImage} alt="" width={5000} height={5000} className="w-10 h-10 rounded-full" /> {user.name}</td>
+              <td className="flex items-center gap-4 px-4 border-2 py-9"><Image src={
+    user.profileImage?.startsWith("http")
+      ? user.profileImage
+      : "https://res.cloudinary.com/dhl04adhz/image/upload/v1742656837/Zayed%20Iqbal-Zayed%40Iqbal.com.jpg"
+  } alt="" width={5000} height={5000} className="w-10 h-10 rounded-full" /> {user.name}</td>
               <td className="px-4 py-4 border-2">{user.email}</td>
               <td className="flex items-center justify-center h-full gap-4 my-4">
                 <NextButton
