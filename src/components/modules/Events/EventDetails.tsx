@@ -64,7 +64,7 @@ const EventDetails = ({ event, organizer }: { event: any; organizer: any }) => {
       setLoading(false);
     }
   };
-console.log(event)
+// console.log(event)
   return (
     <div className="bg-gradient-to-br from-[#E3F2FD] via-[#BBDEFB] to-[#29B6F6] md:pb-20">
       <HeroSecton

@@ -1,44 +1,23 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { toast } from "sonner";
 import { Review } from "@/app/types";
-import { deleteReview, myAllReviews, updateReview } from "@/services/ReviewService";
+import { deleteReview, updateReview } from "@/services/ReviewService";
 import { useUser } from "@/context/UserContext";
+import NextButton from "@/components/shared/NextButton";
 
-export default function MyReviewList() {
+export default function MyReviewList(reviews: any) {
   const { user } = useUser();
-  const [reviews, setReviews] = useState<Review[]>([]);
-  const [loading, setLoading] = useState(true);
   const [editingReview, setEditingReview] = useState<Review | null>(null);
   const [editForm, setEditForm] = useState<{ rating: number; comment: string }>({ rating: 0, comment: "" });
-
-  const fetchReviews = async () => {
-    if (!user?.id) {
-      toast.error("User not authenticated");
-      setLoading(false);
-      return;
-    }
-    try {
-      const data = await myAllReviews(user.id);
-      setReviews(data || []);
-    } catch (err: any) {
-      toast.error(err.message || "Failed to load reviews");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchReviews();
-  }, [user?.id]);
 
   const handleDelete = async (reviewId: string) => {
     if (!confirm("Are you sure you want to delete this review?")) return;
     try {
       await deleteReview(reviewId);
       toast.success("Review deleted successfully");
-      fetchReviews();
     } catch (err: any) {
       toast.error(err.message || "Failed to delete review");
     }
@@ -56,7 +35,6 @@ export default function MyReviewList() {
       await updateReview(editingReview.id, editForm);
       toast.success("Review updated successfully");
       setEditingReview(null);
-      fetchReviews();
     } catch (err: any) {
       toast.error(err.message || "Failed to update review");
     }
@@ -76,13 +54,6 @@ export default function MyReviewList() {
     </div>
   );
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-amber-500"></div>
-      </div>
-    );
-  }
 
   if (!reviews.length) {
     return (
@@ -96,7 +67,7 @@ export default function MyReviewList() {
     <div className="max-w-3xl mx-auto p-6 bg-gray-100">
       <h2 className="text-2xl font-bold text-center mb-8 text-gray-800">My Reviews</h2>
       <div className="space-y-6">
-        {reviews.map((review) => (
+        {reviews.map((review: any) => (
           <div
             key={review.id}
             className="bg-gradient-to-br from-[#0a3b5e] to-[#1e6a9e] text-white rounded-xl shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow duration-300 relative overflow-hidden"
@@ -165,19 +136,21 @@ export default function MyReviewList() {
                 />
               </div>
               <div className="flex justify-end gap-2">
-                <button
+                {/* <button
                   type="button"
                   onClick={() => setEditingReview(null)}
                   className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition-colors"
                 >
                   Cancel
-                </button>
-                <button
+                </button> */}
+                <NextButton   onClick={() => setEditingReview(null)} name="Cancel"/>
+                <NextButton name="Save"/>
+                {/* <button
                   type="submit"
                   portale="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
                 >
                   Save
-                </button>
+                </button> */}
               </div>
             </form>
           </div>

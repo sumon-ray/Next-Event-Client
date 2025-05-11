@@ -6,6 +6,7 @@ import React from "react";
 
 const MyEventsPage = async () => {
   const events = await getEventsOfUser();
+  // console.log(events[0].participants);
 
   return (
     <div>
@@ -20,7 +21,7 @@ const MyEventsPage = async () => {
             Start by creating your first event to invite others and manage your
             event details.
           </p>
-          <Link href="/events/create">
+          <Link href="/profile/my-events/add-event">
             <NextButton name="Create Event" />
           </Link>
         </div>

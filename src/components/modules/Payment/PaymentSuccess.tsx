@@ -51,7 +51,7 @@ const PaymentSuccess = ({ tranId }: Props) => {
             confirmButtonText: "OK",
             allowOutsideClick: true,
           }).then(() => {
-            router.push("/events");
+            router.push("/profile/my-events");
           });
         } else {
           setMessage("Payment validation failed. Please contact support.");

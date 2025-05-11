@@ -3,11 +3,8 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Select,
@@ -16,7 +13,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import Title from "@/components/shared/Title";
 import { UpdateEventById } from "@/services/EventService";
 import NextButton from "@/components/shared/NextButton";
 import { toast } from "sonner";

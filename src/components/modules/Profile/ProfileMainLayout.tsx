@@ -56,7 +56,7 @@ const ProfileMainLayout = ({ children }: { children: React.ReactNode }) => {
       {!isMobile && <Sidebar />}
 
       {/* Main Content */}
-      <div className="flex-1 p-4 md:p-8">{children}</div>
+      <div className=" w-full md:w-[80%]  p-4 ">{children}</div>
     </div>
   );
 };

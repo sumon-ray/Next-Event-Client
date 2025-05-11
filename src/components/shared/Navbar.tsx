@@ -27,6 +27,7 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 z-50 w-full shadow-sm backdrop-blur-sm bg-black/20">
       <div className="container flex items-center justify-between h-20 px-4 mx-auto md:px-8">
+        {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
             src={img}
@@ -48,25 +49,26 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* User Avatar & Menu Button */}
+        {/* User Actions & Mobile Toggle */}
         <nav className="flex items-center gap-2">
           {!isLoading && (
             user ? (
-              <Link
-                href={
-                  user?.role === "ADMIN"
-                    ? "/admin/dashboard"
-                    : "/profile/personal-info"
-                }
-                className="relative"
-              >
-                <Avatar className="cursor-pointer hover:ring-2 hover:ring-white transition">
-                  <AvatarImage src={user?.profileImage} alt="Profile" />
-                  <AvatarFallback>
-                    {user?.name?.[0]?.toUpperCase() || "U"}
-                  </AvatarFallback>
-                </Avatar>
-              </Link>
+              <>
+                {user.role === "ADMIN" ? (
+                  <Link href="/admin/dashboard">
+                    <NextButton name="Dashboard" />
+                  </Link>
+                ) : (
+                  <Link href="/profile/personal-info" className="relative">
+                    <Avatar className="cursor-pointer ring-2 ring-blue-500 hover:ring-4 transition duration-300">
+                      <AvatarImage src={user.profileImage} alt="Profile" />
+                      <AvatarFallback>
+                        {user.name?.[0]?.toUpperCase() || "U"}
+                      </AvatarFallback>
+                    </Avatar>
+                  </Link>
+                )}
+              </>
             ) : (
               <Link href="/login">
                 <NextButton name="Login" />
@@ -74,7 +76,7 @@ export default function Navbar() {
             )
           )}
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="inline-flex items-center justify-center p-2 ml-2 md:hidden"
