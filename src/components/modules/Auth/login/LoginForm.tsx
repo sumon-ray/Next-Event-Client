@@ -1,6 +1,5 @@
 "use client";
 
-import type { IUser } from "@/app/types";
 import { Button } from "@/components/ui/button";
 // import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -18,7 +17,6 @@ import { useUser } from "@/context/UserContext";
 import { loginUser } from "@/services/AuthService";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
-import { jwtDecode } from "jwt-decode";
 import {
   AtSign,
   Eye,
@@ -36,9 +34,10 @@ import { useEffect, useState } from "react";
 import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
+import { getProfileInfo } from "@/services/ProfileService";
 
 const LoginForm = () => {
-  const { setUser } = useUser();
+  const { updateProfile } = useUser();
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -65,46 +64,47 @@ const LoginForm = () => {
   const watchEmail = watch("email");
   const watchPassword = watch("password");
 
-  // Clear login error when user types
   useEffect(() => {
     if (loginError && (watchEmail || watchPassword)) {
       setLoginError("");
     }
   }, [watchEmail, watchPassword, loginError]);
 
- const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-  setIsLoading(true);
-  setLoginError("");
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    setIsLoading(true);
+    setLoginError("");
+  
+    try {
+      const res = await loginUser(data);
 
-  try {
-    const res = await loginUser(data);
-
-    if (res?.success) {
-      const token = res.data?.accessToken;
-
-      if (token) {
-        const decodedUser = jwtDecode<IUser>(token); 
-        setUser(decodedUser); 
-        localStorage.setItem("accessToken", token); 
+      if (res?.success) {
+        const token = res.data?.accessToken;
+  
+        if (token) {
+          localStorage.setItem("accessToken", token);
+  
+          const profileData = await getProfileInfo();
+          localStorage.setItem("userProfile", JSON.stringify(profileData.data));
+          updateProfile(profileData.data); 
+        }
+  
+        toast.success(res.message || "Login successful!");
+  
+        setTimeout(() => {
+          router.push(redirect || "/");
+        }, 500);
+      } else {
+        setLoginError(res?.message || "Invalid email or password");
       }
-
-      toast.success(res.message || "Login successful!");
-
-      setTimeout(() => {
-        router.push(redirect || "/");
-      }, 500);
-    } else {
-      setLoginError(res?.message || "Invalid email or password");
-      toast.error(res?.message || "Login failed");
+    } catch (error: any) {
+      console.error(error);
+      setLoginError(error.message || "An unexpected error occurred");
+      toast.error("Login failed. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
-  } catch (error: any) {
-    console.error(error);
-    setLoginError(error.message || "An unexpected error occurred");
-    toast.error("Login failed. Please try again.");
-  } finally {
-    setIsLoading(false);
-  }
-};
+  };
+  
 
 
   const handleSocialLogin = (provider: string) => {

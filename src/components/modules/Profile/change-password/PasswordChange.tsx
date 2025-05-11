@@ -547,12 +547,12 @@ export default function PasswordChange() {
                 <div className="space-y-6">
                   {/* Password Requirements */}
                   <Card className="shadow-md border-blue-100">
-                    <CardContent className="pt-6">
+                    <CardContent className="pt-2">
                       <div className="flex items-center gap-2 mb-4">
-                        <Shield className="h-5 w-5 text-blue-600" />
+                        {/* <Shield className="h-5 w-5 text-blue-600" />
                         <h3 className="text-lg font-medium text-gray-800">
                           Password Requirements
-                        </h3>
+                        </h3> */}
                       </div>
                       <PasswordRequirements password={watchNewPassword} />
                     </CardContent>

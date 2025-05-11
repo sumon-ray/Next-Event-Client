@@ -45,6 +45,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const updateProfile = (updatedUser: IUser) => {
     if (updatedUser) {
       setUser(updatedUser);
+      console.log(updateProfile);
       localStorage.setItem("userProfile", JSON.stringify(updatedUser));
     }
   };
