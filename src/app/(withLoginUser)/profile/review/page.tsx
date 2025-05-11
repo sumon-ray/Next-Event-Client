@@ -1,6 +1,8 @@
 import MyReview from "@/components/modules/Review/MyReview";
+import { myAllReviews } from "@/services/ReviewService";
 
-const Review = () => {
+const Review = async() => {
+      const reviews = await myAllReviews();
   return (
       <div>
     <div className="text-center mb-6">
@@ -9,7 +11,7 @@ const Review = () => {
             <span className="text-cyan-500">BACK</span>
           </h1>
         </div>
-    <MyReview />
+    <MyReview reviews={reviews} />
       </div>
   );
 };

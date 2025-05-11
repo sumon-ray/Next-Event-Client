@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -15,7 +16,7 @@ interface Review {
   image: string;
 }
 
-const ReviewCarosal = ({ reviews }: { reviews: Review[] }) => {
+const ReviewCarosal = ({ reviews }: { reviews: any[] }) => {
   if (!reviews || reviews.length === 0) {
     return (
       <p className="text-center py-10 text-gray-500 text-base sm:text-lg font-medium">
@@ -55,7 +56,7 @@ const ReviewCarosal = ({ reviews }: { reviews: Review[] }) => {
                 <div className="flex justify-center mb-4 sm:mb-6">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-full bg-white p-1 shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105">
                     <Image
-                      src={review.image || '/placeholder.svg'}
+                      src={review.reviewer.profileImage}
                       alt={review.name}
                       width={96}
                       height={96}
@@ -66,11 +67,8 @@ const ReviewCarosal = ({ reviews }: { reviews: Review[] }) => {
                 </div>
                 {/* Reviewer Info */}
                 <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-1">
-                  {review.name}
+                  {review.reviewer.name}
                 </h2>
-                <p className="text-xs sm:text-sm text-gray-200 font-medium">
-                  {review.role}
-                </p>
                 {/* Rating Stars */}
                 <div className="flex justify-center gap-1 mt-2 sm:mt-3 mb-3 sm:mb-4">
                   {[1, 2, 3, 4, 5].map((star) => (

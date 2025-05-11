@@ -10,9 +10,7 @@ import { DeleteModal } from "@/components/modules/Events/DeleteModal";
 
 
 const UserList =async () => {
-  const users = await getEventsOfUser()
-
-
+  const users: any = await getEventsOfUser()
 
 
   return (

@@ -5,11 +5,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogFooter,
-  DialogClose,
 } from "@/components/ui/dialog";
-
-import { Button } from "@/components/ui/button";
 import NextButton from "@/components/shared/NextButton";
 import Title from "@/components/shared/Title";
 import UpdateEventForm from "./UpdateEvent";

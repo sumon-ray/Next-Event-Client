@@ -13,28 +13,21 @@ const ReviewButton = ({ eventId }: { eventId: string }) => {
   console.log('ReviewButton rendered with eventId:', eventId);
 
   useEffect(() => {
-    console.log('useEffect triggered with eventId:', eventId);
+    // console.log('useEffect triggered with eventId:', eventId);
 
-    if (!eventId || typeof eventId !== 'string' || eventId.trim() === '') {
-      console.error('Invalid or missing eventId:', eventId);
+    if (!eventId) {
+      // console.error('Invalid or missing eventId:', eventId);
       setReviews([]);
       setLoading(false);
       return;
     }
 
     const fetchReviews = async () => {
-      console.log('Fetching reviews for eventId:', eventId);
+      // console.log('Fetching reviews for eventId:', eventId);
       try {
         const data = await getReviewsByEvent(eventId);
-        console.log('Reviews fetched:', JSON.stringify(data, null, 2));
-
-        // Fallback filter: Only keep reviews matching eventId
-        const filteredReviews = data.filter(
-          (review) => review.eventId === eventId
-        );
-        console.log('Filtered reviews:', JSON.stringify(filteredReviews, null, 2));
-
-        setReviews(filteredReviews);
+        console.log(data);
+        setReviews(data);
       } catch (error: any) {
         console.error('Failed to load reviews:', error.message);
         setReviews([]);
