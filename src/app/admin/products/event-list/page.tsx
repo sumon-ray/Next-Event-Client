@@ -18,7 +18,7 @@ const UserList =async () => {
   return (
     <div className="px-10 py-6 mb-20">
       <div className="flex items-center justify-between mb-4">
-        <Title title="Manage Your Own Events" />
+        <Title title="Manage My Own Events" />
       </div>
 
       <div className="w-full overflow-x-auto border-t border-white rounded-lg shadow-md border-1">
@@ -27,7 +27,7 @@ const UserList =async () => {
             <tr>
               <th className="px-4 py-3 w-[200px] pl-10 ">Title</th>
           
-              <th className="px-4 py-3 w-[200px] text-center border-2 ">Venue</th>
+              <th className="px-4 py-3 w-[200px] border-2 ">Venue</th>
               <th className="px-4 py-3 w-[140px] border-2 ">Event Type</th>
               <th className="px-4 py-3 w-[180px] border-2 ">Paid / Free</th>    
               <th className="px-4 py-3 w-[120px] border-2 text-center ">Actions</th>
@@ -54,7 +54,7 @@ const UserList =async () => {
     <td className="h-full px-4 py-4 border-2">{event.isPaid ? "Paid" : "Free"}</td>
     <td className="flex items-center justify-center h-full gap-4 my-4">
      <InviteModal   id={event.id!}/>
-     <UpdateModal  id={event.id!}/>
+     <UpdateModal  event={event}/>
     <DeleteModal id={event.id!}  />
     </td>
   </tr>

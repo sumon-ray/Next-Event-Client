@@ -48,11 +48,11 @@ const query = new URLSearchParams(
    
   }
 };
-export const getSingleEvent = async (slug: string) => {
+export const getSingleEvent = async (id: string) => {
   try {
     const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value
-    const response = await fetch(`${baseUrl}/events/slug/${slug}`, {
+    const response = await fetch(`${baseUrl}/events/slug/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -147,14 +147,14 @@ export const createEvent = async (payload:any) => {
 
 
 
-export const UpdateEventBySlug = async (slug:string,payload:any) => {
-console.log("🚀 ~ UpdateEvent ~ id:", slug,payload)
+export const UpdateEventById = async (id:string,payload:any) => {
+
 
 
   try {
     const cookieStore = await cookies();
     const accessToken = cookieStore.get("accessToken")?.value
-    const res = await fetch(`${baseUrl}/events/update/${slug}`, {
+    const res = await fetch(`${baseUrl}/events/update/${id}`, {
       method: "PATCH",
       body: payload,
       credentials: "include",

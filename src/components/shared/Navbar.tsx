@@ -52,7 +52,14 @@ export default function Navbar() {
         <nav className="flex items-center gap-2">
           {!isLoading && (
             user ? (
-              <Link href="/profile/personal-info">
+              <Link
+                href={
+                  user?.role === "ADMIN"
+                    ? "/admin/dashboard"
+                    : "/profile/personal-info"
+                }
+                className="relative"
+              >
                 <Avatar className="cursor-pointer hover:ring-2 hover:ring-white transition">
                   <AvatarImage src={user?.profileImage} alt="Profile" />
                   <AvatarFallback>

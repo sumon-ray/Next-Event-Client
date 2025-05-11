@@ -34,7 +34,11 @@ import { useEffect, useState } from "react";
 import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
+<<<<<<< HEAD
+import Title from "@/components/shared/Title";
+=======
 import { getProfileInfo } from "@/services/ProfileService";
+>>>>>>> 53feaefcd980f82b58fa0c4724f2478ac83f438d
 
 const LoginForm = () => {
   const { updateProfile } = useUser();
@@ -112,12 +116,12 @@ const LoginForm = () => {
   };
 
   return (
-    <div className=" w-full max-h-full flex items-center justify-center p-4 ">
-      <div className="w-full max-w-7xl  border-0 overflow-hidden">
+    <div className="flex items-center justify-center w-full max-h-full p-4 ">
+      <div className="container z-50 w-full mx-auto overflow-hidden border-0 rounded-md ">
         <div className="flex flex-col md:flex-row">
           {/* Left side - Welcome section */}
 
-          <div className="w-full md:w-1/2 hidden md:flex  p-8 md:p-12 text-white relative overflow-hidden">
+          <div className="relative bg-gradient-to-br from-[#E3F2FD] via-[#BBDEFB] to-[#E3F2FD] hidden w-full p-8 overflow-hidden text-white md:w-1/2 md:flex md:p-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -129,7 +133,7 @@ const LoginForm = () => {
                 width={600}
                 height={600}
                 alt="Forget Password"
-                className="h-full"
+                className="h-full rounded-md"
               />
             </motion.div>
 
@@ -140,19 +144,21 @@ const LoginForm = () => {
           </div>
 
           {/* Right side - Login form */}
-          <div className="w-full md:w-1/2 md:p-12">
+          <div className="w-full rounded-md backdrop-blur bg-black/30 md:w-1/2 md:p-12">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
               className="max-w-md mx-auto"
             >
-              <div className="mb-8">
-                <h2 className="mb-2 text-2xl font-bold text-gray-900">
-                  Sign in to your account
-                </h2>
-                <p className="text-gray-500">
-                  Enter your credentials to access your account
+              <div className="mb-8 ">
+               {/* <Title title="Welcome Back !" /> */}
+               <h1 className="my-4 text-3xl font-bold tracking-wide text-transparent text-white lg:text-5xl drop-shadow-sm">
+                  Welcome Back !
+                </h1>
+               
+                <p className="text-white">
+                  Enter your credentials to access your account . 
                 </p>
               </div>
 
@@ -194,7 +200,7 @@ const LoginForm = () => {
                     <Separator />
                   </div>
                   <div className="relative flex justify-center">
-                    <span className="px-2 text-xs text-gray-500 bg-white">
+                    <span className="px-2 text-sm text-gray-500 bg-white">
                       or continue with email
                     </span>
                   </div>
@@ -222,13 +228,13 @@ const LoginForm = () => {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel className="text-lg text-white">Email</FormLabel>
                         <FormControl>
                           <div className="relative">
-                            <AtSign className="absolute w-4 h-4 text-gray-400 left-3 top-3" />
+                            <AtSign className="absolute w-4 h-4 text-gray-400 left-3 top-4" />
                             <Input
                               type="email"
-                              className="h-12 pl-10 border-gray-200 bg-gray-50 focus:bg-white"
+                              className="h-12 pl-10  bg-gray-50 w-full focus:ring-2 ring-[#1E3A8A]"
                               placeholder="you@example.com"
                               {...field}
                             />
@@ -246,20 +252,20 @@ const LoginForm = () => {
                     render={({ field }) => (
                       <FormItem>
                         <div className="flex items-center justify-between">
-                          <FormLabel>Password</FormLabel>
+                          <FormLabel className="text-lg text-white">Password</FormLabel>
                           <Link
                             href="/forget-password"
-                            className="text-xs text-blue-600 hover:text-blue-800 hover:underline"
+                            className="text-xs text-white underline hover:text-black"
                           >
                             Forgot password?
                           </Link>
                         </div>
                         <FormControl>
                           <div className="relative">
-                            <Lock className="absolute w-4 h-4 text-gray-400 left-3 top-3" />
+                            <Lock className="absolute w-4 h-4 text-gray-400 left-3 top-4" />
                             <Input
                               type={showPassword ? "text" : "password"}
-                              className="h-12 pl-10 pr-10 border-gray-200 bg-gray-50 focus:bg-white"
+                              className="h-12 pl-10 pr-10  bg-gray-50 w-full focus:ring-2 ring-[#1E3A8A]"
                               placeholder="••••••••"
                               {...field}
                             />
@@ -268,7 +274,7 @@ const LoginForm = () => {
                               variant="ghost"
                               size="icon"
                               onClick={() => setShowPassword(!showPassword)}
-                              className="absolute w-8 h-8 text-gray-500 right-2 top-2"
+                              className="absolute w-8 h-8 text-white right-2 top-2"
                             >
                               {showPassword ? (
                                 <EyeOff className="w-4 h-4" />
@@ -291,12 +297,13 @@ const LoginForm = () => {
                       <FormItem className="flex flex-row items-center space-x-2 space-y-0">
                         <FormControl>
                           <Checkbox
+                          className="focus-visible:bg-[#1E3A8A] data-[state=checked]:bg-[#1E3A8A] data-[state=checked]:border-none"
                             checked={field.value}
                             onCheckedChange={field.onChange}
                           />
                         </FormControl>
                         <div className="space-y-1 leading-none">
-                          <FormLabel className="text-sm font-normal">
+                          <FormLabel className="text-sm font-normal text-white">
                             Remember me for 30 days
                           </FormLabel>
                         </div>
@@ -306,7 +313,7 @@ const LoginForm = () => {
 
                   {/* Sign in button */}
                   <Button
-                    className="w-full h-12 font-medium text-white bg-blue-600 hover:bg-blue-700"
+                    className="w-full h-12 font-medium text-white nextButton "
                     type="submit"
                     disabled={isSubmitting || isLoading}
                   >
@@ -335,11 +342,11 @@ const LoginForm = () => {
 
               {/* Sign up link */}
               <div className="mt-8 text-center">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-200">
                   Don't have an account?{" "}
                   <Link
                     href="/register"
-                    className="font-medium text-blue-600 hover:underline"
+                    className="font-medium text-white underline hover:text-black"
                   >
                     Create an account
                   </Link>
