@@ -1,8 +1,6 @@
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import Title from "@/components/shared/Title";
-import NextButton from "@/components/shared/NextButton";
-import { getAllUsers } from "@/services/Users";
 import { getEventsOfUser } from "@/services/EventService";
 import { IEvent } from "@/app/types";
 import { InviteModal } from "@/components/modules/Invite/InviteModal";
@@ -37,7 +35,7 @@ const UserList =async () => {
           </thead>
 
           <tbody>
-          {users.map((event:IEvent) => (
+          {users?.map((event:IEvent) => (
   <tr key={event.id} className="border-white ">
     <td className="flex items-center h-full gap-3 px-4 border-2 py-9">
       <div className="relative w-10 h-10">

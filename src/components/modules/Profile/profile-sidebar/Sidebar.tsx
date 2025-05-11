@@ -21,7 +21,7 @@ const Sidebar = ({ className = "" }: SidebarProps) => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("userProfile");
     try {
-      router.push("/");
+      router.push("/login");
     } catch {
       window.location.href = "/login";
     }

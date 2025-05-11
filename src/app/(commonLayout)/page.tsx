@@ -1,6 +1,6 @@
 import Banner from "@/components/modules/Banner/Banner";
 import EventCategories from "@/components/modules/Categories/Categories";
-import AllEvents from "@/components/modules/Events/AllEvents";
+import HomeAllEvents from "@/components/modules/Events/HomeAllEvents";
 import FAQ from "@/components/modules/FAQ/FAQ";
 import OurAdvantagesSection from "@/components/modules/OurAdvantage/OurAdvantage";
 import OurFeaturesSection from "@/components/modules/OurServices/OurService";
@@ -12,7 +12,7 @@ export default function Home() {
     <div className="">
       <Banner></Banner>
       <WhoWeAreSection></WhoWeAreSection>
-      <AllEvents></AllEvents>
+      <HomeAllEvents></HomeAllEvents>
       <EventCategories></EventCategories>
       <OurFeaturesSection />
       <OurAdvantagesSection />

@@ -3,7 +3,6 @@ import { IUser, ResetPasswordPayload } from "@/app/types";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
-import { toast } from "sonner";
 
 // register user
 export const registerUser = async (userData: FieldValues) => {
@@ -47,7 +46,7 @@ export const loginUser = async (userData: FieldValues) => {
       },
       body: JSON.stringify(userData),
     });
-    console.log(res);
+    // console.log(res);
     const userInfo = await res.json();
     if (userInfo.success) {
       (await cookies()).set("accessToken", userInfo.data.accessToken);
@@ -134,7 +133,8 @@ export const ForgetPassword = async (userData: FieldValues) => {
     }
 
     return await res.json();
-  } catch (error) {
+  } catch (error: any) {
+    console.log(error);
     throw new Error("Something went wrong");
   }
 };

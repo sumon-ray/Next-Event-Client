@@ -93,7 +93,7 @@ export const getEventsOfUser = async () => {
   try {
     const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value
-    const response = await fetch(`${baseUrl}/events/my-events`, {
+    const response = await fetch(`${baseUrl}/events/profile/my-events`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -103,6 +103,7 @@ export const getEventsOfUser = async () => {
        next: { tags: ["user-events"],revalidate: 5},
     });
     const data = await response.json();
+    // console.log(data);
 
     return data.data;
   } catch (error) {
@@ -143,14 +144,17 @@ export const createEvent = async (payload:any) => {
   
  
 }
-export const UpdateEvent = async (id:string,payload:any):Promise<any> => {
-console.log("🚀 ~ UpdateEvent ~ id:", id,payload)
+
+
+
+export const UpdateEventBySlug = async (slug:string,payload:any) => {
+console.log("🚀 ~ UpdateEvent ~ id:", slug,payload)
 
 
   try {
     const cookieStore = await cookies();
     const accessToken = cookieStore.get("accessToken")?.value
-    const res = await fetch(`${baseUrl}/events/update/${id}`, {
+    const res = await fetch(`${baseUrl}/events/update/${slug}`, {
       method: "PATCH",
       body: payload,
       credentials: "include",
@@ -162,11 +166,7 @@ console.log("🚀 ~ UpdateEvent ~ id:", id,payload)
     });
    
   const data= await res.json();
- 
-    if (!res.ok) {
-     
-      console.log("🚀 ~ createEvent ~ error:", res)
-    }
+  console.log(data);
  
   return data
   }
@@ -177,3 +177,4 @@ console.log("🚀 ~ UpdateEvent ~ id:", id,payload)
   
  
 }
+

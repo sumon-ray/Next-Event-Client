@@ -22,13 +22,27 @@ import NextButton from "@/components/shared/NextButton";
 import { useState } from "react";
 import { makePayment } from "@/services/PaymentService";
 import { toast } from "sonner";
+import { getCurrentUser } from "@/services/AuthService";
+import { usePathname, useRouter } from "next/navigation";
 
 const EventDetails = ({ event, organizer }: { event: any; organizer: any }) => {
+  const router = useRouter();
+  const pathname = usePathname();
   const [loading, setLoading] = useState(false);
 
   const handlePayment = async (id: string) => {
     // console.log(id);
     try {
+
+      const user = await getCurrentUser()
+      if (!user) {
+        toast.warning("You must be logged in to register for this event.");
+        const redirectUrl = `/login?redirectPath=${encodeURIComponent(pathname)}`;
+        router.push(redirectUrl);        
+      router.push(redirectUrl);
+      return;
+      }
+
       setLoading(true);
       const response = await makePayment({
         eventId: id,
