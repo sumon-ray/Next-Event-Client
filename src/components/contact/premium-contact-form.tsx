@@ -114,7 +114,7 @@ export default function PremiumContactForm() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-violet-600"
+            className="text-3xl md:text-4xl font-bold mb-4  text-[#3159c4]"
           >
             Get in Touch With Us
           </motion.h2>
@@ -366,7 +366,7 @@ export default function PremiumContactForm() {
 
                         {/* Submit button */}
                         <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-                          <Button
+                          {/* <Button
                             type="submit"
                             disabled={!isValid || formStatus === "submitting"}
                             className="w-full h-14 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-lg font-medium"
@@ -382,7 +382,33 @@ export default function PremiumContactForm() {
                                 Send Message
                               </div>
                             )}
-                          </Button>
+                          </Button> */}
+
+                             <Button
+                              className="w-full h-12 font-medium text-white nextButton "
+                              type="submit"
+                              // disabled={!isValid || formStatus === "submitting"}
+
+                            >
+                            {formStatus === "submitting"  ? (
+                                <motion.div
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: 1 }}
+                                  className="flex items-center"
+                                >
+                                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                  Sending Message...
+                                </motion.div>
+                              ) : (
+                                <motion.div
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: 1 }}
+                                  className="flex items-center justify-center"
+                                >
+                                 Update password
+                                </motion.div>
+                              )}
+                            </Button>
                         </motion.div>
                       </form>
                     </TabsContent>

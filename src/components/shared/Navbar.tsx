@@ -22,6 +22,7 @@ const navLinks = [
 
 export default function Navbar() {
   const { user, isLoading } = useUser();
+  // console.log(user);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -51,8 +52,8 @@ export default function Navbar() {
 
         {/* User Actions & Mobile Toggle */}
         <nav className="flex items-center gap-2">
-          {!isLoading && (
-            user ? (
+          {!isLoading &&
+            (user ? (
               <>
                 {user.role === "ADMIN" ? (
                   <Link href="/admin/dashboard">
@@ -73,8 +74,7 @@ export default function Navbar() {
               <Link href="/login">
                 <NextButton name="Login" />
               </Link>
-            )
-          )}
+            ))}
 
           {/* Mobile Menu Toggle */}
           <button

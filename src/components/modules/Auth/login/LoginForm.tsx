@@ -1,5 +1,5 @@
 "use client";
-
+import {signIn} from 'next-auth/react'
 import { Button } from "@/components/ui/button";
 // import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -173,7 +173,9 @@ const LoginForm = () => {
                     variant="outline"
                     size="icon"
                     className="w-10 h-10 rounded-full"
-                    onClick={() => handleSocialLogin("Google")}
+                    onClick={() => signIn("google",{
+                      callbackUrl:  '/'
+                    })}
                   >
                     <svg className="w-5 h-5" viewBox="0 0 24 24">
                       <path
@@ -186,7 +188,9 @@ const LoginForm = () => {
                     variant="outline"
                     size="icon"
                     className="w-10 h-10 rounded-full"
-                    onClick={() => handleSocialLogin("Github")}
+                    onClick={() => signIn("github", {
+                      callbackUrl: '/'
+                    })}
                   >
                     <Github className="w-5 h-5" />
                   </Button>

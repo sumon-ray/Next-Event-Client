@@ -9,6 +9,7 @@ export const profileValidationSchema = z.object({
     .regex(/^01[3-9]\d{8}$/, "Please enter a valid phone number (01xxxxxxxxx)"),
   address: z.string().min(1, "Address is required"),
   occupation: z.string().min(1, "Occupation is required"),
+  bio: z.string(),
   profileImage: isClient ? z.instanceof(FileList).optional().or(z.any()) : z.any(),
 });
 

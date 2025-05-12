@@ -9,7 +9,9 @@ export interface IUser {
     occupation: string | null;
     phoneNumber: string;
     profileImage: string;
+    isSocialLogin?: boolean;
     role: 'USER' | 'ADMIN';
+    image: string;
     isDeleted: boolean;
     isBlocked: boolean;
     createdAt: string;

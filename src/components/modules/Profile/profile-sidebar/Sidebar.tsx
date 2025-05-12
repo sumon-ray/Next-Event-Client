@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { IoChevronForward, IoExitOutline } from "react-icons/io5";
 import { toast } from "sonner";
 import { logOut } from "../../../../services/AuthService/index";
+import { signOut } from "next-auth/react";
 
 interface SidebarProps {
   className?: string;
@@ -15,6 +16,7 @@ const Sidebar = ({ className = "" }: SidebarProps) => {
   const router = useRouter();
   const { setUser } = useUser();
   const handleLogOut = async () => {
+    await signOut({ redirect: false });
     await logOut();
     toast.success("Log out successful");
     setUser(null);

@@ -43,13 +43,13 @@ export default function FeaturesSection() {
             <TabsList className="grid w-full grid-cols-2 mb-12 p-1 bg-gray-100 rounded-full">
               <TabsTrigger
                 value="organizers"
-                className="rounded-full py-3 data-[state=active]:bg-blue-600 data-[state=active]:text-white transition-all duration-300"
+                className="rounded-full py-3 data-[state=active]:bg-[#1E3A8A] data-[state=active]:text-white transition-all duration-300"
               >
                 For Event Organizers
               </TabsTrigger>
               <TabsTrigger
                 value="attendees"
-                className="rounded-full py-3 data-[state=active]:bg-blue-600 data-[state=active]:text-white transition-all duration-300"
+                className="rounded-full py-3 data-[state=active]:bg-[#1E3A8A] data-[state=active]:text-white transition-all duration-300"
               >
                 For Event Attendees
               </TabsTrigger>
@@ -114,7 +114,7 @@ export default function FeaturesSection() {
                           </div>
                         </li>
                       </ul>
-                      <Button asChild className="mt-10 bg-blue-600 hover:bg-blue-700 rounded-full px-8 py-6 h-auto">
+                      <Button asChild className="mt-10 bg-[#1E3A8A] hover:bg-blue-700 rounded-full px-8 py-6 h-auto">
                         <Link href="/dashboard">
                           Create Your First Event
                           <ArrowRight className="ml-2 h-5 w-5" />
