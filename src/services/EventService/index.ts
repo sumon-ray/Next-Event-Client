@@ -82,9 +82,9 @@ export const DeleteEvent = async (id: string) => {
   }
 };
 export const getEventsOfUser = async () => {
-  try {
-    const cookieStore = await cookies();
+      const cookieStore = await cookies();
     const accessToken = cookieStore.get("accessToken")?.value;
+  try {
     const response = await fetch(`${baseUrl}/events/profile/my-events`, {
       method: "GET",
       headers: {
