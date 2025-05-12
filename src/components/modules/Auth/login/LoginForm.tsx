@@ -174,7 +174,7 @@ const LoginForm = () => {
                     size="icon"
                     className="w-10 h-10 rounded-full"
                     onClick={() => signIn("google",{
-                      callbackUrl:  'http://localhost:3000/'
+                      callbackUrl:  '/'
                     })}
                   >
                     <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -189,7 +189,7 @@ const LoginForm = () => {
                     size="icon"
                     className="w-10 h-10 rounded-full"
                     onClick={() => signIn("github", {
-                      callbackUrl: 'http://localhost:3000/'
+                      callbackUrl: '/'
                     })}
                   >
                     <Github className="w-5 h-5" />
