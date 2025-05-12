@@ -65,14 +65,14 @@ export const getProfileInfo = async () => {
       Authorization: `Bearer ${accessToken}`,
     },
   });
-  if (!res.ok) {
-    throw new Error(`fail to update user data: ${res.statusText}`);
-  }
 
   const profileData = await res.json();
   console.log(profileData);
   return profileData;
 };
+
+
+
 // Function to get events created by the user
 export const getMyCreatedEvent = async () => {
   try {
@@ -93,10 +93,6 @@ export const getMyCreatedEvent = async () => {
         Authorization: accessToken,
       },
     });
-
-    if (!res.ok) {
-      throw new Error(`Failed to fetch invites: ${res.statusText}`);
-    }
 
     const data = await res.json();
     return data;

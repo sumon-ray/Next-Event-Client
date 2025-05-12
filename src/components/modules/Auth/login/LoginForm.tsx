@@ -34,7 +34,6 @@ import { useEffect, useState } from "react";
 import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
-import Title from "@/components/shared/Title";
 import { getProfileInfo } from "@/services/ProfileService";
 
 const LoginForm = () => {
@@ -344,7 +343,7 @@ const LoginForm = () => {
               {/* Sign up link */}
               <div className="mt-8 text-center">
                 <p className="text-sm text-gray-200">
-                  Don't have an account?{" "}
+                  Do not have an account?{" "}
                   <Link
                     href="/register"
                     className="font-medium text-white underline hover:text-black"

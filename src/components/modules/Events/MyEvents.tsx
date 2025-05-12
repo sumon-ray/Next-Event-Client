@@ -1,148 +1,77 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React from "react";
-import Link from "next/link";
 import Image from "next/image";
-import { format } from "date-fns";
-import { MoreHorizontal } from "lucide-react";
-
+import Title from "@/components/shared/Title";
+import { IEvent } from "@/app/types";
 import { InviteModal } from "@/components/modules/Invite/InviteModal";
 import { UpdateModal } from "@/components/modules/Events/UpdateModal";
 import { DeleteModal } from "@/components/modules/Events/DeleteModal";
-
-import Title from "@/components/shared/Title";
+import Link from "next/link";
 import NextButton from "@/components/shared/NextButton";
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-
-import { IEvent } from "@/app/types";
+import { ShowParticipantsModal } from "./ShowParticipantsModal";
 
 const MyEvents = ({ events }: { events: IEvent[] | any }) => {
   return (
-    <div className="px-4 py-6 mb-20 md:px-10">
+    <div className="w-full md:w-[80%] mx-auto px-4 md:px-2 py-6 mb-20">
       {/* Header */}
-      <div className="flex flex-col items-start justify-between gap-4 mb-6 md:flex-row md:items-center">
-        <Title title="My Events" />
-           <Link href="/events/create-event" >
+      <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
+        <Title title="Manage My Own Events" />
+        <Link href="/profile/my-events/add-event">
           <NextButton name="Create Event" />
         </Link>
       </div>
 
       {/* Table */}
-      <Table>
-        <TableCaption>A list of events you have created.</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[220px]">Title</TableHead>
-            <TableHead className="w-[160px]">Start Date</TableHead>
-            <TableHead className="w-[160px]">End Date</TableHead>
-            <TableHead className="w-[140px]">Event Type</TableHead>
-            <TableHead className="w-[180px]">Paid / Free</TableHead>
-            <TableHead className="text-center w-[120px]">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {events?.map((event: IEvent | any) => (
-            <React.Fragment key={event.id}>
-              {/* Main Event Row */}
-              <TableRow>
-                <TableCell className="font-medium truncate text-gray-800">
-                  <Link href={`/events/${event.slug}`}>{event.title}</Link>
-                </TableCell>
-                <TableCell className="text-gray-700">
-                  {format(new Date(event.startDate), "PPP p")}
-                </TableCell>
-                <TableCell className="text-gray-700">
-                  {format(new Date(event.endDate), "PPP p")}
-                </TableCell>
-                <TableCell className="capitalize text-gray-700">
-                  {event.type}
-                </TableCell>
-                <TableCell className="text-gray-700">
-                  {event.isPaid ? `Paid (${event.fee})` : "Free"}
-                </TableCell>
-                <TableCell className="text-center">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <button className="p-2 transition rounded hover:bg-gray-100">
-                        <MoreHorizontal className="w-5 h-5" />
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem>
-                        <InviteModal id={event.id!} />
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <UpdateModal id={event.id!} />
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <DeleteModal id={event.id!} />
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
-
-              {/* Accordion for Participants */}
-              <TableRow>
-                <TableCell colSpan={6} className="bg-gray-50 p-0">
-                  <Accordion type="single" collapsible>
-                    <AccordionItem value={`participants-${event.id}`}>
-                      <AccordionTrigger className="px-6 py-2 text-left text-sm font-medium text-blue-600 hover:underline">
-                        Show Participants ({event.participants?.length ?? 0})
-                      </AccordionTrigger>
-                      <AccordionContent className="px-6 py-4 bg-white">
-                        {event.participants?.length ? (
-                          <ul className="space-y-2">
-                            {event.participants.map((p: any, index: number) => (
-                              <li key={index} className="flex items-center gap-3">
-                                <Image
-                                  src={p.user.profileImage}
-                                  alt={p.user.name}
-                                  width={32}
-                                  height={32}
-                                  className="w-8 h-8 rounded-full"
-                                />
-                                <div>
-                                  <div className="font-medium">{p.user.name}</div>
-                                  <div className="text-sm text-gray-500">{p.user.email}</div>
-                                </div>
-                              </li>
-                            ))}
-                          </ul>
-                        ) : (
-                          <p className="text-sm text-gray-500">No participants yet.</p>
-                        )}
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
-                </TableCell>
-              </TableRow>
-            </React.Fragment>
-          ))}
-        </TableBody>
-      </Table>
+      <div className="w-full  overflow-x-auto border border-white rounded-lg shadow-md">
+        <table className="w-full text-left text-base">
+          <thead className="text-sm font-medium text-gray-500 uppercase border-b border-white">
+            <tr>
+              <th className="px-4 py-3 w-[200px] pl-10">Title</th>
+              <th className="px-4 py-3 w-[200px] border-2">Venue</th>
+              <th className="px-4 py-3 w-[140px] border-2">Event Type</th>
+              <th className="px-4 py-3 w-[180px] border-2">Paid / Free</th>
+              <th className="px-4 py-3 w-[120px] border-2 text-center">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {events?.map((event: IEvent) => (
+              <tr key={event.id} className="border-white">
+                <td className="flex items-center gap-3 px-4 py-3 border-2">
+                  <div className="relative w-10 h-10">
+                    <Image
+                      src={event.bannerImage || "/placeholder.svg"}
+                      alt={event.title}
+                      fill
+                      className="object-cover rounded-full"
+                    />
+                  </div>
+                  <Link href={`/events/${event.slug}`}>
+                    <span className="font-medium text-gray-800">
+                      {event.title}
+                    </span>
+                  </Link>
+                </td>
+                <td className="px-4 py-3 truncate border-2">{event.venue}</td>
+                <td className="px-4 py-3 border-2">{event.type}</td>
+                <td className="px-4 py-3 border-2">
+                  {event.isPaid ? "Paid" : "Free"}
+                </td>
+                <td className="px-4 py-3 border-2">
+                  <div className="flex items-center justify-center gap-2">
+                    <ShowParticipantsModal event={event} id={event.id!} />
+                    <InviteModal id={event.id!} />
+                    <UpdateModal event={event} />
+                    <DeleteModal id={event.id!} />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

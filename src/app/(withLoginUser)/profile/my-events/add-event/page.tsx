@@ -277,8 +277,6 @@ catch(err:any){
                 />
                 {previewUrl && (
                   <Image
-                  width={300}
-                  height={300}
                     src={previewUrl}
                     alt="Preview"
                     className="object-cover w-full mt-4 border rounded-md max-h-52"

@@ -1,5 +1,9 @@
 import { LuUser } from "react-icons/lu";
-import { MdOutlineSecurity, MdOutlineEventAvailable, MdPassword, MdOutlineReviews } from "react-icons/md";
+import { MdOutlineSecurity } from "react-icons/md";
+import { FaCreditCard } from "react-icons/fa";
+import { IoMdStarOutline } from "react-icons/io";
+import { RiUserReceivedLine } from "react-icons/ri";
+import { TbCalendarEvent } from "react-icons/tb";
 
 export const profileSettingItems = [
   {
@@ -8,18 +12,23 @@ export const profileSettingItems = [
     href: "/profile/personal-info",
   },
   {
-    title: "Password",
-    icon: <MdPassword className="w-5 h-5" />,
-    href: "/profile/change-password",
-  },
-  {
     title: "My Events",
-    icon: <MdOutlineEventAvailable className="w-5 h-5" />,
+    icon: <TbCalendarEvent className="w-5 h-5" />,
     href: "/profile/my-events",
   },
   {
-    title: "review",
-    icon: <MdOutlineReviews className="w-5 h-5" />,
+    title: "My Received Invites",
+    icon: <RiUserReceivedLine className="w-5 h-5" />,
+    href: "/profile/my-received-invites",
+  },
+  {
+    title: "Payments History",
+    icon: <FaCreditCard className="w-5 h-5" />,
+    href: "/profile/payments-history",
+  },
+  {
+    title: "Reviews",
+    icon: <IoMdStarOutline className="w-5 h-5" />,
     href: "/profile/review",
   },
   {
@@ -27,5 +36,4 @@ export const profileSettingItems = [
     icon: <MdOutlineSecurity className="w-5 h-5" />,
     href: "/profile/privacy_and_security",
   },
-  
 ];

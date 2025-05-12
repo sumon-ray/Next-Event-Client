@@ -1,16 +1,24 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from "react"
 
-const NextButton = ({ name, onClick, disabled }: { name: ReactNode, onClick?: () => void, disabled?: boolean }) => {
+interface NextButtonProps {
+  children: ReactNode
+  onClick?: () => void
+  disabled?: boolean
+}
+
+const NextButton = ({ children, onClick, disabled }: NextButtonProps) => {
   return (
     <button
       onClick={onClick}
-      className={`nextButton ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+      className={`w-full px-4 py-2 rounded-lg font-medium text-white transition-colors
+        ${disabled ? "bg-gray-400 cursor-not-allowed" : "bg-gradient-to-br from-[#0a3b5e] to-[#1e6a9e] hover:brightness-110"}
+      `}
       disabled={disabled}
-      type='submit'
+      type="button"
     >
-      <span>{name}</span>
+      <span className="flex justify-center items-center">{children}</span>
     </button>
-  );
-};
+  )
+}
 
-export default NextButton;
+export default NextButton
