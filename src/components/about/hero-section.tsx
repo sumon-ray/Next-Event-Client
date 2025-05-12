@@ -79,7 +79,7 @@ const HeroSection = forwardRef<HTMLDivElement, HeroSectionProps>(
             <Button
               asChild
               size="lg"
-              className=" text-blue-700 hover:bg-blue-50 h-14 px-8 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+              className=" bg-[#1E3A8A] hover:bg-[#3a55b6] h-14 px-8 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
             >
               <Link href="/events">
                 Explore Events
@@ -90,7 +90,7 @@ const HeroSection = forwardRef<HTMLDivElement, HeroSectionProps>(
               asChild
               size="lg"
               variant="outline"
-              className=" border-white hover:bg-white/20 hover:text-black h-14 px-8 text-lg rounded-full backdrop-blur-sm"
+              className=" border-white hover:bg-white/20 hover:text-white h-14 px-8 text-lg rounded-full backdrop-blur-sm"
             >
               <Link href="/register">Join Our Community</Link>
             </Button>
@@ -120,3 +120,6 @@ const HeroSection = forwardRef<HTMLDivElement, HeroSectionProps>(
 HeroSection.displayName = "HeroSection";
 
 export default HeroSection;
+
+
+

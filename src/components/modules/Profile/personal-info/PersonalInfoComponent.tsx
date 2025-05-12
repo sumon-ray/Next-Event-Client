@@ -19,6 +19,9 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { profileValidationSchema, type FormValues } from "./profileValidation";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+
 
 const PersonalInfoComponent = () => {
   const { user, setUser } = useUser();
@@ -36,7 +39,6 @@ const PersonalInfoComponent = () => {
     mode: "onChange",
   });
 
-  // Watch for file changes to create preview
   const profileImageFile = watch("profileImage");
 
   useEffect(() => {
@@ -388,6 +390,37 @@ const PersonalInfoComponent = () => {
               "Save Changes"
             )}
           </button>
+          {/* <Button
+            className={`px-6 flex py-2 w-full h-12 rounded-md text-white font-medium transition-all ${
+              isSubmitting || user?.isSocialLogin
+                ? " cursor-not-allowed"
+                : "bg-primary hover:bg-primary/90 active:scale-[0.98]"
+            }`}
+            type="submit"
+            // disabled={isSubmitting || user?.isSocialLogin}
+          >
+            {isSubmitting ? (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex items-center"
+              >
+                <span className="flex items-center">
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Saving...
+                </span>
+              </motion.div>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex items-center justify-center"
+              >
+                {/* <LogIn className="w-4 h-4 mr-2" /> */}
+                {/* "Save Changes" */}
+              {/* </motion.div>
+            )}
+          </Button> */} 
         </div>
       </form>
     </div>

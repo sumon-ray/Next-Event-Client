@@ -12,18 +12,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import { changePassword } from "@/services/AuthService";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   AlertCircle,
-  ArrowRight,
   CheckCircle,
   Eye,
   EyeOff,
-  HelpCircle,
   Info,
+  Loader2,
   Lock,
   Shield,
   ShieldAlert,
@@ -129,7 +127,6 @@ export default function PasswordChange() {
         return;
       }
 
-      // Extract the data we need to send to the API
       const { oldPassword, newPassword } = data;
 
       await changePassword({ oldPassword, newPassword }, token);
@@ -177,7 +174,7 @@ export default function PasswordChange() {
                 transition={{ duration: 0.5, delay: 0.5 }}
                 className="lg:col-span-7"
               >
-                <Card className="shadow-md border-blue-100">
+                <Card className=" border-blue-100">
                   <CardContent className="pt-6">
                     <Form {...form}>
                       <form
@@ -494,41 +491,56 @@ export default function PasswordChange() {
                             transition={{ duration: 0.2 }}
                           >
                             <Button
+                              className="w-full h-12 font-medium text-white nextButton "
                               type="submit"
-                              className="w-full py-6 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-lg font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed disabled:shadow-none"
+                              disabled={isSubmitting}
+                            >
+                              {isSubmitting ? (
+                                <motion.div
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: 1 }}
+                                  className="flex items-center"
+                                >
+                                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                  Updating...
+                                </motion.div>
+                              ) : (
+                                <motion.div
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: 1 }}
+                                  className="flex items-center justify-center"
+                                >
+                                  {/* <LogIn className="w-4 h-4 mr-2" /> */}
+                                 Update password
+                                </motion.div>
+                              )}
+                            </Button>
+
+                            {/* <Button
+                              type="submit"
+                              className="w-full py-6 w-full h-12 font-medium text-white nextButton "
                               disabled={isSubmitting || !form.formState.isValid}
                             >
                               {isSubmitting ? (
-                                <div className="flex items-center justify-center">
-                                  <svg
-                                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <circle
-                                      className="opacity-25"
-                                      cx="12"
-                                      cy="12"
-                                      r="10"
-                                      stroke="currentColor"
-                                      strokeWidth="4"
-                                    ></circle>
-                                    <path
-                                      className="opacity-75"
-                                      fill="currentColor"
-                                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                    ></path>
-                                  </svg>
-                                  Updating Password...
-                                </div>
+                              <motion.div
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              className="flex items-center"
+                            >
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Signing in...
+                            </motion.div>
                               ) : (
-                                <div className="flex items-center justify-center">
-                                  <ShieldCheck className="mr-2 h-5 w-5" />
-                                  Update Password
-                                </div>
+                                <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="flex items-center justify-center"
+                      >
+                        {/* <LogIn className="w-4 h-4 mr-2" /> */}
+                            {/* updating
+                      </motion.div>
                               )}
-                            </Button>
+                            </Button> */}
                           </motion.div>
                         </motion.div>
                       </form>
@@ -546,7 +558,7 @@ export default function PasswordChange() {
               >
                 <div className="space-y-6">
                   {/* Password Requirements */}
-                  <Card className="shadow-md border-blue-100">
+                  <Card className=" border-blue-100">
                     <CardContent className="pt-2">
                       <div className="flex items-center gap-2 mb-4">
                         {/* <Shield className="h-5 w-5 text-blue-600" />
@@ -559,7 +571,7 @@ export default function PasswordChange() {
                   </Card>
 
                   {/* Password Tips */}
-                  <Card className="shadow-md border-blue-100">
+                  <Card className=" border-blue-100">
                     <CardContent className="pt-6">
                       <div className="flex items-center gap-2 mb-4">
                         <Info className="h-5 w-5 text-blue-600" />
