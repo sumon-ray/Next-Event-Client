@@ -9,7 +9,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import Title from "@/components/shared/Title";
 import { createEvent } from "@/services/EventService";
 import NextButton from "@/components/shared/NextButton";
@@ -18,7 +24,6 @@ import Image from "next/image";
 
 interface FormValues {
   title: string;
-  slug: string;
   description: string;
   startDate: Date;
   startTime: string;
@@ -30,17 +35,24 @@ interface FormValues {
   fee?: number;
   bannerImage?: FileList;
   eventStatus: "UPCOMING" | "ONGOING" | "ENDED";
-  category: "CONFERENCE" | "WORKSHOP" | "SEMINAR" | "NETWORKING" | "PARTY" | "CONCERT" | "EXHIBITION" | "OTHER";
+  category:
+    | "CONFERENCE"
+    | "WORKSHOP"
+    | "SEMINAR"
+    | "NETWORKING"
+    | "PARTY"
+    | "CONCERT"
+    | "EXHIBITION"
+    | "OTHER";
   reservedSites: number;
   availableSites: number;
 }
-;
-
 const AddEvent = () => {
   const {
     register,
     handleSubmit,
-    watch,reset,
+    watch,
+    reset,
     setValue,
     formState: { errors },
   } = useForm<FormValues>({
@@ -70,69 +82,58 @@ const AddEvent = () => {
     return newDate;
   };
   const onSubmit = async (data: FormValues) => {
-try{
-  setLoading(true);
-  const formData = new FormData();
+    try {
+      setLoading(true);
+      const formData = new FormData();
 
-  const startDate = combineDateTime(data.startDate, data.startTime);
-  const endDate = combineDateTime(data.endDate, data.endTime);
+      const startDate = combineDateTime(data.startDate, data.startTime);
+      const endDate = combineDateTime(data.endDate, data.endTime);
 
-  const payload = {
+      const payload = {
+        title: data.title,
+        description: data.description,
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        venue: data.venue,
+        type: data.type,
+        isPaid: data.isPaid || false,
+        fee: data.fee ? Number(data.fee) : 0,
+        eventStatus: data.eventStatus || "UPCOMING",
+        category: data.category || "OTHER",
+        reseveredSit: Number(data.reservedSites),
+        availableSit: Number(data.availableSites),
+      };
 
-    title: data.title,
-    slug: data.slug,
-    description: data.description,
-    startDate: startDate.toISOString(),
-    endDate: endDate.toISOString(),
-    venue: data.venue,
-    type: data.type,
-    isPaid: data.isPaid ||false ,
-    fee: data.fee ? Number(data.fee) : 0,
-    eventStatus: data.eventStatus || "UPCOMING",
-    category: data.category || "OTHER",
-    reseveredSit: Number(data.reservedSites),
-    availableSit: Number(data.availableSites)
-
-  }
-
-
-  formData.append("data", JSON.stringify(payload));
-  if (data.bannerImage) {
-    formData.append("file", data.bannerImage[0]);
-  }
-  const uploadEvent = await createEvent(formData);
-  if(!uploadEvent.succcess){
-    toast.error(uploadEvent.message || 'Failed to upload event');  setLoading(false);
-  }
-  else{
-    setLoading(false);
-    toast.success(uploadEvent.message || 'Event uploaded successfully');
-    reset();
-  }
-  
-
-}
-catch(err:any){
-  console.log("🚀 ~ onSubmit ~ err:", err)
-  reset();
-  toast.error(err.message || 'Failed to upload event');
-  setLoading(false); 
-}
-
-
-
-  }
+      formData.append("data", JSON.stringify(payload));
+      if (data.bannerImage) {
+        formData.append("file", data.bannerImage[0]);
+      }
+      const uploadEvent = await createEvent(formData);
+      // console.log(uploadEvent.data);
+      if (uploadEvent.success) {
+        toast.success(uploadEvent.message || "Event uploaded successfully");
+        setLoading(false);
+        reset();
+      } else {
+        setLoading(false);
+        toast.error(uploadEvent.message || "Failed to upload event");
+      }
+    } catch (err: any) {
+      console.log("🚀 ~ onSubmit ~ err:", err);
+      reset();
+      toast.error(err.message || "Failed to upload event");
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="p-4 sm:p-6 md:px-10 ">
       <Title title="Add Event" />
-      <p className="mb-6 text-lg text-[#475569]">Add your event for your customers</p>
+      <p className="mb-6 text-lg text-[#475569]">
+        Add your event for your customers
+      </p>
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-
-      >
-
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 gap-6 mb-12 xl:grid-cols-3">
           <div className="space-y-6 xl:col-span-2">
             <div className="bg-[#FFFFFF] border rounded-xl shadow-md">
@@ -144,11 +145,6 @@ catch(err:any){
                   className="w-full focus:ring-2 ring-[#1E3A8A]"
                   {...register("title", { required: true })}
                   placeholder="Event Title"
-                />
-                <Input
-                  className="w-full focus:ring-2 ring-[#1E3A8A]"
-                  {...register("slug", { required: true })}
-                  placeholder="An Unique Event Title"
                 />
 
                 <Textarea
@@ -170,7 +166,8 @@ catch(err:any){
                         "w-full justify-start text-left font-normal rounded-md",
                         !startDate && "text-muted-foreground"
                       )}
-                    ><CalendarIcon className="w-4 h-4 mr-2" />
+                    >
+                      <CalendarIcon className="w-4 h-4 mr-2" />
                       {startDate ? format(startDate, "PPP") : "Pick a date"}
                     </Button>
                     <Calendar
@@ -179,7 +176,8 @@ catch(err:any){
                       onSelect={(date) => setValue("startDate", date as Date)}
                       className="flex items-center justify-center py-4 border-2 rounded-md shadow-sm"
                       classNames={{
-                        day_selected: "bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]",
+                        day_selected:
+                          "bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]",
                         day_today: "text-[#1E3A8A] font-bold",
                       }}
                     />
@@ -202,7 +200,9 @@ catch(err:any){
                         "w-full justify-start text-left font-normal rounded-md",
                         !endDate && "text-muted-foreground"
                       )}
-                    >  <CalendarIcon className="w-4 h-4 mr-2" />
+                    >
+                      {" "}
+                      <CalendarIcon className="w-4 h-4 mr-2" />
                       {endDate ? format(endDate, "PPP") : "Pick a date"}
                     </Button>
                     <Calendar
@@ -211,7 +211,8 @@ catch(err:any){
                       onSelect={(date) => setValue("endDate", date as Date)}
                       className="flex items-center justify-center py-4 border-2 rounded-md shadow-sm"
                       classNames={{
-                        day_selected: "bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]",
+                        day_selected:
+                          "bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]",
                         day_today: "text-[#1E3A8A] font-bold",
                       }}
                     />
@@ -222,7 +223,6 @@ catch(err:any){
                       className="w-full focus:ring-2 ring-[#1E3A8A]"
                     />
                   </div>
-
                 </div>
 
                 <Input
@@ -259,9 +259,7 @@ catch(err:any){
                 )}
               </div>
             </div>
-
           </div>
-
 
           <div className="space-y-6">
             <div className="bg-[#FFFFFF] border rounded-xl shadow-md">
@@ -277,6 +275,8 @@ catch(err:any){
                 />
                 {previewUrl && (
                   <Image
+                    height={300}
+                    width={300}
                     src={previewUrl}
                     alt="Preview"
                     className="object-cover w-full mt-4 border rounded-md max-h-52"
@@ -292,7 +292,9 @@ catch(err:any){
               <div className="p-6">
                 <Select
                   defaultValue="PUBLIC"
-                  onValueChange={(value) => setValue("type", value as "PUBLIC" | "PRIVATE")}
+                  onValueChange={(value) =>
+                    setValue("type", value as "PUBLIC" | "PRIVATE")
+                  }
                 >
                   <SelectTrigger className="w-full focus:ring-2 ring-[#1E3A8A]">
                     <SelectValue placeholder="Select Type" />
@@ -303,9 +305,7 @@ catch(err:any){
                   </SelectContent>
                 </Select>
               </div>
-
             </div>
-
 
             <div className="bg-[#FFFFFF] border rounded-xl shadow-md">
               <div className="px-6 py-4 text-xl font-semibold border-b text-[#1E3A8A]">
@@ -318,15 +318,35 @@ catch(err:any){
                   </label>
                   <Select
                     defaultValue="UPCOMING"
-                    onValueChange={(value) => setValue("eventStatus", value as FormValues["eventStatus"])}
+                    onValueChange={(value) =>
+                      setValue(
+                        "eventStatus",
+                        value as FormValues["eventStatus"]
+                      )
+                    }
                   >
                     <SelectTrigger className="w-full focus:ring-2 ring-[#1E3A8A]">
                       <SelectValue placeholder="Select Status" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent " value="UPCOMING">Upcoming</SelectItem>
-                      <SelectItem className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent " value="ONGOING">Ongoing</SelectItem>
-                      <SelectItem className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent " value="ENDED">Ended</SelectItem>
+                      <SelectItem
+                        className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent "
+                        value="UPCOMING"
+                      >
+                        Upcoming
+                      </SelectItem>
+                      <SelectItem
+                        className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent "
+                        value="ONGOING"
+                      >
+                        Ongoing
+                      </SelectItem>
+                      <SelectItem
+                        className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent "
+                        value="ENDED"
+                      >
+                        Ended
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -336,26 +356,67 @@ catch(err:any){
                     Category
                   </label>
                   <Select
-                    onValueChange={(value) => setValue("category", value as FormValues["category"])}
+                    onValueChange={(value) =>
+                      setValue("category", value as FormValues["category"])
+                    }
                   >
                     <SelectTrigger className="w-full focus:ring-2 ring-[#1E3A8A]">
                       <SelectValue placeholder="Select Category" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent" value="CONFERENCE">Conference</SelectItem>
-                      <SelectItem className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent" value="WORKSHOP">Workshop</SelectItem>
-                      <SelectItem className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent" value="SEMINAR">Seminar</SelectItem>
-                      <SelectItem className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent" value="NETWORKING">Networking</SelectItem>
-                      <SelectItem className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent" value="PARTY">Party</SelectItem>
-                      <SelectItem className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent" value="CONCERT">Concert</SelectItem>
-                      <SelectItem className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent" value="EXHIBITION">Exhibition</SelectItem>
-                      <SelectItem className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent" value="OTHER">Other</SelectItem>
+                      <SelectItem
+                        className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent"
+                        value="CONFERENCE"
+                      >
+                        Conference
+                      </SelectItem>
+                      <SelectItem
+                        className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent"
+                        value="WORKSHOP"
+                      >
+                        Workshop
+                      </SelectItem>
+                      <SelectItem
+                        className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent"
+                        value="SEMINAR"
+                      >
+                        Seminar
+                      </SelectItem>
+                      <SelectItem
+                        className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent"
+                        value="NETWORKING"
+                      >
+                        Networking
+                      </SelectItem>
+                      <SelectItem
+                        className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent"
+                        value="PARTY"
+                      >
+                        Party
+                      </SelectItem>
+                      <SelectItem
+                        className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent"
+                        value="CONCERT"
+                      >
+                        Concert
+                      </SelectItem>
+                      <SelectItem
+                        className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent"
+                        value="EXHIBITION"
+                      >
+                        Exhibition
+                      </SelectItem>
+                      <SelectItem
+                        className="hover:bg-gradient-to-r from-white to-blue-300 decoration-transparent"
+                        value="OTHER"
+                      >
+                        Other
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
             </div>
-
 
             <div className="bg-[#FFFFFF] border rounded-xl shadow-md">
               <div className="px-6 py-4 text-xl font-semibold border-b text-[#1E3A8A]">
@@ -364,24 +425,25 @@ catch(err:any){
               <div className="p-6 space-y-4">
                 <Input
                   type="number"
-                  {...register("reservedSites", { required: "Reserved Sites is required" })}
+                  {...register("reservedSites", {
+                    required: "Reserved Sites is required",
+                  })}
                   placeholder="Reserved Sites"
                   className="w-full focus:ring-2 ring-[#1E3A8A]"
                 />
                 <Input
                   type="number"
-                  {...register("availableSites", { required: "Available Sites is required" })}
+                  {...register("availableSites", {
+                    required: "Available Sites is required",
+                  })}
                   placeholder="Available Sites"
                   className="w-full focus:ring-2 ring-[#1E3A8A]"
                 />
               </div>
             </div>
-
-
           </div>
         </div>
         <div className="flex items-center justify-center mb-16 ">
-
           <NextButton name="Submit" disabled={loading} />
         </div>
       </form>

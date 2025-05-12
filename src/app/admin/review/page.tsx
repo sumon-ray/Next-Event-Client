@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { daleteReview, getAllReview, ReviewDetails } from "@/services/ReviewService";
+import { deleteReview, getAllReview, ReviewDetails } from "@/services/ReviewService";
 import ReviewRow from "@/components/modules/ReviewRow/ReviewRow";
 import { Review } from "@/app/types/reviewType";
 import ReviewDetailModal from "@/components/modules/ReviewRow/ReviewDetailModal";
@@ -63,7 +63,7 @@ const ReviewList = () => {
     const selectedReview = reviews.filter((u) => selectedIds.includes(u.id));
     for (const user of selectedReview) {
       try {
-        await daleteReview(user.id);
+        await deleteReview(user.id);
         toast.success( "Review deleted");
       } catch (error ) {
         toast.error(`Failed to delete Review`);

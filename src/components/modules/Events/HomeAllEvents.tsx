@@ -80,3 +80,6 @@ const HomeAllEvents = async() => {
 };
 
 export default HomeAllEvents;
+
+
+export const dynamic = 'force-static'

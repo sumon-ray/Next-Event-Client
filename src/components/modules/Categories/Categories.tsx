@@ -4,7 +4,6 @@ import Image from "next/image"
 import { ArrowRight, Building2, CalendarHeart, GraduationCap, Music, PartyPopper, Users } from "lucide-react"
 
 import Title from "@/components/shared/Title"
-import img from '../../../../public/images/image1.jpg'
 import NextButton from "@/components/shared/NextButton"
  const  EventCategories = () =>{
   const eventCategories = [
@@ -84,7 +83,7 @@ import NextButton from "@/components/shared/NextButton"
         <div className="space-y-6">
           <div className="overflow-hidden rounded-3xl">
             <Image
-              src={img}
+              src='/images/image1.jpg'
               alt="Event planning professionals"
               width={600}
               height={600}
@@ -92,7 +91,7 @@ import NextButton from "@/components/shared/NextButton"
             />
           </div>
           <div className="p-6 text-white bg-gradient-to-r from-[#1E3A8A] via-[#3B82F6] to-[#1E293B]  rounded-xl">
-            <h3 className="mb-2 text-2xl font-bold">Let's Talk Now</h3>
+            <h3 className="mb-2 text-2xl font-bold">Lets Talk Now</h3>
             <p className="mb-4 text-lg">Ready to start planning your perfect event?</p>
             <NextButton name={"Contact Us"}/>
           </div>

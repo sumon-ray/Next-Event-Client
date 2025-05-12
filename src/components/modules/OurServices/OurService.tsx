@@ -1,7 +1,6 @@
 
 import Image from "next/image"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import img from '../../../../public/images/img13.jpg'
 export default function OurFeaturesSection() {
   return (
     <section className="w-full bg-[#1E293B] py-16 md:py-24">
@@ -81,7 +80,7 @@ export default function OurFeaturesSection() {
        
           <div className="relative h-full overflow-hidden rounded-3xl">
             <Image
-              src={img}
+              src='/images/img13.jpg'
               alt="Event planner overseeing venue setup"
               width={6000}
               height={8000}

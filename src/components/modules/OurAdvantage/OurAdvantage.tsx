@@ -1,7 +1,5 @@
 import Image from "next/image"
-import { Check, Divide } from "lucide-react"
-import img from '../../../../public/images/img15.jpg'
-import img2 from '../../../../public/images/img14.jpg'
+import { Check } from "lucide-react"
 import Title from "@/components/shared/Title"
 export default function OurAdvantagesSection() {
   return (
@@ -12,7 +10,7 @@ export default function OurAdvantagesSection() {
       
           <div className="overflow-hidden rounded-3xl ">
             <Image
-              src={img2}
+              src='/images/img15.jpg'
               alt="Event planner with tablet"
               width={6000}
               height={6000}
@@ -95,7 +93,7 @@ From concept to execution, our team ensures every element is tailored to your ne
          
           <div className="mt-8 overflow-hidden rounded-3xl">
             <Image
-              src={img}
+              src='/images/img15.jpg'
               alt="Event professionals in venue"
               width={6000}
               height={4000}

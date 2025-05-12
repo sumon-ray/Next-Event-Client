@@ -31,7 +31,7 @@ const WhoWeAreSection =()=> {
             </div>
            <Title title='Precision Planning, Flawless Execution: Your Event, Our Commitment'></Title>
             <p className="text-gray-600 ">
-            At Next Event, we are more than just planners—we are creators of unforgettable experiences. Our team thrives on turning visions into reality, whether it's a vibrant public celebration or an exclusive private gathering. We believe that every event deserves exceptional care, creativity, and flawless execution. From streamlined registration flows to personalized invitations, we ensure every detail reflects excellence. With cutting-edge technology and a passion for perfection, we empower users to host, manage, and attend events with confidence. Let us help you create moments that matter.
+            At Next Event, we are more than just planners—we are creators of unforgettable experiences. Our team thrives on turning visions into reality, whether it is a vibrant public celebration or an exclusive private gathering. We believe that every event deserves exceptional care, creativity, and flawless execution. From streamlined registration flows to personalized invitations, we ensure every detail reflects excellence. With cutting-edge technology and a passion for perfection, we empower users to host, manage, and attend events with confidence. Let us help you create moments that matter.
             </p>
           </div>
 

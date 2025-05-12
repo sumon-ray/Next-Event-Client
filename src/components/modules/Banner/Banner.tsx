@@ -5,9 +5,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Image from 'next/image';
-import img from '../../../../public/images/img16.jpg'
-import img2 from '../../../../public/images/img14.jpg'
-import img3 from '../../../../public/images/img15.jpg'
 import NextButton from '@/components/shared/NextButton';
 import Link from 'next/link';
 const Banner = () => {
@@ -28,9 +25,9 @@ const Banner = () => {
 <SwiperSlide>
     <div className="relative w-full h-[100dvh]">
         <Image
-          src={img2}
+          src='/images/img14.jpg'
           alt="Events Banner"
-          width={1000} height={1000} quality={100}
+          width={1000} height={1000}
           
           loading="lazy"
           className="object-cover w-full"
@@ -73,9 +70,9 @@ const Banner = () => {
         <div>
           <div className="flex items-center justify-center -space-x-2">
             <div className="flex items-center justify-center -space-x-2">
-            <img src="/images/terr1.jpg" alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
-            <img src="/images/terr2.webp" alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
-            <img src="/images/terr3.jpg" alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
+            <Image src="/images/terr1.jpg" width={400} height={400} alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
+            <Image src="/images/terr2.webp" width={400} height={400} alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
+            <Image src="/images/terr3.jpg" width={400} height={400} alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
           </div>
           </div>
           <p className="mt-2 text-sm text-white/70">450+ Clients Trust</p>
@@ -93,7 +90,7 @@ const Banner = () => {
 <SwiperSlide>
     <div className="relative w-full h-[100dvh]">
         <Image
-          src={img}
+          src='/images/img16.jpg'
           alt="Events Banner"
           width={1000} height={1000} quality={100}
           
@@ -138,9 +135,9 @@ const Banner = () => {
         <div>
           <div className="flex items-center justify-center -space-x-2">
             <div className="flex items-center justify-center -space-x-2">
-            <img src="/images/terr1.jpg" alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
-            <img src="/images/terr2.webp" alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
-            <img src="/images/terr3.jpg" alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
+            <Image src="/images/terr1.jpg" height={400} width={400} alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
+            <Image src="/images/terr2.webp" height={400} width={400} alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
+            <Image src="/images/terr3.jpg" height={400} width={400} alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
           </div>
           </div>
           <p className="mt-2 text-sm text-white/70">450+ Clients Trust</p>
@@ -158,7 +155,7 @@ const Banner = () => {
 <SwiperSlide>
     <div className="relative w-full h-[100dvh]">
         <Image
-          src={img3}
+          src='/images/img15.jpg'
           alt="Events Banner"
           width={1000} height={1000} quality={100}
           
@@ -203,9 +200,9 @@ const Banner = () => {
         <div>
           <div className="flex items-center justify-center -space-x-2">
             <div className="flex items-center justify-center -space-x-2">
-            <img src="/images/terr1.jpg" alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
-            <img src="/images/terr2.webp" alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
-            <img src="/images/terr3.jpg" alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
+            <Image src="/images/terr1.jpg" height={400} width={400} alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
+            <Image src="/images/terr2.webp" height={400} width={400} alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
+            <Image src="/images/terr3.jpg" height={400} width={400} alt="Client" className="object-cover w-8 h-8 border-2 border-white rounded-full" />
           </div>
           </div>
           <p className="mt-2 text-sm text-white/70">450+ Clients Trust</p>

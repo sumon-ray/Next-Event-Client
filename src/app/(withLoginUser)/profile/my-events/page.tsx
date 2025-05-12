@@ -31,3 +31,6 @@ const MyEventsPage = async () => {
 };
 
 export default MyEventsPage;
+
+
+export const dynamic = 'force-dynamic'

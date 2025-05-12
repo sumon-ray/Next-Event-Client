@@ -46,7 +46,7 @@ export default function HeroSection() {
           className="mb-6"
         >
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight">
-            Let's Start a <TypedText />
+            Lets Start a <TypedText />
           </h1>
           <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">
             Our team of experts is ready to listen, understand your needs, and provide tailored solutions

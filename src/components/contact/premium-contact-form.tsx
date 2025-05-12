@@ -171,10 +171,10 @@ export default function PremiumContactForm() {
                     </div>
                     <h3 className="text-2xl font-bold text-green-800 mb-2">Message Sent Successfully!</h3>
                     <p className="text-green-700 mb-4 max-w-md">
-                      Thank you for reaching out! We've received your message and will get back to you as soon as
+                      Thank you for reaching out! We have received your message and will get back to you as soon as
                       possible.
                     </p>
-                    <p className="text-green-600 text-sm">You'll receive a confirmation email shortly.</p>
+                    <p className="text-green-600 text-sm">You will receive a confirmation email shortly.</p>
                   </motion.div>
                 )}
 
@@ -193,7 +193,7 @@ export default function PremiumContactForm() {
                     </div>
                     <h3 className="text-2xl font-bold text-red-800 mb-2">Something Went Wrong</h3>
                     <p className="text-red-700 mb-4 max-w-md">
-                      We couldn't send your message. Please try again or contact us directly.
+                      We could not send your message. Please try again or contact us directly.
                     </p>
                     <Button onClick={() => setFormStatus("idle")} className="bg-red-600 hover:bg-red-700">
                       Try Again

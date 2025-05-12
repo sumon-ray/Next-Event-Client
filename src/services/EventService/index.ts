@@ -16,9 +16,9 @@ export interface IQuery {
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 export const getAllEvents = async (queryObj: IQuery) => {
-  try {
-    const cookieStore = await cookies();
+      const cookieStore = await cookies();
     const accessToken = cookieStore.get("accessToken")?.value;
+  try {
     const query = new URLSearchParams(
       Object.entries(queryObj)
         .filter(([key, value]) => value !== undefined)
@@ -41,20 +41,21 @@ export const getAllEvents = async (queryObj: IQuery) => {
     console.log("🚀 ~ getAllEvents ~ error:", error);
   }
 };
-export const getSingleEvent = async (id: string) => {
+export const getSingleEvent = async (slug: string) => {
   try {
     const cookieStore = await cookies();
     const accessToken = cookieStore.get("accessToken")?.value;
-    const response = await fetch(`${baseUrl}/events/slug/${id}`, {
+    const response = await fetch(`${baseUrl}/events/slug/${slug}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: accessToken || "",
       },
       credentials: "include",
-      cache: "force-cache",
+      next: { tags: ["user-events"]},
     });
     const data = await response.json();
+    
 
     return data;
   } catch (error) {}

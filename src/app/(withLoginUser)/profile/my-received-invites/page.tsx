@@ -12,3 +12,5 @@ const MyReceivedInvitesPage = async() => {
 };
 
 export default MyReceivedInvitesPage;
+
+export const dynamic = 'force-dynamic'

@@ -1,10 +1,9 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import {  CalendarCheck2 , Contact, Handshake, Home, Mail, Plus, User, X } from "lucide-react";
+import {  CalendarCheck2 , Contact, Handshake, Home, User, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import img from "../../../public/favicon.png";
 
 interface MobileSidebarProps {
   isOpen: boolean;
@@ -43,7 +42,7 @@ export default function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
             className="relative z-50 bg-[#322f2f] w-72 text-white p-5 shadow-xl h-screen"
       >
             <div className="flex items-center justify-between pb-3 mb-6 border-b">
-              <Image src={img} alt="Logo" width={40} height={40} />
+              <Image src='/favicon.png' alt="Logo" width={40} height={40} />
               <motion.button
                 onClick={onClose}
                 whileTap={{ rotate: 90, scale: 0.9 }}

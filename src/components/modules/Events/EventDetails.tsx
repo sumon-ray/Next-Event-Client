@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Badge } from "@/components/ui/badge";
@@ -17,7 +18,6 @@ import {
 } from "lucide-react";
 import { Category } from "@/components/modules/Events/Card";
 import HeroSecton from "@/components/shared/HeroSecton";
-import img from "../../../../public/images/img7.jpg";
 import NextButton from "@/components/shared/NextButton";
 import { useState } from "react";
 import { makePayment } from "@/services/PaymentService";
@@ -25,23 +25,38 @@ import { toast } from "sonner";
 import { getCurrentUser } from "@/services/AuthService";
 import { usePathname, useRouter } from "next/navigation";
 import ReviewButton from "../Review/SpecificEventReview/ReviewButton";
+import { createParticipant } from "@/services/ParticipantService";
 
-const EventDetails = ({ event, organizer }: { event: any; organizer: any }) => {
+const EventDetails = ({
+  event,
+  organizer,
+  user,
+}: {
+  event: any;
+  organizer: any;
+  user: any;
+}) => {
+  // console.log(event);
   const router = useRouter();
   const pathname = usePathname();
   const [loading, setLoading] = useState(false);
+  // console.log(event?.participants);
+  // console.log(event);
+  // console.log(user.id);
 
   const handlePayment = async (id: string) => {
     // console.log(id);
     try {
-
-      const user = await getCurrentUser()
+      const user = await getCurrentUser();
+      // console.log(user);
       if (!user) {
         toast.warning("You must be logged in to register for this event.");
-        const redirectUrl = `/login?redirectPath=${encodeURIComponent(pathname)}`;
-        router.push(redirectUrl);        
-      router.push(redirectUrl);
-      return;
+        const redirectUrl = `/login?redirectPath=${encodeURIComponent(
+          pathname
+        )}`;
+        router.push(redirectUrl);
+        router.push(redirectUrl);
+        return;
       }
 
       setLoading(true);
@@ -55,7 +70,7 @@ const EventDetails = ({ event, organizer }: { event: any; organizer: any }) => {
         window.location.href = redirectUrl;
         // Optionally redirect or update UI
       } else {
-         toast.error( response.message || "payment failed");
+        toast.error(response.message || "payment failed");
         console.error("Payment failed", response);
       }
     } catch (error) {
@@ -64,11 +79,42 @@ const EventDetails = ({ event, organizer }: { event: any; organizer: any }) => {
       setLoading(false);
     }
   };
-// console.log(event)
+
+  const handleFreeRegistration = async (id: string) => {
+    try {
+      const user = await getCurrentUser();
+      // console.log(user);
+      if (!user) {
+        toast.warning("You must be logged in to register for this event.");
+        const redirectUrl = `/login?redirectPath=${encodeURIComponent(
+          pathname
+        )}`;
+        router.push(redirectUrl);
+        router.push(redirectUrl);
+        return;
+      }
+      setLoading(true);
+      const res = await createParticipant(id);
+      console.log(res);
+      if (res.success) {
+        toast.success("Successfully registered for the event");
+        // router.push(`/events/${event.slug}`);
+      } else {
+        toast.error(res.message || "Registration failed");
+        console.error("Registration failed", res);
+      }
+    } catch (error) {
+      console.error("handleFreeRegistration error:", error);
+      toast.error("Registration failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // console.log(event)
   return (
     <div className="bg-gradient-to-br from-[#E3F2FD] via-[#BBDEFB] to-[#29B6F6] md:pb-20">
       <HeroSecton
-        img={img}
         title1="Next Level Events Await You"
         title2="Discover Your Next Adventure"
         title3="Celebrate Moments, Join Experiences"
@@ -78,10 +124,8 @@ const EventDetails = ({ event, organizer }: { event: any; organizer: any }) => {
         <div className="container w-full mx-auto">
           <div className="relative w-full overflow-hidden shadow-xl h-[50dvh] rounded-2xl">
             <Image
-              src={
-                event.bannerImage 
-              }
-              alt={event.title}
+              src={event.bannerImage}
+              alt={event.title || "Event Banner"}
               fill
               className="object-fill rounded-2xl"
             />
@@ -215,23 +259,29 @@ const EventDetails = ({ event, organizer }: { event: any; organizer: any }) => {
                     )}
                   </div>
                   <div>
-                    {Number(event.availableSit) - Number(event.reseveredSit) >
-                    0 ? (
-                      event.isPaid ? (
-                        <NextButton
-                          onClick={() => handlePayment(event.id)}
-                          name={
-                            loading ? "Processing..." : "Payment & Register"
-                          }
-                          disabled={loading}
-                        />
-                      ) : (
-                        <NextButton name="Free Register" />
-                      )
-                    ) : (
+                    {event.type === "PRIVATE" ? (
+                      <NextButton name="Private Event" disabled />
+                    ) : event.participants?.some(
+                        (participant: any) => participant.userId === user.id
+                      ) ? (
+                      <NextButton name="Already Registered" disabled />
+                    ) : Number(event.availableSit) -
+                        Number(event.reseveredSit) <=
+                      0 ? (
                       <Badge className="bg-[#F8BBD0] text-[#F4511E] border border-[#F8BBD0] text-xl font-semibold">
                         Full
                       </Badge>
+                    ) : event.isPaid ? (
+                      <NextButton
+                        onClick={() => handlePayment(event.id)}
+                        name={loading ? "Processing..." : "Pay & Register"}
+                        disabled={loading}
+                      />
+                    ) : (
+                      <NextButton
+                        onClick={() => handleFreeRegistration(event.id)}
+                        name="Free Register"
+                      />
                     )}
                   </div>
                 </CardFooter>
@@ -251,7 +301,7 @@ const EventDetails = ({ event, organizer }: { event: any; organizer: any }) => {
                       organizer?.profileImage ||
                       "https://res.cloudinary.com/dp8c6enec/image/upload/v1746463121/s1or7qauhmvo83ltfuwb.jpg"
                     }
-                    alt={organizer?.name}
+                    alt={organizer?.name || "Organizer"}
                     width={6000}
                     height={6000}
                     className="object-fill w-32 border border-gray-300 rounded-md"
@@ -293,9 +343,7 @@ const EventDetails = ({ event, organizer }: { event: any; organizer: any }) => {
         </div>
       </div>
 
-
-
-      <ReviewButton eventId={event.id} /> 
+      <ReviewButton eventId={event.id} />
     </div>
   );
 };

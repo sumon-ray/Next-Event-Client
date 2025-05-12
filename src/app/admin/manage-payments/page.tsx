@@ -3,15 +3,15 @@ import { getAllPayment } from '@/services/PaymentService';
 import { Metadata } from 'next';
 import React from 'react';
 
-interface ManagePaymentsPageProps {
-  searchParams?: Record<string, string | string[] | undefined>;
-}
+// interface ManagePaymentsPageProps {
+//   searchParams?: Record<string, string | string[] | undefined>;
+// }
 
 export const metadata: Metadata = {
   title: 'Manage Payments',
 };
 
-const ManagePaymentsPage = async ({ searchParams }: ManagePaymentsPageProps) => {
+const ManagePaymentsPage = async ({ searchParams }: any) => {
   const query = await searchParams || {};
   const paymentsData = await getAllPayment(query);
 

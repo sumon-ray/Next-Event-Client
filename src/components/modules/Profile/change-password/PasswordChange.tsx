@@ -398,7 +398,7 @@ export default function PasswordChange() {
                                       <>
                                         <AlertCircle className="h-3.5 w-3.5 text-red-500" />
                                         <span className="text-red-500">
-                                          Passwords don't match
+                                          Passwords do not match
                                         </span>
                                       </>
                                     )}

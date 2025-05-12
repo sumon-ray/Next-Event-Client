@@ -89,7 +89,7 @@ export default function StorySection() {
           <Badge className="mb-4">Our Journey</Badge>
           <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Story & Mission</h2>
           <p className="text-xl text-gray-700">
-            From humble beginnings to industry innovation — discover how we're transforming event planning
+            From humble beginnings to industry innovation — discover how we are transforming event planning
           </p>
         </motion.div>
 

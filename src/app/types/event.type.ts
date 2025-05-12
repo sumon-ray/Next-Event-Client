@@ -7,6 +7,7 @@ export interface IEvent {
     startDate: string;
     endDate: string;
     venue: string;
+    dateTime: string;
     bannerImage: string;
     type: 'PUBLIC' | 'PRIVATE';
     fee?: number;
