@@ -22,6 +22,7 @@ const navLinks = [
 
 export default function Navbar() {
   const { user, isLoading } = useUser();
+  // console.log(user);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -50,8 +51,8 @@ export default function Navbar() {
 
         {/* User Avatar & Menu Button */}
         <nav className="flex items-center gap-2">
-          {!isLoading && (
-            user ? (
+          {!isLoading &&
+            (user ? (
               <Link
                 href={
                   user?.role === "ADMIN"
@@ -71,8 +72,7 @@ export default function Navbar() {
               <Link href="/login">
                 <NextButton name="Login" />
               </Link>
-            )
-          )}
+            ))}
 
           {/* Mobile Menu Button */}
           <button

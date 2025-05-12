@@ -1,5 +1,5 @@
 "use client";
-
+import {signIn} from 'next-auth/react'
 import { Button } from "@/components/ui/button";
 // import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -34,11 +34,8 @@ import { useEffect, useState } from "react";
 import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
-<<<<<<< HEAD
 import Title from "@/components/shared/Title";
-=======
 import { getProfileInfo } from "@/services/ProfileService";
->>>>>>> 53feaefcd980f82b58fa0c4724f2478ac83f438d
 
 const LoginForm = () => {
   const { updateProfile } = useUser();
@@ -177,7 +174,9 @@ const LoginForm = () => {
                     variant="outline"
                     size="icon"
                     className="w-10 h-10 rounded-full"
-                    onClick={() => handleSocialLogin("Google")}
+                    onClick={() => signIn("google",{
+                      callbackUrl:  'http://localhost:3000/'
+                    })}
                   >
                     <svg className="w-5 h-5" viewBox="0 0 24 24">
                       <path
@@ -190,7 +189,9 @@ const LoginForm = () => {
                     variant="outline"
                     size="icon"
                     className="w-10 h-10 rounded-full"
-                    onClick={() => handleSocialLogin("Github")}
+                    onClick={() => signIn("github", {
+                      callbackUrl: 'http://localhost:3000/'
+                    })}
                   >
                     <Github className="w-5 h-5" />
                   </Button>

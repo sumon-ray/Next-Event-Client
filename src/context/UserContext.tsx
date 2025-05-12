@@ -2,6 +2,7 @@
 
 import { IUser } from "@/app/types";
 import { jwtDecode } from "jwt-decode";
+import { useSession } from "next-auth/react";
 import {
   createContext,
   Dispatch,
@@ -24,30 +25,62 @@ const UserContext = createContext<IUserProviderValues | undefined>(undefined);
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<IUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { data: session, status } = useSession();
 
   useEffect(() => {
-    const storedUserProfile = localStorage.getItem("userProfile");
-    if (storedUserProfile) {
-      const userProfile = JSON.parse(storedUserProfile);
-      setUser(userProfile);
-    } else {
-      const accessToken = localStorage.getItem("accessToken");
-      if (accessToken) {
-        const decodedData = jwtDecode<IUser>(accessToken);
-        setUser(decodedData);
+    const loadUser = () => {
+      if (status === "authenticated" && session?.user) {
+        const sessionUser: IUser = {
+          id: "",
+          name: session.user.name || "",
+          email: session.user.email || "",
+          password: "",
+          address: null,
+          bio: null,
+          gender: null,
+          occupation: null,
+          phoneNumber: "",
+          profileImage: session.user.image || "",
+          image: session.user.image || "",
+          role: "USER",
+          isSocialLogin: true,
+          isDeleted: false,
+          isBlocked: false,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        };
+
+        setUser(sessionUser);
       } else {
-        setUser(null);
+        const storedUserProfile = localStorage.getItem("userProfile");
+        if (storedUserProfile) {
+          setUser(JSON.parse(storedUserProfile));
+        } else {
+          const accessToken = localStorage.getItem("accessToken");
+          if (accessToken) {
+            const decoded = jwtDecode<IUser>(accessToken);
+            setUser(decoded);
+          } else {
+            setUser(null);
+          }
+        }
       }
+
+      setIsLoading(false);
+    };
+
+    loadUser();
+  }, [session, status]);
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("userProfile", JSON.stringify(user));
     }
-    setIsLoading(false);
-  }, []);
+  }, [user]);
 
   const updateProfile = (updatedUser: IUser) => {
-    if (updatedUser) {
-      setUser(updatedUser);
-      console.log(updateProfile);
-      localStorage.setItem("userProfile", JSON.stringify(updatedUser));
-    }
+    setUser(updatedUser);
+    localStorage.setItem("userProfile", JSON.stringify(updatedUser));
   };
 
   return (
