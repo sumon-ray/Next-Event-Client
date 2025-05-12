@@ -189,6 +189,7 @@ export const myAllReviews = async () => {
       },
          next: { tags: ["MY-REVIEWS"] },
     });
+    console.log(res);
     const response = await res.json();
     // console.log(response);
     return response.data; 

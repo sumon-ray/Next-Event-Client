@@ -3,6 +3,7 @@ import { myAllReviews } from "@/services/ReviewService";
 
 const Review = async() => {
       const reviews = await myAllReviews();
+      console.log(reviews);
   return (
       <div>
     <div className="text-center mb-6">
