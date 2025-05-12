@@ -36,6 +36,7 @@ const PersonalInfoComponent = () => {
     mode: "onChange",
   });
 
+  // Watch for file changes to create preview
   const profileImageFile = watch("profileImage");
 
   useEffect(() => {
