@@ -1,6 +1,8 @@
 "use client";
-import { TTokenUser } from "@/app/types";
-import { getCurrentUser } from "@/services/AuthService";
+
+import { IUser } from "@/app/types";
+import { jwtDecode } from "jwt-decode";
+import { useSession } from "next-auth/react";
 import {
   createContext,
   Dispatch,
@@ -11,45 +13,92 @@ import {
 } from "react";
 
 interface IUserProviderValues {
-  user: TTokenUser | null;
+  user: IUser | null;
   isLoading: boolean;
-  setUser: (user: TTokenUser | null) => void;
+  setUser: (user: IUser | null) => void;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
+  updateProfile: (updatedUser: IUser) => void;
 }
+
 const UserContext = createContext<IUserProviderValues | undefined>(undefined);
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<TTokenUser | null>(null);
-  // console.log(user)
+  const [user, setUser] = useState<IUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-
-  const handleUser = async () => {
-    const user = await getCurrentUser();
-
-    if (user) {
-      setUser(user as TTokenUser);
-    } else {
-      setUser(null);
-    }
-    setIsLoading(false);
-  };
+  const { data: session, status } = useSession();
 
   useEffect(() => {
-    handleUser();
-  }, [isLoading]);
+    const loadUser = () => {
+      if (status === "authenticated" && session?.user) {
+        const sessionUser: IUser = {
+          id: "",
+          name: session.user.name || "",
+          email: session.user.email || "",
+          password: "",
+          address: null,
+          bio: null,
+          gender: null,
+          occupation: null,
+          phoneNumber: "",
+          profileImage: session.user.image || "",
+          image: session.user.image || "",
+          role: "USER",
+          isSocialLogin: true,
+          isDeleted: false,
+          isBlocked: false,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        };
+
+        setUser(sessionUser);
+      } else {
+        const storedUserProfile = localStorage.getItem("userProfile");
+        if (storedUserProfile) {
+          setUser(JSON.parse(storedUserProfile));
+        } else {
+          const accessToken = localStorage.getItem("accessToken");
+          if (accessToken) {
+            const decoded = jwtDecode<IUser>(accessToken);
+            setUser(decoded);
+          } else {
+            setUser(null);
+          }
+        }
+      }
+
+      setIsLoading(false);
+    };
+
+    loadUser();
+  }, [session, status]);
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("userProfile", JSON.stringify(user));
+    }
+  }, [user]);
+
+  const updateProfile = (updatedUser: IUser) => {
+    setUser(updatedUser);
+    localStorage.setItem("userProfile", JSON.stringify(updatedUser));
+  };
+
   return (
-    <UserContext.Provider value={{ user, setUser, isLoading, setIsLoading }}>
+    <UserContext.Provider
+      value={{ user, setUser, updateProfile, isLoading, setIsLoading }}
+    >
       {children}
     </UserContext.Provider>
   );
 };
 
-// custom hook
 export const useUser = () => {
   const context = useContext(UserContext);
-  if (context == undefined) {
-    throw new Error("useUser must be used within the userProvider ");
+
+  if (context === undefined) {
+    throw new Error("useUser must be used within the UserProvider context");
   }
+
   return context;
 };
 

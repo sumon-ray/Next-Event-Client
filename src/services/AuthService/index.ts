@@ -1,8 +1,10 @@
 "use server";
+import { IUser, ResetPasswordPayload } from "@/app/types";
+import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
-import {jwtDecode} from "jwt-decode";
 
+// register user
 export const registerUser = async (userData: FieldValues) => {
   try {
     const formData = new FormData();
@@ -11,7 +13,7 @@ export const registerUser = async (userData: FieldValues) => {
     if (file) {
       formData.append("file", file);
     } else {
-      console.warn("⚠️ No file selected to upload.");
+      console.log("⚠️ No file selected to upload.");
     }
 
     formData.append("data", JSON.stringify(restData));
@@ -26,14 +28,16 @@ export const registerUser = async (userData: FieldValues) => {
     );
 
     const userInfo = await res.json();
-
     return userInfo;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 
+//login user
 export const loginUser = async (userData: FieldValues) => {
+  // console.log(loginUser);
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
       method: "POST",
@@ -42,7 +46,7 @@ export const loginUser = async (userData: FieldValues) => {
       },
       body: JSON.stringify(userData),
     });
-    console.log(res);
+    // console.log(res);
     const userInfo = await res.json();
     if (userInfo.success) {
       (await cookies()).set("accessToken", userInfo.data.accessToken);
@@ -54,19 +58,114 @@ export const loginUser = async (userData: FieldValues) => {
   }
 };
 
-// get current user
 export const getCurrentUser = async () => {
-  const accessToken = (await cookies()).get("accessToken")?.value;
-  if (accessToken) {
-    const decodedData =jwtDecode(accessToken);
-    console.log(decodedData)
+  const token = (await cookies()).get("accessToken")?.value;
+  let decodedData = null;
+
+  if (token) {
+    decodedData = await jwtDecode<IUser>(token);
     return decodedData;
   } else {
     return null;
   }
 };
 
-// LogOut
+export const getToken = async () => {
+  return (await cookies()).get("accessToken")?.value;
+};
+
+// log out
 export const logOut = async () => {
-  (await cookies()).delete("accessToken");
+  await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
+    method: "POST",
+    credentials: "include",
+  });
+};
+
+// change password
+export const changePassword = async (
+  formData: {
+    oldPassword: string;
+    newPassword: string;
+  },
+  token: string
+) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/change-password`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${token}`,
+        },
+        body: JSON.stringify(formData),
+      }
+    );
+
+    const result = await res.json();
+    if (!res.ok) {
+      throw new Error(result.message);
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+// forget password
+export const ForgetPassword = async (userData: FieldValues) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/forget-password`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      }
+    );
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.message || "Failed to send reset link");
+    }
+
+    return await res.json();
+  } catch (error: any) {
+    console.log(error);
+    throw new Error("Something went wrong");
+  }
+};
+
+// reset password
+export const ResetPassword = async ({
+  userId,
+  token,
+  newPassword,
+}: ResetPasswordPayload) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify({
+          userId,
+          newPassword,
+        }),
+      }
+    );
+
+    const result = await res.json();
+    if (!res.ok) {
+      throw new Error(result.message);
+    }
+  } catch (error: any) {
+    throw new Error(error.message || "Something went wrong");
+  }
 };
