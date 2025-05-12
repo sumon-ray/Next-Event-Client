@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Star, Loader2 } from "lucide-react";
+import { Star } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Card,
@@ -46,11 +46,12 @@ export default function ReviewForm({ eventId }: ReviewFormProps) {
     try {
       setIsSubmitting(true);
       const response = await createReview(payload);
-      if(response.success){
-      setHasReviewed(true);
-      toast.success("Thank you for your feedback!");
-      }else{
-        toast.error( response.message || "Failed to submit review.");
+      console.log(response);
+      if (response.success) {
+        setHasReviewed(true);
+        toast.success("Thank you for your feedback!");
+      } else {
+        toast.error(response.message || "Failed to submit review.");
       }
     } catch (err: any) {
       console.error("Error submitting review:", err.message);
@@ -89,26 +90,17 @@ export default function ReviewForm({ eventId }: ReviewFormProps) {
             placeholder="Type here..."
             className="bg-gray-50 border-0 resize-none min-h-[100px]"
             value={feedback}
+            required={true}
             onChange={(e) => setFeedback(e.target.value)}
             disabled={hasReviewed}
           />
         </div>
 
         <NextButton
+          name="Review"
           onClick={handleSubmit}
           disabled={hasReviewed || isSubmitting}
-        >
-          {isSubmitting ? (
-            <span className="flex items-center gap-2">
-              <Loader2 className="w-4 h-4 animate-spin" />
-              Submitting...
-            </span>
-          ) : hasReviewed ? (
-            "You already submitted a review"
-          ) : (
-            "Submit Now"
-          )}
-        </NextButton>
+        />
       </CardContent>
     </Card>
   );

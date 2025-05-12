@@ -8,15 +8,16 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Image from 'next/image';
 
-interface Review {
-  name: string;
-  role: string;
-  comment: string;
-  rating: number;
-  image: string;
-}
+// interface Review {
+//   name: string;
+//   role: string;
+//   comment: string;
+//   rating: number;
+//   image: string;
+// }
 
 const ReviewCarosal = ({ reviews }: { reviews: any[] }) => {
+  // console.log(reviews);
   if (!reviews || reviews.length === 0) {
     return (
       <p className="text-center py-10 text-gray-500 text-base sm:text-lg font-medium">

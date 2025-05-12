@@ -157,11 +157,8 @@ export const deleteReview = async (id: string) => {
       },
       credentials: 'include',
     });
-
-    if (!response.ok) {
-      throw new Error(`Failed to delete review... ${response.statusText}`);
-    }
     const data = await response.json();
+    // console.log(data);
     revalidateTag("MY-REVIEWS");
     return data
   } catch (error: any) {
@@ -193,7 +190,7 @@ export const myAllReviews = async () => {
          next: { tags: ["MY-REVIEWS"] },
     });
     const response = await res.json();
-    console.log(response);
+    // console.log(response);
     return response.data; 
    } catch (error) {
     console.error("myAllReviews error:", error);

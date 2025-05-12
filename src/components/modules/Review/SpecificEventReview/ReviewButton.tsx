@@ -10,7 +10,7 @@ const ReviewButton = ({ eventId }: { eventId: string }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
 
-  console.log('ReviewButton rendered with eventId:', eventId);
+  // console.log('ReviewButton rendered with eventId:', eventId);
 
   useEffect(() => {
     // console.log('useEffect triggered with eventId:', eventId);
@@ -26,7 +26,7 @@ const ReviewButton = ({ eventId }: { eventId: string }) => {
       // console.log('Fetching reviews for eventId:', eventId);
       try {
         const data = await getReviewsByEvent(eventId);
-        console.log(data);
+        // console.log(data);
         setReviews(data);
       } catch (error: any) {
         console.error('Failed to load reviews:', error.message);

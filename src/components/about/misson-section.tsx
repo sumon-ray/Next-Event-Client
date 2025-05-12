@@ -48,7 +48,7 @@ export default function MissionSection() {
             <Badge className="mb-4 bg-blue-100 text-blue-700 hover:bg-blue-100">Our Purpose</Badge>
             <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Mission & Vision</h2>
             <p className="text-xl text-gray-700 mb-6 leading-relaxed">
-              At <span className="font-semibold text-blue-600">EventHub</span>, we're on a mission to transform how
+              At <span className="font-semibold text-blue-600">EventHub</span>, we are on a mission to transform how
               people connect through events. We believe that meaningful gatherings—whether professional conferences,
               community meetups, or private celebrations—should be accessible, secure, and easy to organize.
             </p>

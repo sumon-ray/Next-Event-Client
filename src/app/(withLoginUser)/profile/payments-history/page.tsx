@@ -21,3 +21,5 @@ const MyPaymentsHistoryPage = async () => {
 };
 
 export default MyPaymentsHistoryPage;
+
+export const dynamic = 'force-dynamic'

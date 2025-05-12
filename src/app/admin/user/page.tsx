@@ -5,8 +5,8 @@
 import { useEffect, useState } from "react";
 import { X, } from "lucide-react";
 import { toast } from "sonner";
-import { daleteUser, getAllUser } from "@/services/UserService";
 import UserRow from "@/components/modules/UserRow/UserRow";
+import { deleteUser, getAllUsers } from "@/services/UserService";
 
 const UserList = () => {
   const [users, setUsers] = useState<any[]>([]);
@@ -15,7 +15,7 @@ const UserList = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await getAllUser();
+        const res = await getAllUsers();
         setUsers(res?.data || []);
       } catch (error) {
         console.error("Failed to load users", error);
@@ -36,7 +36,7 @@ const UserList = () => {
     const selectedUsers = users.filter((u) => selectedIds.includes(u.id));
     for (const user of selectedUsers) {
       try {
-        await daleteUser(user.id);
+        await deleteUser(user.id);
         toast.success(`${user.name} deleted`);
       } catch (error ) {
         toast.error(`Failed to delete ${user.name}`);

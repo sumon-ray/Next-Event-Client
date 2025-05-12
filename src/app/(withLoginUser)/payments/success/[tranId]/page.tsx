@@ -1,9 +1,14 @@
 import PaymentSuccess from "@/components/modules/Payment/PaymentSuccess";
 
-const PaymentSuccessPage = ({ params }: { params: { tranId: string } }) => {
+const PaymentSuccessPage = async ({
+  params,
+}: {
+  params: Promise<{ tranId: string }>;
+}) => {
+    const { tranId } = await params;
   return (
     <div>
-      <PaymentSuccess tranId={params.tranId} />
+      <PaymentSuccess tranId={tranId} />
     </div>
   );
 };

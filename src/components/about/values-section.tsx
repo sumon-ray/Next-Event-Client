@@ -95,7 +95,7 @@ export default function ValuesSection() {
             </div>
             <h3 className="text-2xl font-bold mb-3 text-gray-900">Excellence</h3>
             <p className="text-gray-700">
-              We strive for excellence in our platform's performance, reliability, and user experience with every
+              We strive for excellence in our platforms performance, reliability, and user experience with every
               feature we develop.
             </p>
           </motion.div>

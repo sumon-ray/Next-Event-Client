@@ -7,8 +7,6 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { useUser } from "@/context/UserContext";
-
-import img from "../../../public/favicon.png";
 import "../../styles/styles.css";
 import MobileSidebar from "../MobileSidebar/MobileSidebar";
 import NextButton from "./NextButton";
@@ -31,7 +29,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
-            src={img}
+            src='/favicon.png'
             alt="Logo"
             width={1000}
             height={1000}
