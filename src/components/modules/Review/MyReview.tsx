@@ -24,6 +24,7 @@ interface MyReviewListProps {
 }
 
 export default function MyReviewList({ reviews }: MyReviewListProps) {
+  // console.log(reviews);
   const { user } = useUser();
   const [editingReview, setEditingReview] = useState<Review | null>(null);
   const [deletingReviewId, setDeletingReviewId] = useState<string | null>(null);
