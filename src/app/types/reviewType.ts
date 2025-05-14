@@ -9,6 +9,8 @@ export interface Review {
   reviewer: {
     name: string;
     profileImg: string;
+    email: string;
+    id: string;
   };
 }
 

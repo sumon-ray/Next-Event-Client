@@ -21,10 +21,10 @@ export default function OurAdvantagesSection() {
           </div>
 
        
-          <div className="bg-white rounded-3xl  p-6 max-w-md md:hidden sm:block lg:block lg:absolute  lg:bottom-0 shadow-md  lg:right-[5%]  lg:left-[12%] xs:right-[15%]  xs:left-[15%] ">
+          <div className="bg-white md:rounded-3xl   md:max-w-md md:hidden sm:block lg:block lg:absolute  lg:bottom-0 shadow-md p-6 mt-6 border rounded-md  border-1 md:border-0 md:mt-0  lg:right-[5%]  lg:left-[12%] xs:right-[15%]  xs:left-[15%] ">
             <div className="space-y-8">
            
-              <div className="flex gap-4">
+              <div className="flex gap-4 ">
                 <div className="flex-shrink-0">
                   <div className="flex items-center justify-center w-10 h-10 bg-purple-100 rounded-full">
                     <Check className="w-10 h-5 text-[#1E3A8A]" />

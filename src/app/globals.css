@@ -111,7 +111,7 @@ body {
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(30, 58, 138, 0.3);
   transition: transform 0.2s ease-in-out;
-  border-radius: 10px; /* slightly rounded */
+  border-radius: 10px; 
   font-size: 1rem;
 }
 
@@ -153,7 +153,7 @@ body {
   transform: scale(0.95);
 }
 
-/*  */
+
 .glass-card {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
@@ -168,7 +168,6 @@ body {
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
 }
 
-/* Custom animation for the countdown numbers */
 @keyframes pulse-glow {
   0%,
   100% {

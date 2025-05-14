@@ -21,7 +21,7 @@ const HomeAllEvents = async() => {
   
     return (
         <div className="container mx-auto ">
-<div className="">
+<div className="mx-4 md:mx-0">
   {upComingEvents && onGoingEvents && endedEvents ? (
     upComingEvents.length > 0 || onGoingEvents.length > 0 || endedEvents.length > 0 ? (
       <>

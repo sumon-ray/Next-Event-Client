@@ -16,10 +16,10 @@ const Banner = () => {
     pagination
     spaceBetween={30}
     centeredSlides={true}
-    autoplay={{
-      delay: 3500,
-      disableOnInteraction: true,
-    }}
+    // autoplay={{
+    //   delay: 3500,
+    //   disableOnInteraction: true,
+    // }}
     scrollbar={{ draggable: true }}
 >
 <SwiperSlide>
@@ -30,11 +30,11 @@ const Banner = () => {
           width={1000} height={1000}
           
           loading="lazy"
-          className="object-cover w-full"
+          className="object-cover h-[100dvh] w-full"
         />
-      <div className="absolute flex lg:items-center top-20 md:inset-0 bg-black/60">
+      <div className="absolute flex px-10 py-20 lg:items-center top-20 md:inset-0 bg-black/60 md:py-0">
   <div className="container mx-auto md:mt-24 lg:mt-0">
-    <h1 className="text-3xl font-bold leading-10 tracking-wide text-white md:text-5xl lg:text-6xl">
+    <h1 className="text-4xl font-bold leading-10 tracking-wide text-white md:text-5xl lg:text-6xl">
       Discover <br /><span className="my-2 text-[#3B82F6]">Next-Level Events</span><br />
       <span className="">Celebrate Moments, Join Experiences</span><br />
       <span className="hidden mt-4 text-xl font-medium md:block text-white/90 md:text-2xl">
@@ -52,7 +52,7 @@ const Banner = () => {
 
     <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
    
-      <div className="flex gap-4">
+      <div className="flex justify-between gap-4 md:justify-center">
        <Link href="/events"> <NextButton name="Our Services">
           
           </NextButton></Link>
@@ -95,11 +95,11 @@ const Banner = () => {
           width={1000} height={1000} quality={100}
           
           loading="lazy"
-          className="object-cover w-full"
+          className="object-cover w-full  h-[100dvh]"
         />
-      <div className="absolute flex lg:items-center top-20 md:inset-0 bg-black/60">
+      <div className="absolute flex px-10 py-20 lg:items-center top-20 md:inset-0 bg-black/60 md:py-0">
   <div className="container mx-auto md:mt-24 lg:mt-0">
-    <h1 className="text-3xl font-bold leading-tight tracking-wide text-white md:text-5xl lg:text-6xl">
+    <h1 className="text-4xl font-bold leading-tight tracking-wide text-white md:text-5xl lg:text-6xl">
       Discover <br /><span className="my-2 text-[#3B82F6]">Next-Level Events</span><br />
       <span className="">Celebrate Moments, Join Experiences</span><br />
       <span className="hidden mt-4 text-xl font-medium md:block text-white/90 md:text-2xl">
@@ -117,7 +117,7 @@ const Banner = () => {
 
     <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
    
-      <div className="flex gap-4">
+      <div className="flex justify-between gap-4 md:justify-center">
        <Link href="/events"> <NextButton name="Our Services">
           
           </NextButton></Link>
@@ -160,11 +160,11 @@ const Banner = () => {
           width={1000} height={1000} quality={100}
           
           loading="lazy"
-          className="object-cover w-full"
+          className="object-cover w-full  h-[100dvh]"
         />
-      <div className="absolute flex lg:items-center top-20 md:inset-0 bg-black/60">
+      <div className="absolute flex px-10 py-20 lg:items-center top-20 md:inset-0 bg-black/60 md:py-0">
   <div className="container mx-auto md:mt-24 lg:mt-0">
-    <h1 className="text-3xl font-bold leading-tight tracking-wide text-white md:text-5xl lg:text-6xl">
+    <h1 className="text-4xl font-bold leading-tight tracking-wide text-white md:text-5xl lg:text-6xl">
       Discover <br /><span className="my-2 text-[#3B82F6]">Next-Level Events</span><br />
       <span className="">Celebrate Moments, Join Experiences</span><br />
       <span className="hidden mt-4 text-xl font-medium md:block text-white/90 md:text-2xl">
@@ -182,7 +182,7 @@ const Banner = () => {
 
     <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
    
-      <div className="flex gap-4">
+      <div className="flex justify-between gap-4 md:justify-center">
        <Link href="/events"> <NextButton name="Our Services">
           
           </NextButton></Link>

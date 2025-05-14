@@ -39,16 +39,11 @@ export default function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="relative z-50 bg-[#322f2f] w-72 text-white p-5 shadow-xl h-screen"
+            className="relative z-50 bg-gradient-to-br from-[#E3F2FD] via-[#BBDEFB] to-[#E3F2FD] min-h-screen m-0  p-5  shadow-xl w-72"
       >
-            <div className="flex items-center justify-between pb-3 mb-6 border-b">
-              <Image src='/favicon.png' alt="Logo" width={40} height={40} />
-              <motion.button
-                onClick={onClose}
-                whileTap={{ rotate: 90, scale: 0.9 }}
-              >
-                <X className="w-6 h-6 text-white" />
-              </motion.button>
+            <div className="flex flex-col justify-end gap-12 pb-4 mb-6 border-b">
+              <Image src='/favicon.png' alt="Logo" width={4000} height={4000}  className="h-40 rounded-md"/>
+             
             </div>
 
          
@@ -62,7 +57,7 @@ export default function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
                   },
                 },
               }}
-              className="space-y-4 text-base font-medium"
+              className="pb-4 mb-6 space-y-4 text-base font-medium border-b"
             >
               {links.map(({ label, href, icon: Icon }) => (
                 <motion.li
@@ -75,7 +70,7 @@ export default function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
                   <Link
                     href={href}
                     onClick={onClose}
-                    className="flex items-center gap-3 px-2 py-2 text-white rounded-md hover:bg-gray-100"
+                    className="flex items-center gap-3 px-2 py-2 rounded-md hover:bg-gray-100"
                   >
                     <Icon className="w-5 h-5" />
                     <span>{label}</span>
@@ -83,6 +78,17 @@ export default function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
                 </motion.li>
               ))}
             </motion.ul>
+             <div className="flex items-center justify-end ">
+              <motion.button
+                onClick={onClose}
+                whileTap={{ rotate: 90, scale: 0.9 }}
+              >
+               <div className="flex items-center justify-end gap-6 p-2 font-medium bg-[#E3F2FD] rounded-md shadow-md">
+                Close 
+                <X className="w-6 h-6 bg-red-600 rounded-md" />
+               </div>
+              </motion.button>
+             </div>
           </motion.div>
         </div>
       )}

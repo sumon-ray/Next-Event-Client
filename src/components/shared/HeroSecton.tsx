@@ -18,7 +18,7 @@ const HeroSecton = ({ title1, title2, title3 }: Props) => {
       />
       <div className="absolute inset-0 flex items-center justify-left bg-black/70">
         <div className="container px-4 py-12 mx-auto md:px-0">
-          <h1 className="text-3xl font-bold leading-tight tracking-wide text-white md:text-5xl lg:text-6xl">
+          <h1 className="text-4xl font-bold leading-tight tracking-wide text-white md:text-5xl lg:text-6xl">
             <span className="my-2 text-[#3B82F6]">{title1}</span> <br />
             <span>{title2}</span>
             <br />
