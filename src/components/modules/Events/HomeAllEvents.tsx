@@ -32,7 +32,7 @@ const HomeAllEvents = async() => {
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
               {upComingEvents.map((event: Event, index: number) => (
                 <EventCard key={index} event={event} />
-              ))}
+              )).slice(0, 4)}
             </div>
           </div>
         )}
@@ -43,7 +43,7 @@ const HomeAllEvents = async() => {
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
               {onGoingEvents.map((event: Event, index: number) => (
                 <EventCard key={index} event={event} />
-              ))}
+              )).slice(0, 4)}
             </div>
           </div>
         )}
@@ -54,7 +54,7 @@ const HomeAllEvents = async() => {
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
               {endedEvents.map((event: Event, index: number) => (
                 <EventCard key={index} event={event} />
-              ))}
+              )).slice(0, 4)}
             </div>
           </div>
         ) : (

@@ -2,8 +2,8 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { ChevronDown, SquareTerminal, Bot, ShoppingCart, User, Star, Presentation, BookImage } from "lucide-react"
+import { usePathname, useRouter } from "next/navigation"
+import { ChevronDown, SquareTerminal, Bot, ShoppingCart, User, Star, BookImage } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -19,6 +19,7 @@ import { useUser } from "@/context/UserContext"
 import NextButton from "./NextButton"
 import { logOut } from "@/services/AuthService"
 import { toast } from "sonner"
+
 
 
 export type TNavItem = {
@@ -75,8 +76,10 @@ const {user,isLoading} =useUser()
     return pathname === url || pathname?.startsWith(url + "/")
   }
   const handleLogout = async() => {
+      const router = useRouter()
    await logOut()
    toast.success("Logout successfully")
+    router.push("/")
   }
 
   return (

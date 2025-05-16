@@ -25,7 +25,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 z-50 w-full shadow-sm backdrop-blur-sm bg-black/20">
-      <div className="container flex items-center justify-between h-20 px-4 mx-auto md:px-8">
+      <div className="container flex items-center justify-between h-20 px-4 mx-auto md:px-0">
         
         <Link href="/" className="flex items-center">
           <Image
