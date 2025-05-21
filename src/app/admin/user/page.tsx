@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { toast } from "sonner";
-import { getAllUsers, deleteUser } from "@/services/UserService";
+import { getAllUsers, deleteUser, blockUser } from "@/services/UserService";
 import { IUser } from "@/app/types";
 import Loader from "@/components/ui/Loader/Loader";
 import Title from "@/components/shared/Title";
@@ -13,7 +13,7 @@ import { Badge } from "@/components/ui/badge";
 const UserList = () => {
   const [users, setUsers] = useState<IUser[]>([]);
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
@@ -28,8 +28,41 @@ const UserList = () => {
     fetchUsers();
     setLoading(false);
   }, []);
-  const handleDelete = async (id: string) => { }
-  const handleBlock = async (id: string) => { }
+  const handleDelete = async (id: string) => {  
+
+    try {
+      setLoading(true);
+      const res = await deleteUser(id);
+   
+      if (res.success) {
+        toast.success("User deleted successfully");
+       setLoading(false);
+      } else {
+        toast.error("Failed to delete user");
+         setLoading(false);
+      }
+    } catch (error) {
+      console.error("Failed to delete user", error);
+    }
+  }
+  const handleBlock = async (id: string) => { 
+
+    try {
+      setLoading(true);
+      const res = await blockUser(id);
+      console.log("🚀 ~ handleBlock ~ id:", id)
+      console.log("🚀 ~ handleBlock ~ res:", res)
+      if (res.success) {
+        toast.success("User blocked successfully");
+      setLoading(false);
+      } else {
+        toast.error("Failed to block user");
+         setLoading(false);
+      }
+    } catch (error) {
+      console.error("Failed to block user", error);
+    }
+  }
 
 
   return (
@@ -39,7 +72,7 @@ const UserList = () => {
 
       </div>
 
-      {loading ? <Loader /> : users?.length > 0 ? (
+      {loading ? <div className="flex justify-center items-center h-[500px]"><Loader /></div> :(
         <div className="w-full overflow-x-auto border-t border-white rounded-lg shadow-md border-1">
           <table className="min-w-[900px] w-full text-left text-base">
             <thead className="text-sm font-medium text-gray-500 uppercase border-b border-white">
@@ -112,13 +145,8 @@ const UserList = () => {
             </tbody>
           </table>
         </div>
-      ) : (
-        <div>
-          <h1 className="text-3xl font-semibold text-center text-gray-500">
-            No Users Found
-          </h1>
-        </div>
-      )}
+      ) }
+    
     </div>
   );
 };

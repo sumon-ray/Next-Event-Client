@@ -43,7 +43,7 @@ import Link from "next/link"
 
 
   return (
-    <div className="container px-4 py-16 mx-auto mt-20 md:mt-40 md:px-0">
+    <div className="container px-4 py-16 mx-auto mt-20 md:mt-40 xl:px-0">
       <div className="grid items-start grid-cols-1 gap-12 lg:grid-cols-2">
         
         <div className="space-y-8">

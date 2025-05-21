@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { ChevronDown, SquareTerminal, Bot, ShoppingCart, User, Star, BookImage } from "lucide-react"
+import { ChevronDown, SquareTerminal, Bot, ShoppingCart, User, Star, BookImage, Home } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -32,6 +32,11 @@ export type TNavItem = {
 export const NavItems: TNavItem[] = [
   {
     title: "Home",
+    url: "/",
+    icon: <Home className="w-5 h-5" />,
+  },
+  {
+    title: "Dashboard",
     url: "/admin/dashboard",
     icon: <SquareTerminal className="w-5 h-5" />,
   },

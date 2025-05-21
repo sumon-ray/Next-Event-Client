@@ -20,8 +20,8 @@ const HomeAllEvents = async() => {
          
   
     return (
-        <div className="container mx-auto ">
-<div className="mx-4 md:mx-0">
+        <div className="container mx-auto mt-40 ">
+<div className="mx-4 xl:mx-0">
   {upComingEvents && onGoingEvents && endedEvents ? (
     upComingEvents.length > 0 || onGoingEvents.length > 0 || endedEvents.length > 0 ? (
       <>

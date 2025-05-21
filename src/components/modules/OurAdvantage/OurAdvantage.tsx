@@ -3,7 +3,7 @@ import { Check } from "lucide-react"
 import Title from "@/components/shared/Title"
 export default function OurAdvantagesSection() {
   return (
-    <section className="container w-full px-4 py-16 mx-auto md:px-0 lg:py-24">
+    <section className="container w-full px-4 py-16 mx-auto xl:px-0 lg:mt-40">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 border-box">
     
         <div className="relative col-span-12 lg:col-span-5">

@@ -9,21 +9,22 @@ import Link from 'next/link';
 const WhoWeAreSection =()=> {
   return (
    <div>
-    <section className="container px-4 py-16 mx-auto md:px-0 lg:py-24">
-      <div className="grid items-center grid-cols-1 gap-8 lg:grid-cols-2">
+    <section className="container px-4 py-16 mx-auto xl:px-0 lg:my-28">
+      <div className="grid items-center grid-cols-1 gap-2 lg:grid-cols-2">
      
-        <div className="relative overflow-hidden rounded-xl">
+        <div className="relative xl:h-[85dvh] lg:h-[140dvh] md:h-full overflow-hidden rounded-xl">
           <Image
             src="/images/image2.png" 
             alt="Event planner working"
             width={6000}
+            quality={100}
             height={6000}
-            className="object-cover h-[120%] rounded-xl"
+            className="object-fill h-full rounded-xl"
           />
         </div>
 
         
-        <div className="space-y-8">
+        <div className="space-y-8 lg:ml-10">
           <div className="space-y-4">
             <div className="inline-flex items-center px-3 py-1 text-sm font-medium text-[#1E3A8A]bg-purple-100 rounded-full">
               <div className=" rounded-full px-3 py-1 bg-[#1E3A8A] text-white"> @  WHO WE ARE </div>
