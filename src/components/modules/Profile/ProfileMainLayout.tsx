@@ -3,18 +3,22 @@
 import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { usePathname } from "next/navigation"
-import { Menu, LogOut, X, User } from "lucide-react"
+import { usePathname, useRouter } from "next/navigation"
+import { LogOut, X, User } from "lucide-react"
 import { profileSettingItems } from "@/components/shared/Profile-sidebar"
 import { useUser } from "@/context/UserContext"
 import { motion, AnimatePresence } from "framer-motion"
+import { logOut } from "@/services/AuthService"
+
+import { toast } from "sonner"
+
 
 const ProfileMainLayout = () => {
   const pathname = usePathname()
   const [isMobile, setIsMobile] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
   const { user } = useUser()
-
+  const router = useRouter();
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
     checkMobile()
@@ -22,6 +26,13 @@ const ProfileMainLayout = () => {
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
+
+
+  const handleLogout = async () => {
+    logOut()
+    toast.success('Logged out successfully')
+    router.push('/')
+  }
   return (
     <div className="box-border flex flex-col pt-0 md:flex-row">
 
@@ -120,6 +131,7 @@ const ProfileMainLayout = () => {
                   className="flex items-center justify-center w-full gap-2 px-4 py-3 text-red-600 transition bg-red-100 rounded-lg shadow-sm hover:bg-red-200"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  onClick={handleLogout}
                 >
                   <LogOut className="w-4 h-4" />
                   Logout
