@@ -58,7 +58,7 @@ export const getAllMyReceivedInvites = async () => {
     });
 
     const data = await res.json();
-    return data;
+    return data.data;
   } catch (error) {
     console.error("getAllInvites error:", error);
     return null;

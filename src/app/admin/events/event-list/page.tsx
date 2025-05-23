@@ -1,21 +1,23 @@
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
 import Title from "@/components/shared/Title";
-import { getEventsOfUser } from "@/services/EventService";
+import { getAllEvents } from "@/services/EventService";
 import { IEvent } from "@/app/types";
-import { InviteModal } from "@/components/modules/Invite/InviteModal";
-import { UpdateModal } from "@/components/modules/Events/UpdateModal";
 import { DeleteModal } from "@/components/modules/Events/DeleteModal";
 
-const UserList = async () => {
-  const users: any = await getEventsOfUser();
+const EventList = async () => {
+  const userData: any = await getAllEvents({});
+  const users: IEvent[] = userData?.data?.data;
+ 
 
   return (
     <div className="px-10 py-6 mb-20">
       <div className="flex items-center justify-between mb-4">
-        <Title title="Manage My Own Events" />
+        <Title title="Manage All Events" />
+         {/* <p className="hidden px-6 py-3 text-lg font-semibold text-center transition-all duration-300 rounded-full shadow-lg md:text-xl w-fit bg-gradient-to-r md:block from-white to-blue-300 decoration-transparent ">
+                🎉 {users?.length} Events Found
+              </p> */}
       </div>
-
+ {users?.length>0 ?
       <div className="w-full overflow-x-auto border-t border-white rounded-lg shadow-md border-1">
         <table className="min-w-[900px] w-full text-left text-base">
           <thead className="text-sm font-medium text-gray-500 uppercase border-b border-white">
@@ -32,7 +34,7 @@ const UserList = async () => {
           </thead>
 
           <tbody>
-            {users?.map((event: IEvent) => (
+           { users?.map((event: IEvent) => (
               <tr key={event.id} className="border-white ">
                 <td className="flex items-center h-full gap-3 px-4 border-2 py-9">
                   <div className="relative w-10 h-10">
@@ -56,20 +58,23 @@ const UserList = async () => {
                   {event.isPaid ? "Paid" : "Free"}
                 </td>
                 <td className="flex items-center justify-center h-full gap-4 my-4">
-                  <InviteModal id={event.id!} />
-                  <UpdateModal event={event} />
+                
                   <DeleteModal id={event.id!} />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
+      </div>:(<div>
+              <h1 className="text-3xl font-semibold text-center text-gray-500">
+                No Events Found
+              </h1>
+            </div>)}
     </div>
   );
 };
 
-export default UserList;
+export default EventList;
 
 
 export const dynamic = 'force-static'

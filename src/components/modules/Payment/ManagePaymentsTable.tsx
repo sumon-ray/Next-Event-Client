@@ -1,5 +1,5 @@
 'use client';
-
+import { motion } from "framer-motion";
 import { useRouter, useSearchParams } from 'next/navigation';
 import { IPayment } from '@/app/types';
 import { Badge } from '@/components/ui/badge';
@@ -60,10 +60,13 @@ const ManagePaymentsTable = ({ payments, meta, filters }: ManagePaymentsTablePro
   };
 
   return (
-    <div className="p-4 md:p-6 max-w-[1300px] mx-auto">
-      {/* Filters */}
-      <div className="flex flex-col md:flex-row gap-4 mb-4">
-        <div className="flex gap-2 w-full">
+    <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}className="p-4 md:p-6 max-w-[1300px] mx-auto">
+     
+      <div className="flex flex-col gap-4 mb-4 md:flex-row">
+        <div className="flex w-full gap-2">
           <Input
             placeholder="Search by name, email, method..."
             value={searchText}
@@ -104,8 +107,8 @@ const ManagePaymentsTable = ({ payments, meta, filters }: ManagePaymentsTablePro
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-lg border overflow-hidden">
-        <div className="grid grid-cols-12 text-xs text-gray-500 py-2 px-4 border-b font-medium bg-gray-50">
+      <div className="overflow-hidden bg-white border rounded-lg">
+        <div className="grid grid-cols-12 px-4 py-2 text-xs font-medium text-gray-500 border-b bg-gray-50">
           <div className="col-span-1">SELECT</div>
           <div className="col-span-3">USER</div>
           <div className="col-span-3">EVENT</div>
@@ -118,13 +121,13 @@ const ManagePaymentsTable = ({ payments, meta, filters }: ManagePaymentsTablePro
         {payments?.map((payment) => (
           <div
             key={payment.id}
-            className="grid grid-cols-12 py-3 px-4 items-center border-b hover:bg-gray-50"
+            className="grid items-center grid-cols-12 px-4 py-3 border-b hover:bg-gray-50"
           >
             <div className="col-span-1">
               <Checkbox />
             </div>
-            <div className="col-span-3 flex items-center gap-3">
-              <div className="w-10 h-10 relative">
+            <div className="flex items-center col-span-3 gap-3">
+              <div className="relative w-10 h-10">
                 <Image
                   src={payment.user?.profileImage || '/avatar.png'}
                   alt={payment.user?.name || 'User'}
@@ -141,7 +144,7 @@ const ManagePaymentsTable = ({ payments, meta, filters }: ManagePaymentsTablePro
               <p className="text-sm font-medium">{payment.event?.title || 'N/A'}</p>
               <p className="text-xs text-gray-500">{payment.event?.dateTime}</p>
             </div>
-            <div className="col-span-2 capitalize text-sm">{payment.method}</div>
+            <div className="col-span-2 text-sm capitalize">{payment.method}</div>
             <div className="col-span-1 text-sm text-gray-700">৳ {payment.amount}</div>
             <div className="col-span-1">
               <Badge
@@ -154,7 +157,7 @@ const ManagePaymentsTable = ({ payments, meta, filters }: ManagePaymentsTablePro
                 {payment.status}
               </Badge>
             </div>
-            <div className="col-span-1 flex justify-end">
+            <div className="flex justify-end col-span-1">
               <Button size="icon" variant="ghost">
                 <MoreHorizontal className="w-4 h-4 text-gray-500" />
               </Button>
@@ -163,14 +166,14 @@ const ManagePaymentsTable = ({ payments, meta, filters }: ManagePaymentsTablePro
         ))}
 
         {!payments?.length && (
-          <div className="px-4 py-4 text-sm text-gray-500 text-center">
+          <div className="px-4 py-4 text-sm text-center text-gray-500">
             No payments found.
           </div>
         )}
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-between items-center mt-4">
+      <div className="flex items-center justify-between mt-4">
         <Button
           disabled={meta.page <= 1}
           onClick={() => updateQuery('page', String(meta.page - 1))}
@@ -187,7 +190,7 @@ const ManagePaymentsTable = ({ payments, meta, filters }: ManagePaymentsTablePro
           Next
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

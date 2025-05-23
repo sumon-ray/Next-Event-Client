@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import Title from '@/components/shared/Title';
 const FAQ = () => {
@@ -31,8 +30,8 @@ const FAQ = () => {
         },
       ]
     return (
-        <div className="container px-4 py-16 mx-auto border-2 rounded-md md:px-6">
-        <div className="mb-12 text-center">
+        <div className="container px-4 mx-auto mt-40 border-2 rounded-md md:px-6">
+        <div className="py-16 text-center">
           <div className="inline-flex items-center px-3 py-2 mb-4 text-sm font-medium bg-[#1E3A8A] text-white rounded-full">
             <div className="w-1.5 h-1.5 rounded-full bg-purple-600 mr-2"></div>
             FEATURED FAQS
@@ -44,7 +43,7 @@ const FAQ = () => {
           </p>
         </div>
 
-        <Accordion type="single"  collapsible className="w-full">
+        <Accordion type="single"  collapsible className="w-full pb-16">
           {faqs.map((faq, index) => (
             <AccordionItem key={index} value={`item-${index}`}>
               <AccordionTrigger   className="p-4 no-underline duration-500 hover:scale-[1.01] hover:cursor-pointer ease-in-out  border border-gray-100 shadow-md border-t-1 rounded-xl bg-gradient-to-r from-white to-blue-300  decoration-transparent text-xl">{faq.question}</AccordionTrigger>

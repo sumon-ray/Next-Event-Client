@@ -24,24 +24,22 @@ export default function TestimonialsSection() {
   return (
     <section
       ref={testimonialsRef}
-      className=" bg-[#1E3A8A] py-10 text-white relative overflow-hidden mb-14"
+      className=" bg-[#1E3A8A]   py-10 text-white relative  mb-14"
     >
-      <div className="absolute inset-0 bg-[url('/placeholder.svg?height=100&width=100')] bg-repeat opacity-5 z-0"></div>
-      <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/20 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/20 rounded-full translate-y-1/2 -translate-x-1/3 blur-3xl"></div>
+      
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container relative z-10 px-4 mx-auto md:px-0">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={testimonialsInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="max-w-3xl mx-auto text-center mb-16"
+          className="max-w-3xl mx-auto mb-16 text-center"
         >
-          <Badge className="mb-4 bg-white/20 text-white hover:bg-white/30">
+          <Badge className="mb-4 text-white bg-white/20 hover:bg-white/30">
             Testimonials
           </Badge>
-          <h2 className="text-4xl font-bold mb-4">What Our Users Say</h2>
-          <p className="text-xl text-blue-100">
+          <h2 className="mb-4 text-4xl font-bold">What Our Users Say</h2>
+          <p className="text-xl text-blue-1000">
             Hear from event organizers and attendees who use our platform
           </p>
         </motion.div>
@@ -50,35 +48,35 @@ export default function TestimonialsSection() {
           initial={{ opacity: 0 }}
           animate={testimonialsInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="max-w-5xl mx-auto"
+          className="mx-auto "
         >
           <Carousel className="w-full">
             <CarouselContent>
-              {/* Testimonial 1 */}
-              <CarouselItem className="md:basis-1/2 lg:basis-1/3 p-2">
-                <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl h-full">
+          
+              <CarouselItem className="p-2 md:basis-1/2 lg:basis-1/3">
+                <div className="h-full p-8 bg-white/10 backdrop-blur-sm rounded-2xl">
                   <div className="flex items-center mb-6">
-                    <div className="w-14 h-14 rounded-full overflow-hidden mr-4 border-2 border-white/30">
+                    <div className="mr-4 overflow-hidden border-2 rounded-full w-14 h-14 border-white/30">
                       <Image
                         src="/images/testimonial/user2.jpg"
                         alt="Robert Taylor"
-                        width={100}
-                        height={100}
-                        className="w-full h-full object-cover"
+                        width={10000}
+                        height={10000}
+                        className="object-cover w-full h-full"
                       />
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg">Robert Taylor</h4>
-                      <p className="text-blue-200 text-sm">
+                      <h4 className="text-lg font-bold">Robert Taylor</h4>
+                      <p className="text-sm text-blue-200">
                         Conference Organizer
                       </p>
                     </div>
                   </div>
-                  <div className="mb-4 flex">
+                  <div className="flex mb-4">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className="h-5 w-5 text-yellow-400 fill-yellow-400"
+                        className="w-5 h-5 text-yellow-400 fill-yellow-400"
                       />
                     ))}
                   </div>
@@ -91,29 +89,28 @@ export default function TestimonialsSection() {
                 </div>
               </CarouselItem>
 
-              {/* Testimonial 2 */}
-              <CarouselItem className="md:basis-1/2 lg:basis-1/3 p-2">
-                <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl h-full">
+              <CarouselItem className="p-2 md:basis-1/2 lg:basis-1/3">
+                <div className="h-full p-8 bg-white/10 backdrop-blur-sm rounded-2xl">
                   <div className="flex items-center mb-6">
-                    <div className="w-14 h-14 rounded-full overflow-hidden mr-4 border-2 border-white/30">
+                    <div className="mr-4 overflow-hidden border-2 rounded-full w-14 h-14 border-white/30">
                       <Image
                         src="/images/testimonial/user3.jpg"
                         alt="Jennifer Kim"
-                        width={100}
-                        height={100}
-                        className="w-full h-full object-cover"
+                        width={1000}
+                        height={1000}
+                        className="object-cover w-full h-full"
                       />
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg">Jennifer Kim</h4>
-                      <p className="text-blue-200 text-sm">Community Leader</p>
+                      <h4 className="text-lg font-bold">Jennifer Kim</h4>
+                      <p className="text-sm text-blue-200">Community Leader</p>
                     </div>
                   </div>
-                  <div className="mb-4 flex">
+                  <div className="flex mb-4">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className="h-5 w-5 text-yellow-400 fill-yellow-400"
+                        className="w-5 h-5 text-yellow-400 fill-yellow-400"
                       />
                     ))}
                   </div>
@@ -126,33 +123,33 @@ export default function TestimonialsSection() {
                 </div>
               </CarouselItem>
 
-              {/* Testimonial 3 */}
-              <CarouselItem className="md:basis-1/2 lg:basis-1/3 p-2">
-                <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl h-full">
+         
+              <CarouselItem className="p-2 md:basis-1/2 lg:basis-1/3">
+                <div className="h-full p-8 bg-white/10 backdrop-blur-sm rounded-2xl">
                   <div className="flex items-center mb-6">
-                    <div className="w-14 h-14 rounded-full overflow-hidden mr-4 border-2 border-white/30">
+                    <div className="mr-4 overflow-hidden border-2 rounded-full w-14 h-14 border-white/30">
                       <Image
                         src="/images/testimonial/user1.jpg"
                         alt="Marcus Johnson"
-                        width={100}
-                        height={100}
-                        className="w-full h-full object-cover"
+                        width={1000}
+                        height={1000}
+                        className="object-cover w-full h-full"
                       />
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg">Marcus Johnson</h4>
-                      <p className="text-blue-200 text-sm">Regular Attendee</p>
+                      <h4 className="text-lg font-bold">Marcus Johnson</h4>
+                      <p className="text-sm text-blue-200">Regular Attendee</p>
                     </div>
                   </div>
-                  <div className="mb-4 flex">
+                  <div className="flex mb-4">
                     {[...Array(4)].map((_, i) => (
                       <Star
                         key={i}
-                        className="h-5 w-5 text-yellow-400 fill-yellow-400"
+                        className="w-5 h-5 text-yellow-400 fill-yellow-400"
                       />
                     ))}
                     {[...Array(1)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 text-yellow-400" />
+                      <Star key={i} className="w-5 h-5 text-yellow-400" />
                     ))}
                   </div>
                   <p className="italic">
@@ -164,29 +161,28 @@ export default function TestimonialsSection() {
                 </div>
               </CarouselItem>
 
-              {/* Testimonial 4 */}
-              <CarouselItem className="md:basis-1/2 lg:basis-1/3 p-2">
-                <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl h-full">
+              <CarouselItem className="p-2 md:basis-1/2 lg:basis-1/3">
+                <div className="h-full p-8 bg-white/10 backdrop-blur-sm rounded-2xl">
                   <div className="flex items-center mb-6">
-                    <div className="w-14 h-14 rounded-full overflow-hidden mr-4 border-2 border-white/30">
+                    <div className="mr-4 overflow-hidden border-2 rounded-full w-14 h-14 border-white/30">
                       <Image
                         src="/images/testimonial/user1.JPG"
                         alt="Sophia Williams"
-                        width={100}
-                        height={100}
-                        className="w-full h-full object-cover"
+                        width={1000}
+                        height={1000}
+                        className="object-cover w-full h-full"
                       />
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg">Sophia Williams</h4>
-                      <p className="text-blue-200 text-sm">Event Planner</p>
+                      <h4 className="text-lg font-bold">Sophia Williams</h4>
+                      <p className="text-sm text-blue-200">Event Planner</p>
                     </div>
                   </div>
-                  <div className="mb-4 flex">
+                  <div className="flex mb-4">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className="h-5 w-5 text-yellow-400 fill-yellow-400"
+                        className="w-5 h-5 text-yellow-400 fill-yellow-400"
                       />
                     ))}
                   </div>
@@ -200,8 +196,8 @@ export default function TestimonialsSection() {
               </CarouselItem>
             </CarouselContent>
             <div className="flex justify-center mt-8">
-              <CarouselPrevious className="static translate-y-0 bg-white/20 hover:bg-white/30 text-white border-none mr-2" />
-              <CarouselNext className="static translate-y-0 bg-white/20 hover:bg-white/30 text-white border-none ml-2" />
+              <CarouselPrevious className="static mr-2 text-white translate-y-0 border-none bg-white/20 hover:bg-white/30" />
+              <CarouselNext className="static ml-2 text-white translate-y-0 border-none bg-white/20 hover:bg-white/30" />
             </div>
           </Carousel>
         </motion.div>

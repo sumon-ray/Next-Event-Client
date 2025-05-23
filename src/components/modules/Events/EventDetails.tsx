@@ -36,19 +36,17 @@ const EventDetails = ({
   organizer: any;
   user: any;
 }) => {
-  // console.log(event);
+
   const router = useRouter();
   const pathname = usePathname();
   const [loading, setLoading] = useState(false);
-  // console.log(event?.participants);
-  // console.log(event);
-  // console.log(user.id);
+
 
   const handlePayment = async (id: string) => {
-    // console.log(id);
+
     try {
       const user = await getCurrentUser();
-      // console.log(user);
+  
       if (!user) {
         toast.warning("You must be logged in to register for this event.");
         const redirectUrl = `/login?redirectPath=${encodeURIComponent(
@@ -68,7 +66,7 @@ const EventDetails = ({
       if (response?.success) {
         const redirectUrl = response.data.paymentUrl;
         window.location.href = redirectUrl;
-        // Optionally redirect or update UI
+        toast.success("Redirecting to payment page...");
       } else {
         toast.error(response.message || "payment failed");
         console.error("Payment failed", response);
@@ -83,7 +81,7 @@ const EventDetails = ({
   const handleFreeRegistration = async (id: string) => {
     try {
       const user = await getCurrentUser();
-      // console.log(user);
+     
       if (!user) {
         toast.warning("You must be logged in to register for this event.");
         const redirectUrl = `/login?redirectPath=${encodeURIComponent(
@@ -111,7 +109,7 @@ const EventDetails = ({
     }
   };
 
-  // console.log(event)
+  
   return (
     <div className="bg-gradient-to-br from-[#E3F2FD] via-[#BBDEFB] to-[#29B6F6] md:pb-20">
       <HeroSecton

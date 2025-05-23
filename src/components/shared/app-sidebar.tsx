@@ -2,8 +2,8 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { ChevronDown, SquareTerminal, Bot, ShoppingCart, User, Star, Presentation, BookImage } from "lucide-react"
+import { usePathname, useRouter } from "next/navigation"
+import { ChevronDown, SquareTerminal, Bot, ShoppingCart, User, Star, BookImage, Home } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -16,6 +16,10 @@ import {
 import { Avatar } from "@/components/ui/avatar"
 import Image from "next/image"
 import { useUser } from "@/context/UserContext"
+import NextButton from "./NextButton"
+import { logOut } from "@/services/AuthService"
+import { toast } from "sonner"
+
 
 
 export type TNavItem = {
@@ -28,31 +32,26 @@ export type TNavItem = {
 export const NavItems: TNavItem[] = [
   {
     title: "Home",
+    url: "/",
+    icon: <Home className="w-5 h-5" />,
+  },
+  {
+    title: "Dashboard",
     url: "/admin/dashboard",
     icon: <SquareTerminal className="w-5 h-5" />,
   },
   {
     title: "Events Management",
-    url: "/admin/products",
+    url: "/admin/events",
     icon: <BookImage className="w-5 h-5" />,
     items: [
-      { title: "Add Event", url: "/admin/products/add-event" },
-      { title: "Event List", url: "/admin/products/event-list" },
+      { title: "Event List", url: "/admin/events/event-list" },
     ],
   },
   {
     title: "Payments Management",
     url: "/admin/manage-payments",
     icon: <ShoppingCart className="w-5 h-5" />,
-  },
-  {
-    title: "Invites Management",
-    url: "/admin/manage-invites",
-    icon: <Presentation className="w-5 h-5" />,
-    items: [
-      { title: "My All Invitaions", url: "/admin/manage-invites/all-invites" },
-      { title: "Sent Invitaions", url: "/admin/manage-invites/sent-invites" },
-    ],
   },
   {
     title: "User ",
@@ -71,6 +70,7 @@ export function AppSidebar() {
   const [openItems, setOpenItems] = React.useState<string[]>([])
 const {user,isLoading} =useUser()
 
+    const router = useRouter()
   const toggleSubMenu = (title: string) => {
     setOpenItems((prev) =>
       prev.includes(title) ? prev.filter((item) => item !== title) : [...prev, title]
@@ -80,6 +80,12 @@ const {user,isLoading} =useUser()
   const isActive = (url: string) => {
     return pathname === url || pathname?.startsWith(url + "/")
   }
+  const handleLogout = async() => {
+  
+   await logOut()
+   toast.success("Logout successfully")
+    router.push("/")
+  }
 
   return (
     <Sidebar className="bg-gradient-to-b from-[#E0F7FA] via-[#B3E5FC] to-[#E0F7FA] border-r text-gray-800">
@@ -87,10 +93,10 @@ const {user,isLoading} =useUser()
         <div className="p-4">
           <div className="flex items-center gap-3 px-2">
             <Avatar className="h-16 w-16 border-2 border-[#3b82f6]">
-              <Image width={2000} height={2000} src="/placeholder.svg?height=40&width=40" alt="Profile" />
+              <Image width={2000} height={2000} src={user?.profileImage!} alt="Profile" />
             </Avatar>
             <div className="flex flex-col">
-              <span className="text-base font-semibold text-white">Z Zayed Iqbal</span>
+              <span className="text-base font-semibold text-white">{user?.email}</span>
               <div className="flex items-center text-xs text-green-400">
                 <span className="h-2 w-2 rounded-full bg-green-400 mr-1.5"></span>
                 Online
@@ -106,7 +112,7 @@ const {user,isLoading} =useUser()
           <div key={item.title} className="mb-1">
             {item.items ? (
               <>
-                <SidebarMenu>
+                <SidebarMenu >
                   <SidebarMenuItem>
                     <button
                       onClick={() => toggleSubMenu(item.title)}
@@ -138,7 +144,7 @@ const {user,isLoading} =useUser()
                       <Link
                         key={subItem.title}
                         href={subItem.url}
-                        className={`block p-4 text-sm font-medium rounded-md transition-colors ${
+                        className={`block p-4 my-2 text-sm font-medium rounded-md transition-colors ${
                           isActive(subItem.url)
                             ? "bg-[#1E3A8A] text-white"
                             : "text-gray-600 hover:bg-[#1E3A8A] hover:text-white"
@@ -177,7 +183,12 @@ const {user,isLoading} =useUser()
             )}
           </div>
         ))}
+       <SidebarContent  className="w-full pt-8 border-1">
+         <NextButton name="Logout" onClick={handleLogout} />
+      
+      </SidebarContent >
       </SidebarContent>
+     
 
       <SidebarFooter className="p-4 mt-auto border-t">
         <div className="text-xs leading-tight text-center text-gray-600">

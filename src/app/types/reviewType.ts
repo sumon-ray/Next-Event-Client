@@ -1,6 +1,12 @@
 export interface Review {
   user: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+ event :{
+   title: string;
+   bannerImage: string; 
+   slug: string
+createdAt: string
+ }
+ createdAt: string,
   data: any;
   id: string;
   comment: string;
@@ -9,6 +15,8 @@ export interface Review {
   reviewer: {
     name: string;
     profileImg: string;
+    email: string;
+    id: string;
   };
 }
 

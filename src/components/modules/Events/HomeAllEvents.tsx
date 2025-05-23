@@ -20,8 +20,8 @@ const HomeAllEvents = async() => {
          
   
     return (
-        <div className="container mx-auto ">
-<div className="">
+        <div className="container mx-auto mt-40 ">
+<div className="mx-4 xl:mx-0">
   {upComingEvents && onGoingEvents && endedEvents ? (
     upComingEvents.length > 0 || onGoingEvents.length > 0 || endedEvents.length > 0 ? (
       <>
@@ -32,7 +32,7 @@ const HomeAllEvents = async() => {
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
               {upComingEvents.map((event: Event, index: number) => (
                 <EventCard key={index} event={event} />
-              ))}
+              )).slice(0, 4)}
             </div>
           </div>
         )}
@@ -43,7 +43,7 @@ const HomeAllEvents = async() => {
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
               {onGoingEvents.map((event: Event, index: number) => (
                 <EventCard key={index} event={event} />
-              ))}
+              )).slice(0, 4)}
             </div>
           </div>
         )}
@@ -54,7 +54,7 @@ const HomeAllEvents = async() => {
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
               {endedEvents.map((event: Event, index: number) => (
                 <EventCard key={index} event={event} />
-              ))}
+              )).slice(0, 4)}
             </div>
           </div>
         ) : (

@@ -3,8 +3,8 @@ import Image from "next/image"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 export default function OurFeaturesSection() {
   return (
-    <section className="w-full bg-[#1E293B] py-16 md:py-24">
-      <div className="container px-4 mx-auto md:px-0">
+    <section className="w-full bg-[#1E293B] py-16 md:mt-40">
+      <div className="container px-4 mx-auto xl:px-0">
         <div className="grid items-center grid-cols-1 gap-8 lg:grid-cols-2">
      
           <div className="space-y-10">
