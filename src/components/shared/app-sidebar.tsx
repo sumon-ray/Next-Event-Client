@@ -68,18 +68,20 @@ const {user,isLoading} =useUser()
     const router = useRouter()
   const toggleSubMenu = (title: string) => {
     setOpenItems((prev) =>
-      prev.includes(title) ? prev.filter((item) => item !== title) : [...prev, title]
+      prev.includes(title) ? prev.filter((item) => item !== title) : [...prev, title] 
     )
   }
 
   const isActive = (url: string) => {
     return pathname === url || pathname?.startsWith(url + "/")
   }
-  const handleLogout = async() => {
   
-   await logOut()
-   toast.success("Logout successfully")
-    router.push("/")
+ const handleLogout = async () => {
+      await logOut()
+    localStorage.removeItem("accessToken")
+    localStorage.removeItem("userProfile")
+    toast.success('Logged out successfully')
+    router.push('/login')
   }
 
   return (

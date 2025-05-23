@@ -39,9 +39,11 @@ if (!user) {
 }
 
   const handleLogout = async () => {
-    logOut()
+      await logOut()
+    localStorage.removeItem("accessToken")
+    localStorage.removeItem("userProfile")
     toast.success('Logged out successfully')
-    router.push('/')
+    router.push('/login')
   }
 
   return (
