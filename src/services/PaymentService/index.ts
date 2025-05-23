@@ -2,6 +2,7 @@
 
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
+import { IQuery } from "../EventService";
 
 const buildQueryString = (query: Record<string, any>) => {
   const params = new URLSearchParams();
@@ -77,38 +78,33 @@ export const paymentValidate = async (tran_id: string) => {
   }
 };
 
-export const getAllPayment = async (query: Record<string, any> = {}) => {
+
+
+export const getAllPayment = async (queryObj: IQuery) => {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get('accessToken')?.value;
+
   try {
-    const cookieStore = await cookies();
-    const accessToken = cookieStore.get("accessToken")?.value;
+      const query = new URLSearchParams(
+      Object.entries(queryObj)
+        .filter(([key, value]) => value !== undefined)
+        .map(([key, value]) => [key, String(value)])
+    ).toString();
 
-    if (!accessToken) {
-      throw new Error("Access token not found");
-    }
-
-    const queryString = buildQueryString(query);
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/payments${
-      queryString ? `?${queryString}` : ""
-    }`;
-
-    const res = await fetch(url, {
-      method: "GET",
-      credentials: "include",
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payments?${query}`, {
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: accessToken,
+        'Content-Type': 'application/json',
+        Authorization: accessToken || '',
       },
+      credentials: 'include',
     });
+    // console.log(response);
 
-    if (!res.ok) {
-      throw new Error(`Failed to fetch payments: ${res.statusText}`);
-    }
-
-    const data = await res.json();
-    return data;
+    return await response.json();
   } catch (error) {
-    console.error("getAllPayment error:", error);
-    return null;
+    console.error('Failed to fetch payments:', error);
+    throw error;
   }
 };
 

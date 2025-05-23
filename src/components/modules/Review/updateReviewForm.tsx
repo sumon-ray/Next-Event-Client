@@ -20,7 +20,7 @@ export default function UpdateForm() {
     console.log({ rating, feedback, isAnonymous })
     // Handle form submission logic here
   }
-
+ 
   return (
     <Card className="w-full max-w-sm mx-auto bg-white shadow-md rounded-xl">
       <CardHeader className="pb-2">

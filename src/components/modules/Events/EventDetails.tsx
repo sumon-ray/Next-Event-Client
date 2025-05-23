@@ -24,8 +24,9 @@ import { makePayment } from "@/services/PaymentService";
 import { toast } from "sonner";
 import { getCurrentUser } from "@/services/AuthService";
 import { usePathname, useRouter } from "next/navigation";
-import ReviewButton from "../Review/SpecificEventReview/ReviewButton";
+import EventReviews from "../Review/SpecificEventReview/EventReviews";
 import { createParticipant } from "@/services/ParticipantService";
+import ReviewForm from "../Review/ReviewForm";
 
 const EventDetails = ({
   event,
@@ -36,17 +37,14 @@ const EventDetails = ({
   organizer: any;
   user: any;
 }) => {
-
   const router = useRouter();
   const pathname = usePathname();
   const [loading, setLoading] = useState(false);
 
-
   const handlePayment = async (id: string) => {
-
     try {
       const user = await getCurrentUser();
-  
+
       if (!user) {
         toast.warning("You must be logged in to register for this event.");
         const redirectUrl = `/login?redirectPath=${encodeURIComponent(
@@ -81,7 +79,7 @@ const EventDetails = ({
   const handleFreeRegistration = async (id: string) => {
     try {
       const user = await getCurrentUser();
-     
+
       if (!user) {
         toast.warning("You must be logged in to register for this event.");
         const redirectUrl = `/login?redirectPath=${encodeURIComponent(
@@ -109,7 +107,6 @@ const EventDetails = ({
     }
   };
 
-  
   return (
     <div className="bg-gradient-to-br from-[#E3F2FD] via-[#BBDEFB] to-[#29B6F6] md:pb-20">
       <HeroSecton
@@ -283,7 +280,10 @@ const EventDetails = ({
                     )}
                   </div>
                 </CardFooter>
+
+
               </Card>
+                <EventReviews eventId={event.id} />
             </div>
 
             <div className="space-y-6">
@@ -336,12 +336,14 @@ const EventDetails = ({
                   )}
                 </CardContent>
               </Card>
+              <ReviewForm eventId={event.id}/>
             </div>
           </div>
         </div>
       </div>
-
-      <ReviewButton eventId={event.id} />
+      {/* <div className="w-full flex justify-start">
+        <ReviewButton eventId={event.id} />
+      </div> */}
     </div>
   );
 };
