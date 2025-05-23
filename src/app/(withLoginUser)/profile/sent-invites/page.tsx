@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import NextButton from "@/components/shared/NextButton";
 import { toast } from "sonner";
 import Loader from "@/components/ui/Loader/Loader";
-import { Calendar, Mailbox, Plus, Send } from "lucide-react";
+import {  Mailbox, Send } from "lucide-react";
 import Link from "next/link";
 
 const MyAllSentInvites =  () => {

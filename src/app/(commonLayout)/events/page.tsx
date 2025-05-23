@@ -67,7 +67,7 @@ export default function EventsPage() {
         setFilteredEvents(data.data.data);
         setLoading(false);
       } catch (err) {
-        console.log("🚀 ~ fetchEvents ~ err:", err);
+        console.error("🚀 ~ fetchEvents ~ err:", err);
       } finally {
         setLoading(false);
       }

@@ -1,5 +1,4 @@
 import MyPaymentsHistory from '@/components/modules/Payment/MyPaymentsHistory';
-import Title from '@/components/shared/Title';
 import { getMyPaymentsHistory } from '@/services/PaymentService';
 import React from 'react';
 

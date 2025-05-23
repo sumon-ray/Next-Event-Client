@@ -43,7 +43,7 @@ const AddEvent = () => {
     watch,
     reset,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = useForm<FormValues>({
     defaultValues: {
       type: "PUBLIC",

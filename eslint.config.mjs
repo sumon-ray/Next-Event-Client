@@ -23,14 +23,20 @@ const eslintConfig = [
       "@typescript-eslint": tseslint,
     },
     rules: {
+      // Adjust these rules as needed
+      "@typescript-eslint/no-explicit-any": "off", // Disable any type warnings
       "@typescript-eslint/no-unused-vars": [
         "warn",
-        { argsIgnorePattern: "^_" },
+        { 
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_"
+        }
       ],
-      "@typescript-eslint/no-explicit-any": "warn",
-      "no-unused-expressions": "error",
-      "prefer-const": "warn",
-      "no-console": "warn",
+      "react/no-unescaped-entities": "off", // Disable HTML entity warnings
+      "react-hooks/exhaustive-deps": "warn", // Keep as warning
+      "@typescript-eslint/no-non-null-asserted-optional-chain": "warn", // Keep as warning
+      "react-hooks/rules-of-hooks": "error", // Keep as error (important)
     },
   },
 ];

@@ -70,7 +70,7 @@ export function AppSidebar() {
   const [openItems, setOpenItems] = React.useState<string[]>([])
 const {user,isLoading} =useUser()
 
-
+    const router = useRouter()
   const toggleSubMenu = (title: string) => {
     setOpenItems((prev) =>
       prev.includes(title) ? prev.filter((item) => item !== title) : [...prev, title]
@@ -81,7 +81,7 @@ const {user,isLoading} =useUser()
     return pathname === url || pathname?.startsWith(url + "/")
   }
   const handleLogout = async() => {
-      const router = useRouter()
+  
    await logOut()
    toast.success("Logout successfully")
     router.push("/")
