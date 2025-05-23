@@ -4,6 +4,8 @@ import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
 export interface IQuery {
+    page?: number;
+    limit?: number;
   searchTerm?: string;
   isFreeOnly?: boolean;
   minFee?: number;
@@ -32,7 +34,6 @@ export const getAllEvents = async (queryObj: IQuery) => {
         Authorization: accessToken || "",
       },
       credentials: "include",
-      cache: "no-cache",
     });
     const data = await response.json();
 

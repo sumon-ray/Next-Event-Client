@@ -9,16 +9,20 @@ import { profileSettingItems } from "@/components/shared/Profile-sidebar"
 import { useUser } from "@/context/UserContext"
 import { motion, AnimatePresence } from "framer-motion"
 import { logOut } from "@/services/AuthService"
-
 import { toast } from "sonner"
+import Loader from "@/components/ui/Loader/Loader"
 
+interface ProfileMainLayoutProps {
+  children: React.ReactNode;
+}
 
-const ProfileMainLayout = () => {
+const ProfileMainLayout = ({ children }: ProfileMainLayoutProps) => {
   const pathname = usePathname()
   const [isMobile, setIsMobile] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
   const { user } = useUser()
   const router = useRouter();
+
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
     checkMobile()
@@ -26,18 +30,24 @@ const ProfileMainLayout = () => {
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
-
+if (!user) {
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      <Loader />
+    </div>
+  );
+}
 
   const handleLogout = async () => {
     logOut()
     toast.success('Logged out successfully')
     router.push('/')
   }
-  return (
-    <div className="box-border flex flex-col pt-0 md:flex-row">
 
+  return (
+    <div className="flex flex-col md:flex-row w-full min-h-screen pt-0">
       {isMobile && (
-        <div className="fixed top-0 left-0 right-0 z-50 ">
+        <div className="fixed top-0 left-0 right-0 z-50">
           <motion.button
             onClick={() => setNavOpen(!navOpen)}
             className="flex items-center justify-between w-full p-4 bg-gradient-to-br from-[#E3F2FD] via-[#BBDEFB] to-[#E3F2FD] shadow-md"
@@ -45,15 +55,14 @@ const ProfileMainLayout = () => {
             whileTap={{ scale: 0.98 }}
           >
             {navOpen ? (
-              <div className="flex items-center justify-between w-full">
-                <span className="font-semibold text-[#1E3A8A]">Close Dashboard</span>
-                <X className="w-6 h-6 text-[#1E3A8A]" />
-              </div>
+              <span className="flex items-center justify-between w-full text-[#1E3A8A] font-semibold">
+                Close Dashboard <X className="w-6 h-6" />
+              </span>
             ) : (
               <div className="flex items-center justify-between w-full">
                 <Link href="/" className="flex items-center">
                   <Image
-                    src='/favicon.png'
+                    src="/favicon.png"
                     alt="Logo"
                     width={1000}
                     height={1000}
@@ -76,16 +85,16 @@ const ProfileMainLayout = () => {
           }}
           exit={{ x: -300, opacity: 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className={`fixed md:sticky  lg:top-0 left-0 z-40 w-64 lg:w-80  min-h-screen h-full mt-10 md:mt-0 bg-gradient-to-br from-[#E3F2FD] via-[#BBDEFB] to-[#E3F2FD] text-gray-800 shadow-xl overflow-y-auto`}
+          className="fixed md:sticky top-0 left-0 z-40 w-64 lg:w-80 min-h-screen bg-gradient-to-br from-[#E3F2FD] via-[#BBDEFB] to-[#E3F2FD] text-gray-800 shadow-xl overflow-y-auto"
         >
-          <div className="flex flex-col h-full md:pt-0">
+          <div className="flex flex-col h-full">
             <div className="flex flex-col items-center py-8 border-b border-[#1E3A8A]">
               <motion.div
-                className="relative overflow-auto shadow-lg rounded-md ring-[#1E3A8A] ring-2"
+                className="relative shadow-lg rounded-md ring-[#1E3A8A] ring-2"
                 whileHover={{ scale: 1.05 }}
               >
                 <Image
-                  src={user?.profileImage!}
+                  src={user.profileImage}
                   alt="Profile"
                   width={1000}
                   height={1000}
@@ -102,7 +111,6 @@ const ProfileMainLayout = () => {
               </motion.h2>
             </div>
 
-
             <nav className="flex flex-col flex-1 gap-2 px-4 py-6">
               {profileSettingItems.map((item, index) => {
                 const isActive = pathname === item.href
@@ -115,10 +123,11 @@ const ProfileMainLayout = () => {
                   >
                     <Link
                       href={item.href}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all font-medium
-                      ${isActive
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all font-medium ${
+                        isActive
                           ? "bg-[#1E3A8A] text-white shadow-md"
-                          : "hover:bg-blue-100/80 text-gray-700 hover:text-[#1E3A8A]"}`}
+                          : "hover:bg-blue-100/80 text-gray-700 hover:text-[#1E3A8A]"
+                      }`}
                     >
                       {item.icon}
                       {item.title}
@@ -126,7 +135,7 @@ const ProfileMainLayout = () => {
                   </motion.div>
                 )
               })}
-              <div className="px-4 pb-20 mt-10">
+              <div className="px-4 mt-10 pb-10">
                 <motion.button
                   className="flex items-center justify-center w-full gap-2 px-4 py-3 text-red-600 transition bg-red-100 rounded-lg shadow-sm hover:bg-red-200"
                   whileHover={{ scale: 1.02 }}
@@ -138,14 +147,12 @@ const ProfileMainLayout = () => {
                 </motion.button>
               </div>
             </nav>
-
-
-
           </div>
         </motion.aside>
       </AnimatePresence>
 
-
+      {/* Main content */}
+      <main className="flex-1 mt-24 md:mt-0 p-4">{children}</main>
     </div>
   )
 }

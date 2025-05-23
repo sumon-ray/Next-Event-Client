@@ -239,7 +239,7 @@ export default function EventsPage() {
                 🎉 {filteredEvents.length} Events Found
               </p>
 
-              <Link href="/profile/my-events/add-event">
+              <Link href="/profile/add-event">
                 <NextButton name="Create Event" />
               </Link>
             </div>

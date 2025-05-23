@@ -6,7 +6,7 @@ import Link from "next/link";
 
 // type Props = {
 //   params: {
-//     slug: string; 
+//     slug: string;
 //   };
 // };
 

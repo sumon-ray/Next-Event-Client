@@ -21,7 +21,6 @@ interface ReviewFormProps {
 
 export default function ReviewForm({ eventId }: ReviewFormProps) {
   const { user } = useUser();
-
   const [rating, setRating] = useState(0);
   const [feedback, setFeedback] = useState("");
   const [hasReviewed, setHasReviewed] = useState(false);
@@ -46,7 +45,6 @@ export default function ReviewForm({ eventId }: ReviewFormProps) {
     try {
       setIsSubmitting(true);
       const response = await createReview(payload);
-      console.log(response);
       if (response.success) {
         setHasReviewed(true);
         toast.success("Thank you for your feedback!");
@@ -62,42 +60,41 @@ export default function ReviewForm({ eventId }: ReviewFormProps) {
   };
 
   return (
-    <Card className="w-full max-w-sm mx-auto bg-white shadow-md rounded-xl">
+    <Card className="bg-white border-none rounded-2xl ">
       <CardHeader className="pb-2">
-        <CardTitle className="text-xl font-medium">Feedback Us</CardTitle>
-        <CardDescription className="text-sm text-gray-500">
-          Please provide your rating and feedback.
+        <CardTitle className="text-xl font-semibold">Leave a Review</CardTitle>
+        <CardDescription className="text-sm text-gray-500 dark:text-gray-400">
+          Share your experience and help others!
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="flex items-center justify-center space-x-1 py-2">
+        <div className="flex items-center justify-start space-x-1 py-2">
           {[...Array(5)].map((_, index) => (
             <Star
               key={index}
-              className={`w-8 h-8 cursor-pointer transition-colors ${
+              className={`w-7 h-7 cursor-pointer transition-colors ${
                 index < rating
                   ? "fill-yellow-400 text-yellow-400"
-                  : "fill-gray-200 text-gray-200"
+                  : "fill-gray-200 text-gray-300"
               }`}
               onClick={() => handleRatingChange(index)}
             />
           ))}
         </div>
 
-        <div className="space-y-2">
-          <p className="text-sm font-medium">Write Your Experiences</p>
+        <div>
+          <p className="text-sm font-medium mb-1">Your Feedback</p>
           <Textarea
-            placeholder="Type here..."
-            className="bg-gray-50 border-0 resize-none min-h-[100px]"
+            placeholder="Type your experience here..."
+            className=" dark:bg-neutral-800 border border-gray-300 dark:border-neutral-700 resize-none min-h-[100px]"
             value={feedback}
-            required={true}
             onChange={(e) => setFeedback(e.target.value)}
             disabled={hasReviewed}
           />
         </div>
 
         <NextButton
-          name="Review"
+          name={isSubmitting ? "Submitting..." : "Submit Review"}
           onClick={handleSubmit}
           disabled={hasReviewed || isSubmitting}
         />

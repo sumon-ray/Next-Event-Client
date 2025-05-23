@@ -17,8 +17,7 @@ const MyEvents = ({ events }: { events: IEvent[] | any }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }} className="w-full md:w-[80%] mx-auto px-4 md:px-2 py-6 mb-20">
-      
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+      <div className="w-full flex flex-wrap items-center justify-between gap-4 mb-6">
         <Title title="Manage My Own Events" />
         <Link href="/profile/my-events/add-event">
           <NextButton name="Create Event" />

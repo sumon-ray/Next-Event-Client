@@ -2,34 +2,42 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { IQuery } from "../EventService";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-export const getAllUsers = async () => {
+export const getAllUsers = async (queryObj?: IQuery) => {
+ const cookieStore = await cookies();
+  const accessToken = cookieStore.get('accessToken')?.value;
+
   try {
-    if (!baseUrl) throw new Error("NEXT_PUBLIC_API_URL is not defined");
+     let query = "";
+    if (queryObj) {
+      const params = new URLSearchParams(
+        Object.entries(queryObj)
+          .filter(([_, value]) => value !== undefined)
+          .map(([key, value]) => [key, String(value)])
+      );
+      query = params.toString();
+    }
 
-
-    const res = await fetch(`${baseUrl}/user`, {
-      method: "GET",
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user?${query}`, {
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
-      
+        'Content-Type': 'application/json',
+        Authorization: accessToken || '',
       },
-      credentials: "include",
-      cache: "no-cache",
+      credentials: 'include',
     });
+    // console.log(response);
 
-   
-  
-const data= await res.json()
-
-    return data;
-  } catch (error: any) {
-    console.error("getAllUser error:", error?.message);
-    throw new Error("Failed to fetch users");
+    return await response.json();
+  } catch (error) {
+    console.error('Failed to fetch payments:', error);
+    throw error;
   }
 };
+
 
 export const deleteUser = async (id: string) => {
   try {
