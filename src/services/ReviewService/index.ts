@@ -119,12 +119,25 @@ export const updateReview = async (id: string, updateData: any) => {
 
 export const ReviewDetails = async (id: string) => {
   try {
+      const cookieStore = await cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
+
+    if (!accessToken) {
+      throw new Error("Access token not found");
+    }
     if (!baseUrl) {
       throw new Error("NEXT_PUBLIC_API_URL is not defined");
     }
 
     const apiUrl = `${baseUrl}/review/${id}`;
-    const response = await fetch(apiUrl);
+    const response = await fetch(apiUrl,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+       Authorization: accessToken,
+      },
+      credentials: 'include',
+    });
 
 
     const data = await response.json();

@@ -5,6 +5,7 @@ import { ArrowRight, Building2, CalendarHeart, GraduationCap, Music, PartyPopper
 
 import Title from "@/components/shared/Title"
 import NextButton from "@/components/shared/NextButton"
+import Link from "next/link"
  const  EventCategories = () =>{
   const eventCategories = [
     {
@@ -42,7 +43,7 @@ import NextButton from "@/components/shared/NextButton"
 
 
   return (
-    <div className="container px-4 py-16 mx-auto mt-20 md:mt-40 md:px-0">
+    <div className="container px-4 py-16 mx-auto mt-20 md:mt-40 xl:px-0">
       <div className="grid items-start grid-cols-1 gap-12 lg:grid-cols-2">
         
         <div className="space-y-8">
@@ -62,10 +63,8 @@ import NextButton from "@/components/shared/NextButton"
 
           <div className="space-y-4">
             {eventCategories.map((category, index) => (
-              <div
-              key={index}
-              className="flex items-center p-4 duration-500 hover:scale-[1.02] hover:cursor-pointer ease-in-out  border border-gray-100 shadow-md border-t-1 rounded-xl bg-gradient-to-r from-white to-blue-300 "
-            >
+            <Link   className="flex items-center p-4 duration-500 hover:scale-[1.02] hover:cursor-pointer ease-in-out  border border-gray-100 shadow-md border-t-1 rounded-xl bg-gradient-to-r from-white to-blue-300 " key={index} href="/events">
+            
                 <div className="flex items-center justify-center w-10 h-10 mr-4 bg-purple-100 rounded-full">
                   {category.icon}
                 </div>
@@ -74,7 +73,8 @@ import NextButton from "@/components/shared/NextButton"
                   <p className="text-sm text-gray-600">{category.description}</p>
                 </div>
                 <ArrowRight className="w-5 h-5 ml-auto text-blue-500" />
-              </div>
+            
+            </Link>
             ))}
           </div>
         </div>

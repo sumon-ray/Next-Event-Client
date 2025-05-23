@@ -41,13 +41,14 @@ export default function ForgotPasswordPage() {
       toast.success("Reset link sent successfully!");
       setStep("success");
     } catch (err) {
+      console.error(err)
       toast.error("Failed to send reset link");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 px-4 py-12">
-      <Card className="max-w-4xl w-full shadow-xl border-0 overflow-hidden">
+    <div className="flex items-center justify-center min-h-screen px-4 py-12 bg-gradient-to-br from-slate-50 to-slate-100">
+      <Card className="w-full max-w-4xl overflow-hidden border-0 shadow-xl">
         <div className="grid md:grid-cols-2">
           {/* Left Section - Illustration with Overlay */}
           <Image
@@ -69,7 +70,7 @@ export default function ForgotPasswordPage() {
                   transition={{ duration: 0.3 }}
                 >
                   <div className="mb-8">
-                    <CardTitle className="text-2xl font-bold text-gray-900 mb-2">
+                    <CardTitle className="mb-2 text-2xl font-bold text-gray-900">
                       Forgot your password?
                     </CardTitle>
                     <CardDescription className="text-gray-500">
@@ -91,10 +92,10 @@ export default function ForgotPasswordPage() {
                             <FormLabel>Email Address</FormLabel>
                             <FormControl>
                               <div className="relative">
-                                <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                                <Mail className="absolute w-4 h-4 text-gray-400 left-3 top-3" />
                                 <Input
                                   placeholder="you@example.com"
-                                  className="pl-10 h-12"
+                                  className="h-12 pl-10"
                                   {...field}
                                 />
                               </div>
@@ -106,17 +107,17 @@ export default function ForgotPasswordPage() {
 
                       <Button
                         type="submit"
-                        className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white"
+                        className="w-full h-12 text-white bg-blue-600 hover:bg-blue-700"
                         disabled={isSubmitting}
                       >
                         {isSubmitting ? (
                           <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                             Sending...
                           </>
                         ) : (
                           <>
-                            <Send className="mr-2 h-4 w-4" />
+                            <Send className="w-4 h-4 mr-2" />
                             Send Reset Link
                           </>
                         )}
@@ -127,9 +128,9 @@ export default function ForgotPasswordPage() {
                   <div className="mt-8 text-center">
                     <Link
                       href="/login"
-                      className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 font-medium"
+                      className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800"
                     >
-                      <ArrowLeft className="mr-2 h-4 w-4" />
+                      <ArrowLeft className="w-4 h-4 mr-2" />
                       Back to login
                     </Link>
                   </div>
@@ -141,23 +142,23 @@ export default function ForgotPasswordPage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
-                  className="flex flex-col items-center text-center py-6"
+                  className="flex flex-col items-center py-6 text-center"
                 >
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
-                    <CheckCircle2 className="h-8 w-8 text-green-600" />
+                  <div className="flex items-center justify-center w-16 h-16 mb-6 bg-green-100 rounded-full">
+                    <CheckCircle2 className="w-8 h-8 text-green-600" />
                   </div>
 
-                  <CardTitle className="text-2xl font-bold text-gray-900 mb-2">
+                  <CardTitle className="mb-2 text-2xl font-bold text-gray-900">
                     Check your email
                   </CardTitle>
-                  <CardDescription className="text-gray-500 mb-6 max-w-xs">
+                  <CardDescription className="max-w-xs mb-6 text-gray-500">
                     We have sent a password reset link to:
-                    <div className="font-medium text-gray-900 mt-2">
+                    <div className="mt-2 font-medium text-gray-900">
                       {userEmail}
                     </div>
                   </CardDescription>
 
-                  <div className="bg-gray-50 rounded-lg p-4 w-full mb-6">
+                  <div className="w-full p-4 mb-6 rounded-lg bg-gray-50">
                     <p className="text-sm text-gray-600">
                       <span className="font-medium">
                         Did not receive the email?
@@ -165,7 +166,7 @@ export default function ForgotPasswordPage() {
                       Check your spam folder or
                       <Button
                         variant="link"
-                        className="px-1 h-auto text-blue-600"
+                        className="h-auto px-1 text-blue-600"
                         onClick={() => setStep("request")}
                       >
                         try again
@@ -176,7 +177,7 @@ export default function ForgotPasswordPage() {
 
                   <Link href="/login">
                     <Button variant="outline" className="h-12">
-                      <ArrowLeft className="mr-2 h-4 w-4" />
+                      <ArrowLeft className="w-4 h-4 mr-2" />
                       Return to login
                     </Button>
                   </Link>

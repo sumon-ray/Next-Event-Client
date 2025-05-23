@@ -80,6 +80,9 @@ export const logOut = async () => {
     method: "POST",
     credentials: "include",
   });
+localStorage.removeItem("accessToken");
+localStorage.removeItem("userProfile");
+  (await cookies()).delete("accessToken");
 };
 
 // change password

@@ -67,7 +67,7 @@ export default function EventsPage() {
         setFilteredEvents(data.data.data);
         setLoading(false);
       } catch (err) {
-        console.log("🚀 ~ fetchEvents ~ err:", err);
+        console.error("🚀 ~ fetchEvents ~ err:", err);
       } finally {
         setLoading(false);
       }
@@ -235,7 +235,7 @@ export default function EventsPage() {
           <div className="w-full ">
             <div className="flex items-center justify-between mb-6">
               <Title title="All Events" />
-              <p className="px-6 py-3 text-lg font-semibold text-center transition-all duration-300 rounded-full shadow-lg md:text-xl w-fit bg-gradient-to-r from-white to-blue-300 decoration-transparent ">
+              <p className="hidden px-6 py-3 text-lg font-semibold text-center transition-all duration-300 rounded-full shadow-lg md:text-xl w-fit bg-gradient-to-r md:block from-white to-blue-300 decoration-transparent ">
                 🎉 {filteredEvents.length} Events Found
               </p>
 

@@ -10,21 +10,24 @@ import { DeleteModal } from "@/components/modules/Events/DeleteModal";
 import Link from "next/link";
 import NextButton from "@/components/shared/NextButton";
 import { ShowParticipantsModal } from "./ShowParticipantsModal";
-
+import { motion } from "framer-motion";
 const MyEvents = ({ events }: { events: IEvent[] | any }) => {
   return (
-    <div className="w-full md:w-[80%] mx-auto px-4 md:px-2 py-6 mb-20">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
+    <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }} className="w-full md:w-[80%] mx-auto px-4 md:px-2 py-6 mb-20">
+      
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <Title title="Manage My Own Events" />
         <Link href="/profile/my-events/add-event">
           <NextButton name="Create Event" />
         </Link>
       </div>
 
-      {/* Table */}
-      <div className="w-full  overflow-x-auto border border-white rounded-lg shadow-md">
-        <table className="w-full text-left text-base">
+ 
+      <div className="w-full overflow-x-auto border border-white rounded-lg shadow-md">
+        <table className="w-full text-base text-left">
           <thead className="text-sm font-medium text-gray-500 uppercase border-b border-white">
             <tr>
               <th className="px-4 py-3 w-[200px] pl-10">Title</th>
@@ -72,7 +75,7 @@ const MyEvents = ({ events }: { events: IEvent[] | any }) => {
           </tbody>
         </table>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

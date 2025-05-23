@@ -19,13 +19,14 @@ export default function AboutPage() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <div className=" flex flex-col min-h-screen overflow-hidden">
+    <div className="flex flex-col min-h-screen overflow-hidden ">
       <HeroSection ref={heroRef} heroY={heroY} heroOpacity={heroOpacity} />
       <StorySection />
       <ValuesSection />
       <FeaturesSection />
-      <TeamSection />
+    
       <TestimonialsSection />
+        <TeamSection />
     </div>
   );
 }
