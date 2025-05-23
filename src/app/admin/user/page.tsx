@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { X } from "lucide-react";
+import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { getAllUsers, deleteUser, blockUser } from "@/services/UserService";
 import { IUser } from "@/app/types";
@@ -66,7 +66,10 @@ const UserList = () => {
 
 
   return (
-    <div className="px-10 py-6 mb-20">
+    <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }} className="px-10 py-6 mb-20">
       <div className="flex items-center justify-between mb-4">
         <Title title="Manage All Users" />
 
@@ -147,7 +150,7 @@ const UserList = () => {
         </div>
       ) }
     
-    </div>
+    </motion.div>
   );
 };
 

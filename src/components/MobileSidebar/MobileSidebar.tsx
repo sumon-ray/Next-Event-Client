@@ -57,7 +57,7 @@ export default function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
                   },
                 },
               }}
-              className="pb-4 mb-6 space-y-4 text-base font-medium border-b"
+              className="pb-4 mb-6 space-y-4 text-base font-medium border-b "
             >
               {links.map(({ label, href, icon: Icon }) => (
                 <motion.li

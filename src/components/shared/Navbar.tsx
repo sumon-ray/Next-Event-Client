@@ -20,7 +20,7 @@ const navLinks = [
 
 export default function Navbar() {
   const { user, isLoading } = useUser();
-  // console.log(user);
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -58,13 +58,9 @@ export default function Navbar() {
                     <NextButton name="Dashboard" />
                   </Link>
                 ) : (
-                  <Link href="/profile/personal-info" className="relative">
-                    <Avatar className="transition duration-300 cursor-pointer ring-2 ring-blue-500 hover:ring-4">
-                      <AvatarImage src={user.profileImage} alt="Profile" />
-                      <AvatarFallback>
-                        {user.name?.[0]?.toUpperCase() || "U"}
-                      </AvatarFallback>
-                    </Avatar>
+                  <Link href="/profile/personal-info" className="relative flex items-center justify-center gap-4">
+                   
+                    <NextButton name="Dashboard" />
                   </Link>
                 )}
               </>

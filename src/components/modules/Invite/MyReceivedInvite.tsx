@@ -10,6 +10,7 @@ import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { makePayment } from "@/services/PaymentService";
 import { acceptInvite, rejectInvite } from "@/services/InviteService";
+import { motion } from "framer-motion";
 
 interface Invite {
   id: string;
@@ -31,13 +32,9 @@ interface Invite {
   };
 }
 
-interface Props {
-  invites: {
-    data: Invite[];
-  };
-}
 
-const MyReceivedInvite = ({ invites }: Props) => {
+
+const MyReceivedInvite = ({ invites }: { invites: Invite[] }) => {
   const router = useRouter();
   const pathname = usePathname();
   const [loadingId, setLoadingId] = useState<string | null>(null);
@@ -111,13 +108,14 @@ const MyReceivedInvite = ({ invites }: Props) => {
   };
 
   return (
-    <div className="w-full md:w-[80%] mx-auto px-4 md:px-2 py-6 mb-20">
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
-        <Title title="My Event Invites" />
-      </div>
+    <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }} className="w-full px-4 py-6 mx-auto mb-20 md:px-0">
+     
 
       <div className="w-full overflow-x-auto border border-white rounded-lg shadow-md">
-        <table className="w-full text-left text-base">
+        <table className="w-full text-base text-left">
           <thead className="text-sm font-medium text-gray-500 uppercase border-b border-white">
             <tr>
               <th className="px-4 py-3 w-[200px] pl-10">Event</th>
@@ -129,7 +127,7 @@ const MyReceivedInvite = ({ invites }: Props) => {
             </tr>
           </thead>
           <tbody>
-            {invites?.data?.map((invite) => (
+            {invites?.map((invite) => (
               <tr key={invite.id} className="border-white">
                 <td className="flex items-center gap-3 px-4 py-3 border-2">
                   <div className="relative w-10 h-10">
@@ -155,7 +153,7 @@ const MyReceivedInvite = ({ invites }: Props) => {
                   <div className="flex items-center gap-3">
                     <div className="relative w-8 h-8">
                       <Image
-                        src={invite.inviter?.profileImage || "/placeholder.svg"}
+                        src={invite.inviter?.profileImage}
                         alt={invite.inviter?.name}
                         fill
                         className="object-cover rounded-full"
@@ -168,7 +166,7 @@ const MyReceivedInvite = ({ invites }: Props) => {
                   </div>
                 </td>
                 <td className="px-4 py-3 border-2">
-                  <div className="flex justify-center items-center gap-2">
+                  <div className="flex items-center justify-center gap-2">
                     {invite.status === "ACCEPTED" ? (
                       <NextButton name="Accepted" disabled />
                     ) : invite.status === "DECLINED" ? (
@@ -214,7 +212,7 @@ const MyReceivedInvite = ({ invites }: Props) => {
           </tbody>
         </table>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

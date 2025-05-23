@@ -1,64 +1,141 @@
-"use client";
+"use client"
 
-import { useState, useEffect, useMemo, useCallback } from "react";
-// import { LuX } from "react-icons/lu";
-import { IoChevronForward } from "react-icons/io5";
-import { usePathname } from "next/navigation";
-import Sidebar from "./profile-sidebar/Sidebar";
-import MobileSidebar from "./profile-sidebar/MobileSidebar";
-import { profileSettingItems } from "@/components/shared/Profile-sidebar";
-import { LuX } from "react-icons/lu";
+import React, { useState, useEffect } from "react"
+import Link from "next/link"
+import Image from "next/image"
+import { usePathname } from "next/navigation"
+import { Menu, LogOut, X, User } from "lucide-react"
+import { profileSettingItems } from "@/components/shared/Profile-sidebar"
+import { useUser } from "@/context/UserContext"
+import { motion, AnimatePresence } from "framer-motion"
 
-const ProfileMainLayout = ({ children }: { children: React.ReactNode }) => {
-  const pathname = usePathname();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  const activeTitle = useMemo(() => {
-    const currentItem = profileSettingItems.find((item) => item.href === pathname);
-    return currentItem ? currentItem.title : "Setting";
-  }, [pathname]);
-
-  // Optimize window resize event listener
-  const checkIfMobile = useCallback(() => {
-    setIsMobile(window.innerWidth < 768);
-  }, []);
+const ProfileMainLayout = () => {
+  const pathname = usePathname()
+  const [isMobile, setIsMobile] = useState(false)
+  const [navOpen, setNavOpen] = useState(false)
+  const { user } = useUser()
 
   useEffect(() => {
-    checkIfMobile();
-    window.addEventListener("resize", checkIfMobile);
-    return () => window.removeEventListener("resize", checkIfMobile);
-  }, [checkIfMobile]);
-
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [pathname]);
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row">
-      {/* Mobile Header */}
+    <div className="box-border flex flex-col pt-0 md:flex-row">
+
       {isMobile && (
-        <header className="w-full flex items-center justify-between p-4 border-b bg-white">
-          <span className="font-medium">{activeTitle}</span>
+        <div className="fixed top-0 left-0 right-0 z-50 ">
+          <motion.button
+            onClick={() => setNavOpen(!navOpen)}
+            className="flex items-center justify-between w-full p-4 bg-gradient-to-br from-[#E3F2FD] via-[#BBDEFB] to-[#E3F2FD] shadow-md"
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            {navOpen ? (
+              <div className="flex items-center justify-between w-full">
+                <span className="font-semibold text-[#1E3A8A]">Close Dashboard</span>
+                <X className="w-6 h-6 text-[#1E3A8A]" />
+              </div>
+            ) : (
+              <div className="flex items-center justify-between w-full">
+                <Link href="/" className="flex items-center">
+                  <Image
+                    src='/favicon.png'
+                    alt="Logo"
+                    width={1000}
+                    height={1000}
+                    className="w-20 rounded-md"
+                  />
+                </Link>
+                <User className="w-6 h-6 text-[#1E3A8A]" />
+              </div>
+            )}
+          </motion.button>
+        </div>
+      )}
 
-          <div className="p-2 rounded-md hover:bg-gray-100 cursor-pointer" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-            {isMobileMenuOpen ? <LuX className="w-6 h-6" /> : <IoChevronForward className="w-6 h-6" />}
+      <AnimatePresence>
+        <motion.aside
+          initial={{ x: -300 }}
+          animate={{
+            x: navOpen || !isMobile ? 0 : -300,
+            opacity: navOpen || !isMobile ? 1 : 0
+          }}
+          exit={{ x: -300, opacity: 0 }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          className={`fixed md:sticky  lg:top-0 left-0 z-40 w-64 lg:w-80  min-h-screen h-full mt-10 md:mt-0 bg-gradient-to-br from-[#E3F2FD] via-[#BBDEFB] to-[#E3F2FD] text-gray-800 shadow-xl overflow-y-auto`}
+        >
+          <div className="flex flex-col h-full md:pt-0">
+            <div className="flex flex-col items-center py-8 border-b border-[#1E3A8A]">
+              <motion.div
+                className="relative overflow-auto shadow-lg rounded-md ring-[#1E3A8A] ring-2"
+                whileHover={{ scale: 1.05 }}
+              >
+                <Image
+                  src={user?.profileImage!}
+                  alt="Profile"
+                  width={1000}
+                  height={1000}
+                  className="object-cover w-20 h-20"
+                />
+              </motion.div>
+              <motion.h2
+                className="mt-4 text-lg font-semibold"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                Hi, {user?.name}
+              </motion.h2>
+            </div>
+
+
+            <nav className="flex flex-col flex-1 gap-2 px-4 py-6">
+              {profileSettingItems.map((item, index) => {
+                const isActive = pathname === item.href
+                return (
+                  <motion.div
+                    key={item.href}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + index * 0.05 }}
+                  >
+                    <Link
+                      href={item.href}
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all font-medium
+                      ${isActive
+                          ? "bg-[#1E3A8A] text-white shadow-md"
+                          : "hover:bg-blue-100/80 text-gray-700 hover:text-[#1E3A8A]"}`}
+                    >
+                      {item.icon}
+                      {item.title}
+                    </Link>
+                  </motion.div>
+                )
+              })}
+              <div className="px-4 pb-20 mt-10">
+                <motion.button
+                  className="flex items-center justify-center w-full gap-2 px-4 py-3 text-red-600 transition bg-red-100 rounded-lg shadow-sm hover:bg-red-200"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <LogOut className="w-4 h-4" />
+                  Logout
+                </motion.button>
+              </div>
+            </nav>
+
+
+
           </div>
-        </header>
-      )}
+        </motion.aside>
+      </AnimatePresence>
 
-      {/* Mobile Sidebar */}
-      {isMobile && isMobileMenuOpen && (
-        <MobileSidebar />
-      )}
 
-      {/* Desktop Sidebar */}
-      {!isMobile && <Sidebar />}
-
-      {/* Main Content */}
-      <div className=" w-full md:w-[80%]  p-4 ">{children}</div>
     </div>
-  );
-};
+  )
+}
 
-export default ProfileMainLayout;
+export default ProfileMainLayout

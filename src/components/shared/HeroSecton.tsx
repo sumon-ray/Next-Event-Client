@@ -7,7 +7,7 @@ interface Props {
   title2?: string;
   title3?: string;
 }
-const HeroSecton = ({ title1, title2, title3 }: Props) => {
+const HeroBannerSecton = ({ title1, title2, title3 }: Props) => {
   return (
     <div className="relative w-full h-[50dvh]">
       <Image
@@ -31,4 +31,4 @@ const HeroSecton = ({ title1, title2, title3 }: Props) => {
   );
 };
 
-export default HeroSecton;
+export default HeroBannerSecton;
